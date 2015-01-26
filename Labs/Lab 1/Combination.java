@@ -9,7 +9,7 @@ public class Combination {
     }
 
     public boolean equals(Combination c) {
-        return Arrays.equals(combo, c.combo);
+        return Arrays.equals(this.combo, c.combo);
     }
 
     public String toString() {
