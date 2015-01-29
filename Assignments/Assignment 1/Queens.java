@@ -4,12 +4,12 @@ import javax.swing.JOptionPane;
  * The class <b>Queens</b> implements the top-level of the genetic algorithm. It
  * has a main method that reads parameters from the command line or using input
  * dialogs. Here is a sample run.
- * 
+ *
  * <pre>
  * > java Queens 500 100 8
  * Generations=65, Individual: {fitness=0, attributes=[5,3,0,4,7,1,6,2]}
  * </pre>
- * 
+ *
  * Because of the ``probabilistic'' nature of the algorithm, each run is likely
  * to produce a new solution.
  *
@@ -19,45 +19,19 @@ import javax.swing.JOptionPane;
 public class Queens {
 
     /**
-     * Implements the top-level loop of the genetic algorithm. You must
-     * complete the implementation of the method.
-     * <ol>
-     * <li>Create a new population</li>
-     * <li>Whilst the maximum allowed number of generations has not been reached and no optimal solution has been found
-     * <ol>
-     * <li>Call the method evolve of the population</li>
-     * </ol>
-     * <li>Display the number of generations and the best individual</li>
-     * </ol>
-     * 
-     * @param generations
-     *            the number of generations to simulate
-     * @param size
-     *            the number of individuals in the population
-     * @param dimension
-     *            the dimension of the chess board (also the number of queens)
-     */
-
-    public static void simulate(int generations, int size, int dimension) {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
-    }
-
-    /**
      * The main method of this program. Examples of the execution of the program
      * from the command line:
-     * 
+     *
      * <pre>
      * > java Queens 500 100 8
      * Generations=65, Individual: {fitness=0, attributes=[5,3,0,4,7,1,6,2]}
      * </pre>
-     * 
+     *
      * @param args
      *            the array of arguments that were passed to the main method, generally on the command line
      */
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         int generations, size, dimension;
 
@@ -76,7 +50,34 @@ public class Queens {
                     "Input the dimension of the board", "8"));
         }
 
-        simulate(generations, size, dimension);
+        Queens.simulate(generations, size, dimension);
+    }
+
+    /**
+     * Implements the top-level loop of the genetic algorithm. You must
+     * complete the implementation of the method.
+     * <ol>
+     * <li>Create a new population</li>
+     * <li>Whilst the maximum allowed number of generations has not been reached and no optimal solution has been found
+     * <ol>
+     * <li>Call the method evolve of the population</li>
+     * </ol>
+     * <li>Display the number of generations and the best individual</li>
+     * </ol>
+     *
+     * @param generations
+     *            the number of generations to simulate
+     * @param size
+     *            the number of individuals in the population
+     * @param dimension
+     *            the dimension of the chess board (also the number of queens)
+     */
+
+    public static void simulate(final int generations, final int size,
+            final int dimension) {
+
+        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+
     }
 
 }

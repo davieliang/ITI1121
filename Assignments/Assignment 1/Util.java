@@ -2,28 +2,24 @@ import java.util.Random;
 
 /**
  * Provides a method returning a random permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation.
- * 
+ *
  * @author Marcel Turcotte
  * @version 2015/01/24
  */
 
 public class Util {
 
-    /** Uses a a generator of pseudo-random numbers */
-
-    private static final Random random = new Random();
-
     /**
      * Returns a randomly generated permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation. The
      * permutation of size 0 is an empty permutation, which corresponds to an
      * array of size 0.
-     * 
+     *
      * @param n
      *            is the size of the permutation
      * @return an array of size <code>n</code> containing the numbers 0 to <code>n-1</code> in random order
      */
 
-    public static int[] getPermutation(int n) {
+    public static int[] getPermutation(final int n) {
 
         // precondition: n >=0
 
@@ -35,7 +31,7 @@ public class Util {
 
         int position = 0;
         while (position < n) { // stops when all the positions have been filled
-            int index = random.nextInt(n);
+            final int index = Util.random.nextInt(n);
             if (!used[index]) {
                 permutation[position] = index;
                 used[index] = true;
@@ -48,14 +44,15 @@ public class Util {
 
     /**
      * Runs a series of tests for the implementation of the method <code>getPermutation()</code>.
-     * 
+     *
      * @param args
      *            the arguments of the program obtained from the command line
      */
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
-        int permutation[], max = 10;
+        int permutation[];
+        final int max = 10;
 
         StudentInfo.display();
 
@@ -66,7 +63,7 @@ public class Util {
 
             System.out.println("Test, size=" + size);
 
-            permutation = getPermutation(size);
+            permutation = Util.getPermutation(size);
 
             if (permutation == null) {
                 System.err
@@ -82,7 +79,7 @@ public class Util {
             }
 
             for (int i = 0; i < size; i++) {
-                int value = permutation[i];
+                final int value = permutation[i];
                 if (value < 0 || value >= size) {
                     System.err.println("Out of range value, " + value
                             + ", at position " + i);
@@ -116,4 +113,8 @@ public class Util {
         }
 
     }
+
+    /** Uses a a generator of pseudo-random numbers */
+
+    private static final Random random = new Random();
 }

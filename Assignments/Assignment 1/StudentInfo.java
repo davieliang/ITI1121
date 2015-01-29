@@ -2,7 +2,7 @@
  * Contains a method <code>void display()</code> that all the <code>main</code> methods
  * call to display the student information. Fill the box with your personal
  * information.
- * 
+ *
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
 
@@ -18,13 +18,11 @@ public class StudentInfo {
         System.out
                 .println("************************************************************");
         System.out
-                .println("*                                                          *");
+                .println("* Matthew Langlois                                         *");
         System.out
-                .println("*                                                          *");
+                .println("* 7731813                                                  *");
         System.out
-                .println("*                                                          *");
-        System.out
-                .println("*                                                          *");
+                .println("* Section 1                                                *");
         System.out
                 .println("************************************************************");
         System.out.println();
