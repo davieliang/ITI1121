@@ -1,7 +1,7 @@
 public class Rational {
 
     public static void main(String[] args) {
-        System.out.println(new Rational(5, 4).compareTo(new Rational(4, 4)));
+        System.out.println(new Rational(5, 0).compareTo(new Rational(4, 4)));
     }
 
     private int numerator;
@@ -12,8 +12,11 @@ public class Rational {
     }
 
     public Rational(final int numerator, final int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+        if (denominator == 0) {
+            throw new ArithmeticException("denominator cannot be zero");
+        }
+        this.numerator = numerator < 0 ? Math.abs(numerator) : numerator;
+        this.denominator = numerator < 0 ? denominator * -1 : denominator;
         this.reduce();
     }
 
