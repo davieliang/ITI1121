@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * A <code>Population</code> is a collection of individuals (each one
  * representing a candidate solution for the n-queens problem). To
@@ -7,8 +9,9 @@
 
 public class Population {
 
-    int size;
-    int[] board;
+    private Individual[] individuals;
+
+    public static double MUTATION_RATE = 0.8;
 
     /**
      * A constructor of arity 2 to initialize the <b>Population</b>.
@@ -20,9 +23,10 @@ public class Population {
      */
 
     public Population(final int size, final int dimension) {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        individuals = new Individual[size];
+        for (int i = 0; i < individuals.length; i++) {
+            individuals[i] = new Individual(size);
+        }
     }
 
     /**
@@ -41,9 +45,9 @@ public class Population {
      */
 
     public void evolve() {
-
+        Arrays.sort(individuals);
+        Individual xover;
         // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
     }
 
     /**
@@ -55,9 +59,7 @@ public class Population {
      */
 
     public Individual getFittest() {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        return individuals[0];
     }
 
     /**
@@ -68,9 +70,11 @@ public class Population {
 
     @Override
     public String toString() {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        String s = "";
+        for (Individual i : individuals) {
+            s += i.toString();
+        }
+        return s;
     }
 
 }

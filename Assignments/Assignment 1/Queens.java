@@ -28,7 +28,8 @@ public class Queens {
      * </pre>
      *
      * @param args
-     *            the array of arguments that were passed to the main method, generally on the command line
+     *            the array of arguments that were passed to the main method, generally on the
+     *            command line
      */
 
     public static void main(final String[] args) {
@@ -58,7 +59,8 @@ public class Queens {
      * complete the implementation of the method.
      * <ol>
      * <li>Create a new population</li>
-     * <li>Whilst the maximum allowed number of generations has not been reached and no optimal solution has been found
+     * <li>Whilst the maximum allowed number of generations has not been reached and no optimal
+     * solution has been found
      * <ol>
      * <li>Call the method evolve of the population</li>
      * </ol>
@@ -75,9 +77,18 @@ public class Queens {
 
     public static void simulate(final int generations, final int size,
             final int dimension) {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        Population p = new Population(size, dimension);
+        int evolutions = generations;
+        for (int i = 0; i < generations; i++) {
+            System.out.println("There have been " + i
+                    + " generations and the fittest individual is "
+                    + p.getFittest().toString() + ".");
+            p.evolve();
+            if (p.getFittest().getFitness() == 0) {
+                break;
+            }
+        }
+        System.out.println("Generations="+evolutions+", Individual: {fitness="+p.getFittest().getFitness()+", attributes="+p.getFittest().toString()+"}");
     }
 
 }

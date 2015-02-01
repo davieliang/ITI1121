@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * An <code>Individual</code> (a chromosome) is a candidate solution for a given
  * problem. Its representation depends on the specific problem to be solved. Two
@@ -36,7 +38,7 @@
 
 public class Individual implements Comparable<Individual> {
 
-    int fitness;
+    private int[] positions;
 
     /**
      * Runs a series of tests.
@@ -47,7 +49,8 @@ public class Individual implements Comparable<Individual> {
 
     public static void main(final String[] args) {
 
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+        Individual i = new Individual(new int[] { 0, 2, 1, 3 });
+        System.out.println(i.getFitness());
 
     }
 
@@ -60,9 +63,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual(final int size) {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        positions = Util.getPermutation(size);
     }
 
     /**
@@ -75,8 +76,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual(final int[] permutation) { // 10
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+        positions = permutation;
 
     }
 
@@ -94,7 +94,7 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public int compareTo(final Individual other) {
-        return fitness + other.getFitness();
+        return getFitness() - other.getFitness();
     }
 
     /**
@@ -125,7 +125,7 @@ public class Individual implements Comparable<Individual> {
 
     public Individual crossover(final Individual other, final int position) {
 
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+        return null;
 
     }
 
@@ -138,7 +138,17 @@ public class Individual implements Comparable<Individual> {
      */
 
     public int getFitness() {
-        return fitness;
+        int fitnessScore = 0;
+        for (int i = 0; i < positions.length; i++) {
+            for (int j = 0; j < positions.length; j++) {
+                if ((positions[j] == positions[i] + Math.abs(i - j) || positions[j] == positions[i]
+                        - Math.abs(i - j))
+                        && positions[j] != positions[i]) {
+                    fitnessScore++;
+                }
+            }
+        }
+        return fitnessScore;
     }
 
     /**
@@ -218,8 +228,6 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public String toString() {
-
-        // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+        return Arrays.toString(positions);
     }
 }
