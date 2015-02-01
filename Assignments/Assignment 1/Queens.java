@@ -61,7 +61,7 @@ public class Queens {
                     case "GUI":
                         generations = Integer.parseInt(JOptionPane
                                 .showInputDialog(
-                                        "Input the number of generations",
+                                        "Input the number of generations. -1 for infinite",
                                         "500"));
                         size = Integer.parseInt(JOptionPane.showInputDialog(
                                 "Input the size of the population", "100"));
@@ -74,14 +74,14 @@ public class Queens {
                     case "Text Based":
                         generations = Integer.parseInt(JOptionPane
                                 .showInputDialog(
-                                        "Input the number of generations",
+                                        "Input the number of generations. -1 for infinite",
                                         "500"));
                         size = Integer.parseInt(JOptionPane.showInputDialog(
                                 "Input the size of the population", "100"));
                         dimension = Integer.parseInt(JOptionPane
                                 .showInputDialog(
                                         "Input the dimension of the board", "8"));
-                        Queens.simulate(generations, size, dimension);
+                        Queens.simulate(generations, size, dimension, null);
                         break;
                     case "Fitness Checker":
                         dimension = Integer.parseInt(JOptionPane
@@ -111,66 +111,46 @@ public class Queens {
      *            the number of individuals in the population
      * @param dimension
      *            the dimension of the chess board (also the number of queens)
+     * @param gui
+     *            the gui object to manipulate - if null then the simulation is text based
      */
 
     public static void simulate(final int generations, final int size,
             final int dimension, GUI gui) {
         Population p = new Population(size, dimension);
-        long evolutions = generations;
-        for (int i = 0; i < evolutions; i++) {
-            gui.update("There have been " + i
-                    + " generations and the fittest individual is "
-                    + p.getFittest().getFitness() + ".", p.getFittest());
+        int evolutions = 0;
+        while (true) {
+            if (evolutions == generations) {
+                break;
+            }
+            if (gui != null) {
+                gui.update("There have been " + evolutions
+                        + " generations and the fittest individual is "
+                        + p.getFittest().getFitness() + ".", p.getFittest());
+            } else {
+                System.out.println("There have been " + evolutions
+                        + " generations and the fittest individual is "
+                        + p.getFittest().getFitness() + ".");
+            }
             if (p.getFittest().getFitness() == 0) {
-                evolutions = i;
                 break;
             }
             p.evolve();
+            evolutions++;
         }
-        gui.update(
-                "Generations: " + evolutions + System.lineSeparator()
-                        + "fitness: " + p.getFittest().getFitness()
-                        + System.lineSeparator() + "Attributes: "
-                        + p.getFittest().toString(), p.getFittest());
-    }
-
-    /**
-     * Implements the top-level loop of the genetic algorithm. You must complete the implementation of the method.
-     * <ol>
-     * <li>Create a new population</li>
-     * <li>Whilst the maximum allowed number of generations has not been reached and no optimal solution has been found
-     * <ol>
-     * <li>Call the method evolve of the population</li>
-     * </ol>
-     * <li>Display the number of generations and the best individual</li>
-     * </ol>
-     *
-     * @param generations
-     *            the number of generations to simulate
-     * @param size
-     *            the number of individuals in the population
-     * @param dimension
-     *            the dimension of the chess board (also the number of queens)
-     */
-
-    public static void simulate(final int generations, final int size,
-            final int dimension) {
-        Population p = new Population(size, dimension);
-        long evolutions = generations;
-        for (int i = 0; i < evolutions; i++) {
-            System.out.println("There have been " + i
-                    + " generations and the fittest individual is "
-                    + p.getFittest().getFitness() + ".");
-            if (p.getFittest().getFitness() == 0) {
-                evolutions = i;
-                break;
-            }
-            p.evolve();
+        if (gui != null) {
+            gui.update(
+                    "Generations: " + evolutions + System.lineSeparator()
+                            + "fitness: " + p.getFittest().getFitness()
+                            + System.lineSeparator() + "Attributes: "
+                            + p.getFittest().toString(), p.getFittest());
+        } else {
+            System.out.println("Generations: " + evolutions
+                    + System.lineSeparator() + "fitness: "
+                    + p.getFittest().getFitness() + System.lineSeparator()
+                    + "Attributes: " + p.getFittest().toString());
         }
-        System.out.println("Generations: " + evolutions
-                + System.lineSeparator() + "fitness: "
-                + p.getFittest().getFitness() + System.lineSeparator()
-                + "Attributes: " + p.getFittest().toString());
+
     }
 
 }
