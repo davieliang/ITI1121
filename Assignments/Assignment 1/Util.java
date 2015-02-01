@@ -10,9 +10,7 @@ import java.util.Random;
 public class Util {
 
     /**
-     * Returns a randomly generated permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation. The
-     * permutation of size 0 is an empty permutation, which corresponds to an
-     * array of size 0.
+     * Returns a randomly generated permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation. The permutation of size 0 is an empty permutation, which corresponds to an array of size 0.
      *
      * @param n
      *            is the size of the permutation
@@ -40,6 +38,19 @@ public class Util {
         }
 
         return permutation;
+    }
+
+    /**
+     * Returns a linearly distributed pseudorandom integer.
+     *
+     * @param min
+     *            The inclusive lower bound.
+     * @param max
+     *            The exclusive upper bound.
+     * @return Random integer min <= n < max.
+     */
+    public static int random(final int min, final int max) {
+        return min + (max == min ? 0 : random.nextInt(max - min));
     }
 
     /**
