@@ -1,6 +1,4 @@
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An <code>Individual</code> (a chromosome) is a candidate solution for a given problem. Its representation depends on the specific problem to be
@@ -112,10 +110,15 @@ public class Individual implements Comparable<Individual> {
         for (int i = 0; i < position; i++) {
             permiutation[i] = positions[i];
         }
-        List<Integer> crossover = Arrays.stream(permiutation).boxed()
-                .collect(Collectors.toList());
         for (int i = 0; i < other.getPositions().length; i++) {
-            if (!crossover.contains(other.getPositions()[i])) {
+            boolean found = false;
+            for (int j = 0; j < permiutation.length; j++) {
+                if (other.getPositions()[i] == permiutation[j]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
                 permiutation[position + (i - offset)] = other.getPositions()[i];
             } else {
                 offset++;

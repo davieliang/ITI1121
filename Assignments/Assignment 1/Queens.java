@@ -117,6 +117,7 @@ public class Queens {
 
     public static void simulate(final int generations, final int size,
             final int dimension, GUI gui) {
+        long startTime = System.currentTimeMillis();
         Population p = new Population(size, dimension);
         int evolutions = 0;
         while (true) {
@@ -150,6 +151,8 @@ public class Queens {
                     + p.getFittest().getFitness() + System.lineSeparator()
                     + "Attributes: " + p.getFittest().toString());
         }
+        System.out.println("Execution time taken: "
+                + Util.getRuntime(startTime));
 
     }
 
