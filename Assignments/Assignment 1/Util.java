@@ -15,7 +15,8 @@ public class Util {
      *
      * @param n
      *            is the size of the permutation
-     * @return an array of size <code>n</code> containing the numbers 0 to <code>n-1</code> in random order
+     * @return an array of size <code>n</code> containing the numbers 0 to <code>n-1</code> in
+     *         random order
      */
 
     public static int[] getPermutation(final int n) {
@@ -30,30 +31,23 @@ public class Util {
 
         int position = 0;
         while (position < n) { // stops when all the positions have been filled
-            final int index = random.nextInt(n);
+            final int index = Util.random.nextInt(n);
             if (!used[index]) {
                 permutation[position] = index;
                 used[index] = true;
                 position++; // incremented only if an unused value has been found
             }
         }
-
         return permutation;
     }
 
     /**
-     * Returns a linearly distributed pseudorandom integer.
+     * Return a formatted string with the running time of the program.
      *
-     * @param min
-     *            The inclusive lower bound.
-     * @param max
-     *            The exclusive upper bound.
-     * @return Random integer min <= n < max.
+     * @param starttime
+     *            The time the program began {@link java.lang.System#currentTimeMillis()}
+     * @return The running time of the program formatted to "DD:MM:HH:SS.ms"
      */
-    public static int random(final int min, final int max) {
-        return min + (max == min ? 0 : random.nextInt(max - min));
-    }
-
     public static String getRuntime(final long starttime) {
         try {
             long millis = System.currentTimeMillis() - starttime;
@@ -70,6 +64,19 @@ public class Util {
         } catch (final Exception e) {
             return "0:0:0:0.0";
         }
+    }
+
+    /**
+     * Returns a linearly distributed pseudorandom integer.
+     *
+     * @param min
+     *            The inclusive lower bound.
+     * @param max
+     *            The exclusive upper bound.
+     * @return Random integer min <= n < max.
+     */
+    public static int random(final int min, final int max) {
+        return min + (max == min ? 0 : Util.random.nextInt(max - min));
     }
 
     /** Uses a a generator of pseudo-random numbers */
