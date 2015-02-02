@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 public class Individual implements Comparable<Individual> {
 
     private int[] positions;
+    private int fitness = -1;
 
     /**
      * Creates an <code>Individual</code> having <code>size</code> attributes. This constructor is used by the class <code>Population</code>.
@@ -42,7 +43,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual(final int size) {
-        positions = Util.getPermutation(size);
+        this(Util.getPermutation(size));
     }
 
     /**
@@ -55,7 +56,17 @@ public class Individual implements Comparable<Individual> {
 
     public Individual(final int[] permutation) {
         positions = permutation;
-
+        int fitnessScore = 0;
+        for (int i = 0; i < positions.length; i++) {
+            for (int j = 0; j < positions.length; j++) {
+                if ((positions[j] == positions[i] + Math.abs(i - j) || positions[j] == positions[i]
+                        - Math.abs(i - j))
+                        && positions[j] != positions[i]) {
+                    fitnessScore++;
+                }
+            }
+        }
+        this.fitness = fitnessScore;
     }
 
     /**
@@ -120,17 +131,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public int getFitness() {
-        int fitnessScore = 0;
-        for (int i = 0; i < positions.length; i++) {
-            for (int j = 0; j < positions.length; j++) {
-                if ((positions[j] == positions[i] + Math.abs(i - j) || positions[j] == positions[i]
-                        - Math.abs(i - j))
-                        && positions[j] != positions[i]) {
-                    fitnessScore++;
-                }
-            }
-        }
-        return fitnessScore;
+        return fitness;
     }
 
     /**
@@ -147,10 +148,7 @@ public class Individual implements Comparable<Individual> {
         int i = Util.random(0, positions.length);
         int j;
         while ((j = Util.random(0, positions.length)) == i);
-        int temp = positions[i];
-        positions[i] = positions[j];
-        positions[j] = temp;
-        return new Individual(positions);
+        return mutate(i, j);
     }
 
     /**
@@ -167,10 +165,11 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual mutate(final int i, final int j) {
-        int temp = positions[i];
-        positions[i] = positions[j];
-        positions[j] = temp;
-        return new Individual(positions);
+        int[] copy = Arrays.copyOf(positions, positions.length);
+        int temp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = temp;
+        return new Individual(copy);
     }
 
     /**
@@ -194,22 +193,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual recombine(final Individual other) {
-        int[] permiutation = new int[positions.length];
-        int position = Util.random(1, positions.length);
-        int offset = 0;
-        for (int i = 0; i < position; i++) {
-            permiutation[i] = positions[i];
-        }
-        List<Integer> crossover = Arrays.stream(permiutation).boxed()
-                .collect(Collectors.toList());
-        for (int i = 0; i < other.getPositions().length; i++) {
-            if (!crossover.contains(other.getPositions()[i])) {
-                permiutation[position + (i - offset)] = other.getPositions()[i];
-            } else {
-                offset++;
-            }
-        }
-        return new Individual(permiutation);
+        return crossover(other, Util.random(1, positions.length));
     }
 
     /**

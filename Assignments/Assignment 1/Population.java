@@ -42,7 +42,7 @@ public class Population {
         while ((k = Util.random(0, individuals.length)) == j);
         Individual crossover = individuals[j].recombine(individuals[k]);
         if (Util.random(1, 101) < MUTATION_RATE) {
-            crossover.mutate();
+            crossover = crossover.mutate();
         }
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
