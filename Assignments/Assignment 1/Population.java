@@ -38,6 +38,7 @@ public class Population {
 
     public void evolve() {
         int j = Util.random(0, individuals.length);
+
         int k;
         while ((k = Util.random(0, individuals.length)) == j);
         Individual crossover = individuals[j].recombine(individuals[k]);

@@ -119,7 +119,7 @@ public class Queens {
             final int dimension, GUI gui) {
         long startTime = System.currentTimeMillis();
         Population p = new Population(size, dimension);
-        int evolutions = 0;
+        long evolutions = 0;
         while (true) {
             if (evolutions == generations) {
                 break;
@@ -140,19 +140,22 @@ public class Queens {
             evolutions++;
         }
         if (gui != null) {
-            gui.update(
-                    "Generations: " + evolutions + System.lineSeparator()
-                            + "fitness: " + p.getFittest().getFitness()
-                            + System.lineSeparator() + "Attributes: "
-                            + p.getFittest().toString(), p.getFittest());
-        } else {
-            System.out.println("Generations: " + evolutions
+            gui.update("Execution time taken: " + Util.getRuntime(startTime)
+                    + System.lineSeparator() + "Generations: " + evolutions
+                    + System.lineSeparator() + "Population Size: " + size
                     + System.lineSeparator() + "fitness: "
                     + p.getFittest().getFitness() + System.lineSeparator()
-                    + "Attributes: " + p.getFittest().toString());
+                    + "Attributes: " + p.getFittest().toString(),
+                    p.getFittest());
+        } else {
+            System.out.println("Execution time taken: "
+                    + Util.getRuntime(startTime) + System.lineSeparator()
+                    + "Generations: " + evolutions + System.lineSeparator()
+                    + "Population Size: " + size + System.lineSeparator()
+                    + "fitness: " + p.getFittest().getFitness()
+                    + System.lineSeparator() + "Attributes: "
+                    + p.getFittest().toString());
         }
-        System.out.println("Execution time taken: "
-                + Util.getRuntime(startTime));
 
     }
 
