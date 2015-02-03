@@ -69,6 +69,9 @@ public class Individual implements Comparable<Individual> {
                         - Math.abs(i - j))
                         && positions[j] != positions[i]) {
                     fitness++;
+                } else if (positions[i] - Math.abs(i - j) < 0
+                        || positions[i] - Math.abs(i - j) >= positions.length) {
+                    break;
                 }
             }
         }
@@ -222,7 +225,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual recombine(final Individual other) {
-        return crossover(other, Util.random(1, positions.length));
+        return crossover(other, Util.random(1, positions.length-1));
     }
 
     /**
@@ -233,6 +236,7 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public String toString() {
-        return Arrays.toString(positions);
+        return "{ Fitness: " + getFitness() + ", Attributes: "
+                + Arrays.toString(positions) + "}";
     }
 }

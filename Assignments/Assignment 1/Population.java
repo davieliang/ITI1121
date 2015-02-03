@@ -11,7 +11,7 @@ public class Population {
 
     private final Individual[] individuals;
 
-    public static final double MUTATION_RATE = 80;
+    public static final int MUTATION_RATE = 80;
 
     /**
      * A constructor of arity 2 to initialize the <b>Population</b>.
