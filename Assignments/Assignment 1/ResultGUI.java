@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
  * @author mattlanglois
  *
  */
-public class GUI extends JFrame {
+public class ResultGUI extends JFrame {
 
     /**
      *
@@ -33,7 +33,7 @@ public class GUI extends JFrame {
      * @param dimension
      *            The dimension of the board
      */
-    public GUI(final int dimension) {
+    public ResultGUI(final int dimension) {
         this(dimension, false);
     }
 
@@ -45,7 +45,7 @@ public class GUI extends JFrame {
      * @param fitnessTest
      *            Determine how the checkboxes should be setup
      */
-    public GUI(final int dimension, final boolean fitnessTest) {
+    public ResultGUI(final int dimension, final boolean fitnessTest) {
         this.dimension = dimension;
         create(dimension, fitnessTest);
     }
@@ -123,7 +123,9 @@ public class GUI extends JFrame {
         this.add(grid, BorderLayout.NORTH);
         this.add(scroll, BorderLayout.SOUTH);
         pack();
-        setVisible(true);
+        if (fitnessTest) {
+            setVisible(true);
+        }
     }
 
     private void populateCheckboxes(final boolean fitnessTest) {
@@ -131,9 +133,11 @@ public class GUI extends JFrame {
             check[i] = new JCheckBox();
             check[i].setEnabled(fitnessTest);
             grid.add(check[i]);
-            check[i].addActionListener(e -> {
-                checkAction(e);
-            });
+            if (fitnessTest) {
+                check[i].addActionListener(e -> {
+                    checkAction(e);
+                });
+            }
         }
     }
 
@@ -145,7 +149,7 @@ public class GUI extends JFrame {
      * @param fittest
      *            The fittest individual to display in the simulation
      */
-    public void update(final String information, final Individual fittest) {
+    public void display(final String information, final Individual fittest) {
         for (int i = 0; i < check.length; i++) {
             check[i].setSelected(false);
             if (i / dimension == fittest.getPositions()[i % dimension]) {
@@ -153,7 +157,7 @@ public class GUI extends JFrame {
             }
         }
         info.append(information + System.lineSeparator());
-
+        setVisible(true);
     }
 
 }

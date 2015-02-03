@@ -23,7 +23,7 @@ public class Queens {
     private static void execute(final String[] args) {
         int generations = -1, size = 100, dimension = 8;
         String s = "Text";
-        GUI gui = null;
+        ResultGUI gui = null;
         final String[] options = { "GUI", "Text", "Checker" };
         if (args.length == 4) {
             generations = Integer.parseInt(args[0]);
@@ -52,11 +52,12 @@ public class Queens {
                                 "Input the size of the population",
                                 String.valueOf(size)));
                 dimension =
-                        Integer.parseInt(JOptionPane.showInputDialog(String
-                                .valueOf(dimension)));
+                        Integer.parseInt(JOptionPane.showInputDialog(
+                                "Input the dimension of the board",
+                                String.valueOf(dimension)));
             }
             if (s.equalsIgnoreCase(options[0])) {
-                gui = new GUI(dimension);
+                gui = new ResultGUI(dimension);
                 Queens.simulate(generations, size, dimension, gui);
             } else {
                 Queens.simulate(generations, size, dimension, null);
@@ -65,7 +66,7 @@ public class Queens {
             dimension =
                     Integer.parseInt(JOptionPane.showInputDialog(
                             "Input the dimension of the board", "8"));
-            gui = new GUI(dimension, true);
+            gui = new ResultGUI(dimension, true);
         }
     }
 
@@ -119,47 +120,39 @@ public class Queens {
      */
 
     public static void simulate(final int generations, final int size,
-            final int dimension, final GUI gui) {
+            final int dimension, final ResultGUI gui) {
+        SimulationGUI sim = new SimulationGUI(generations);
         final long startTime = System.currentTimeMillis();
         final Population p = new Population(size, dimension);
         long evolutions = 0;
         while (true) {
+            if (sim != null) {
+                sim.update(generations > 0 ? evolutions : p.getFittest()
+                        .getFitness());
+            }
             if (evolutions == generations) {
                 break;
             }
-            if (gui != null) {
-                gui.update("There have been " + evolutions
-                        + " generations and the fittest individual is "
-                        + p.getFittest().getFitness() + ".", p.getFittest());
-            } else {
-                System.out.println("There have been " + evolutions
-                        + " generations and the fittest individual is "
-                        + p.getFittest().getFitness() + ".");
-            }
+            System.out.println("There have been " + evolutions
+                    + " generations and the fittest individual is "
+                    + p.getFittest().getFitness() + ".");
             if (p.getFittest().getFitness() == 0) {
                 break;
             }
             p.evolve();
             evolutions++;
         }
+        final String result =
+                "Execution time taken: " + Util.getRuntime(startTime)
+                        + System.lineSeparator() + "Generations: " + evolutions
+                        + System.lineSeparator() + "Population Size: " + size
+                        + System.lineSeparator() + "fitness: "
+                        + p.getFittest().getFitness() + System.lineSeparator()
+                        + "Attributes: " + p.getFittest().toString();
         if (gui != null) {
-            gui.update("Execution time taken: " + Util.getRuntime(startTime)
-                    + System.lineSeparator() + "Generations: " + evolutions
-                    + System.lineSeparator() + "Population Size: " + size
-                    + System.lineSeparator() + "fitness: "
-                    + p.getFittest().getFitness() + System.lineSeparator()
-                    + "Attributes: " + p.getFittest().toString(),
-                    p.getFittest());
-        } else {
-            System.out.println("Execution time taken: "
-                    + Util.getRuntime(startTime) + System.lineSeparator()
-                    + "Generations: " + evolutions + System.lineSeparator()
-                    + "Population Size: " + size + System.lineSeparator()
-                    + "fitness: " + p.getFittest().getFitness()
-                    + System.lineSeparator() + "Attributes: "
-                    + p.getFittest().toString());
+            gui.display(result, p.getFittest());
         }
+        System.out.println(result);
 
     }
-
 }

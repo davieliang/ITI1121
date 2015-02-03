@@ -46,10 +46,10 @@ public class Population {
 
         int k;
         while ((k = Util.random(0, individuals.length)) == j);
-        Individual crossover = individuals[j].recombine(individuals[k]);
-        if (Util.random(1, 101) < Population.MUTATION_RATE) {
-            crossover = crossover.mutate();
-        }
+        Individual crossover =
+                Util.random(1, 101) < Population.MUTATION_RATE ? individuals[j]
+                        .recombine(individuals[k]).mutate() : individuals[j]
+                        .recombine(individuals[k]);
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
             if (individuals[idx].getFitness() < individuals[i].getFitness()) {
