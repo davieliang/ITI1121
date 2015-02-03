@@ -108,42 +108,6 @@ public class Queens {
 
     public static void simulate(final int generations, final int size,
             final int dimension, final boolean displayGUI) {
-        SimulationGUI sim = null;
-        if (displayGUI) {
-            sim = new SimulationGUI(generations);
-        }
-        final long startTime = System.currentTimeMillis();
-        final Population p = new Population(size, dimension);
-        long evolutions = 0;
-        while (true) {
-            if (sim != null && displayGUI) {
-                sim.update(generations > 0 ? evolutions : p.getFittest()
-                        .getFitness());
-            }
-            if (evolutions == generations) {
-                break;
-            }
-            System.out.println("There have been " + evolutions
-                    + " generations and the fittest individual is "
-                    + p.getFittest().getFitness() + ".");
-            if (p.getFittest().getFitness() == 0) {
-                break;
-            }
-            p.evolve();
-            evolutions++;
-        }
-        final String result = "Execution time taken: "
-                + Util.getRuntime(startTime) + System.lineSeparator()
-                + "Generations: " + evolutions + System.lineSeparator()
-                + "Population Size: " + size + System.lineSeparator()
-                + "fitness: " + p.getFittest().getFitness()
-                + System.lineSeparator() + "Attributes: "
-                + p.getFittest().toString();
-        if (displayGUI) {
-            sim.dispose();
-            new FitnessGUI(p.getFittest(), result);
-        }
-        System.out.println(result);
-
+        new Simulation(generations, size, dimension, displayGUI).execute();
     }
 }
