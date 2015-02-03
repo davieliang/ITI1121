@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
  * @author mattlanglois
  *
  */
-public class ResultGUI extends JFrame {
+public class FitnessGUI extends JFrame {
 
     /**
      *
@@ -33,8 +33,9 @@ public class ResultGUI extends JFrame {
      * @param dimension
      *            The dimension of the board
      */
-    public ResultGUI(final int dimension) {
-        this(dimension, false);
+    public FitnessGUI(final int dimension) {
+        this.dimension = dimension;
+        createResult();
     }
 
     /**
@@ -45,9 +46,9 @@ public class ResultGUI extends JFrame {
      * @param fitnessTest
      *            Determine how the checkboxes should be setup
      */
-    public ResultGUI(final int dimension, final boolean fitnessTest) {
-        this.dimension = dimension;
-        create(dimension, fitnessTest);
+    public FitnessGUI(final Individual fittest, final String result) {
+        this.dimension = fittest.getPositions().length;
+        createResult(fittest, result);
     }
 
     private void checkAction(final ActionEvent e) {
@@ -93,19 +94,18 @@ public class ResultGUI extends JFrame {
         }
     }
 
-    private void create(final int dimension, final boolean fitnessTest) {
+    private void createResult() {
+        createResult(null, "Check the checkboxes you wish to represent queens.");
+    }
+
+    private void createResult(final Individual fittest, final String result) {
         check = new JCheckBox[dimension * dimension];
-        info =
-                new JTextArea("Checking a box represents a queen. "
-                        + "It will disable the row and column of that queen. "
-                        + "Once all queens have been slected the fitness "
-                        + "of the result will be genereated.");
+        info = new JTextArea(result);
         grid = new JPanel();
 
         setLayout(new BorderLayout());
         grid.setLayout(new GridLayout(dimension, dimension));
-
-        populateCheckboxes(fitnessTest);
+        populateCheckboxes(fittest);
 
         info.setLineWrap(true);
         info.setWrapStyleWord(true);
@@ -114,50 +114,33 @@ public class ResultGUI extends JFrame {
         info.setSize(info.getPreferredSize());
 
         info.setEditable(false);
-        final JScrollPane scroll =
-                new JScrollPane(info,
-                        ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        final JScrollPane scroll = new JScrollPane(info,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(grid, BorderLayout.NORTH);
         this.add(scroll, BorderLayout.SOUTH);
         pack();
-        if (fitnessTest) {
-            setVisible(true);
-        }
+        setVisible(true);
     }
 
-    private void populateCheckboxes(final boolean fitnessTest) {
+    private void populateCheckboxes(final Individual fittest) {
         for (int i = 0; i < check.length; i++) {
             check[i] = new JCheckBox();
-            check[i].setEnabled(fitnessTest);
+            check[i].setEnabled(fittest == null);
             grid.add(check[i]);
-            if (fitnessTest) {
+            if (fittest != null) {
+                if (i / fittest.getPositions().length == fittest.getPositions()[i
+                        % fittest.getPositions().length]) {
+                    check[i].setSelected(true);
+                }
+            } else {
                 check[i].addActionListener(e -> {
                     checkAction(e);
                 });
             }
         }
-    }
-
-    /**
-     * Update the board with the current status of the simulation
-     *
-     * @param information
-     *            The string to display in the information pane
-     * @param fittest
-     *            The fittest individual to display in the simulation
-     */
-    public void display(final String information, final Individual fittest) {
-        for (int i = 0; i < check.length; i++) {
-            check[i].setSelected(false);
-            if (i / dimension == fittest.getPositions()[i % dimension]) {
-                check[i].setSelected(true);
-            }
-        }
-        info.append(information + System.lineSeparator());
-        setVisible(true);
     }
 
 }

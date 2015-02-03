@@ -3,8 +3,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
- * The class <b>Queens</b> implements the top-level of the genetic algorithm. It has a main method
- * that reads parameters from the command line or
+ * The class <b>Queens</b> implements the top-level of the genetic algorithm. It has a main method that reads parameters from the command line or
  * using input dialogs. Here is a sample run.
  *
  * <pre>
@@ -12,8 +11,7 @@ import javax.swing.UIManager;
  * Generations=65, Individual: {fitness=0, attributes=[5,3,0,4,7,1,6,2]}
  * </pre>
  *
- * Because of the ``probabilistic'' nature of the algorithm, each run is likely to produce a new
- * solution.
+ * Because of the ``probabilistic'' nature of the algorithm, each run is likely to produce a new solution.
  *
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
@@ -23,7 +21,6 @@ public class Queens {
     private static void execute(final String[] args) {
         int generations = -1, size = 100, dimension = 8;
         String s = "Text";
-        ResultGUI gui = null;
         final String[] options = { "GUI", "Text", "Checker" };
         if (args.length == 4) {
             generations = Integer.parseInt(args[0]);
@@ -31,10 +28,9 @@ public class Queens {
             dimension = Integer.parseInt(args[2]);
             s = args[3];
         } else {
-            s =
-                    (String) JOptionPane.showInputDialog(null, "",
-                            "Method Selection", JOptionPane.PLAIN_MESSAGE,
-                            null, options, s);
+            s = (String) JOptionPane.showInputDialog(null, "",
+                    "Method Selection", JOptionPane.PLAIN_MESSAGE, null,
+                    options, s);
         }
 
         if (s == null) {
@@ -42,37 +38,30 @@ public class Queens {
         }
         if (s.equalsIgnoreCase(options[0]) || s.equalsIgnoreCase(options[1])) {
             if (args.length != 4) {
-                generations =
-                        Integer.parseInt(JOptionPane
-                                .showInputDialog(
-                                        "Input the number of generations. -1 for infinite",
-                                        String.valueOf(generations)));
-                size =
-                        Integer.parseInt(JOptionPane.showInputDialog(
-                                "Input the size of the population",
-                                String.valueOf(size)));
-                dimension =
-                        Integer.parseInt(JOptionPane.showInputDialog(
-                                "Input the dimension of the board",
-                                String.valueOf(dimension)));
+                generations = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Input the number of generations. -1 for infinite",
+                        String.valueOf(generations)));
+                size = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Input the size of the population",
+                        String.valueOf(size)));
+                dimension = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Input the dimension of the board",
+                        String.valueOf(dimension)));
             }
             if (s.equalsIgnoreCase(options[0])) {
-                gui = new ResultGUI(dimension);
-                Queens.simulate(generations, size, dimension, gui);
+                Queens.simulate(generations, size, dimension, true);
             } else {
-                Queens.simulate(generations, size, dimension, null);
+                Queens.simulate(generations, size, dimension, false);
             }
         } else {
-            dimension =
-                    Integer.parseInt(JOptionPane.showInputDialog(
-                            "Input the dimension of the board", "8"));
-            gui = new ResultGUI(dimension, true);
+            dimension = Integer.parseInt(JOptionPane.showInputDialog(
+                    "Input the dimension of the board", "8"));
+            new FitnessGUI(dimension);
         }
     }
 
     /**
-     * The main method of this program. Examples of the execution of the program from the command
-     * line:
+     * The main method of this program. Examples of the execution of the program from the command line:
      *
      * <pre>
      * java Queens 500 100 8
@@ -80,8 +69,7 @@ public class Queens {
      * </pre>
      *
      * @param args
-     *            the array of arguments that were passed to the main method, generally on the
-     *            command line
+     *            the array of arguments that were passed to the main method, generally on the command line
      */
 
     public static void main(final String[] args) {
@@ -98,8 +86,7 @@ public class Queens {
     }
 
     /**
-     * Implements the top-level loop of the genetic algorithm. You must complete the implementation
-     * of the method.
+     * Implements the top-level loop of the genetic algorithm. You must complete the implementation of the method.
      * <ol>
      * <li>Create a new population</li>
      * <li>Whilst the maximum allowed number of generations has not been reached and no optimal solution has been found
@@ -120,13 +107,16 @@ public class Queens {
      */
 
     public static void simulate(final int generations, final int size,
-            final int dimension, final ResultGUI gui) {
-        SimulationGUI sim = new SimulationGUI(generations);
+            final int dimension, final boolean displayGUI) {
+        SimulationGUI sim = null;
+        if (displayGUI) {
+            sim = new SimulationGUI(generations);
+        }
         final long startTime = System.currentTimeMillis();
         final Population p = new Population(size, dimension);
         long evolutions = 0;
         while (true) {
-            if (sim != null) {
+            if (sim != null && displayGUI) {
                 sim.update(generations > 0 ? evolutions : p.getFittest()
                         .getFitness());
             }
@@ -142,15 +132,16 @@ public class Queens {
             p.evolve();
             evolutions++;
         }
-        final String result =
-                "Execution time taken: " + Util.getRuntime(startTime)
-                        + System.lineSeparator() + "Generations: " + evolutions
-                        + System.lineSeparator() + "Population Size: " + size
-                        + System.lineSeparator() + "fitness: "
-                        + p.getFittest().getFitness() + System.lineSeparator()
-                        + "Attributes: " + p.getFittest().toString();
-        if (gui != null) {
-            gui.display(result, p.getFittest());
+        final String result = "Execution time taken: "
+                + Util.getRuntime(startTime) + System.lineSeparator()
+                + "Generations: " + evolutions + System.lineSeparator()
+                + "Population Size: " + size + System.lineSeparator()
+                + "fitness: " + p.getFittest().getFitness()
+                + System.lineSeparator() + "Attributes: "
+                + p.getFittest().toString();
+        if (displayGUI) {
+            sim.dispose();
+            new FitnessGUI(p.getFittest(), result);
         }
         System.out.println(result);
 
