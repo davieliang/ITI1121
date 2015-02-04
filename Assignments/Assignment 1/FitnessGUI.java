@@ -87,8 +87,8 @@ public class FitnessGUI extends JFrame {
                 }
             }
             final Individual ind = new Individual(permiutation);
-            info.setText("fitness: " + ind.getFitness()
-                    + System.lineSeparator() + "Attributes: " + ind.toString());
+            log(System.lineSeparator() + "Attributes: " + ind.toString(),
+                    MessageType.NORMAL);
         }
     }
 
@@ -165,7 +165,7 @@ public class FitnessGUI extends JFrame {
                 c.anchor = GridBagConstraints.NORTH;
                 this.add(listScroll, c);
                 this.log(
-                        "Dimension is too large to display grid. Only text will be shown, however you will see the population at the end.",
+                        "Dimension is too large to display grid. Only text will be shown, however you will see the attributes of the population at the end of the simulation.",
                         MessageType.ERROR);
             }
         } else {
@@ -187,12 +187,10 @@ public class FitnessGUI extends JFrame {
     }
 
     public void finalize(final Population p, final String information) {
-        this.log("Printing Optimal Solution..." + System.lineSeparator(),
-                MessageType.INFO);
-        this.update(p.getFittest(), information, MessageType.NORMAL);
+        bar.setValue(100);
         this.log("Removing Duplicates", MessageType.INFO);
-        final Individual[] individuals = Util.removeDuplicates(p
-                .getIndividuals());
+        final Individual[] individuals =
+                Util.removeDuplicates(p.getIndividuals());
         this.log((p.getIndividuals().length - individuals.length)
                 + " duplicates removed", MessageType.WARNING);
         final String[] elements = new String[individuals.length];
@@ -201,19 +199,22 @@ public class FitnessGUI extends JFrame {
         }
         list.setListData(elements);
         list.setSelectedIndex(0);
+
+        this.log("Printing Optimal Solution..." + System.lineSeparator(),
+                MessageType.INFO);
+        this.update(individuals[0], information, MessageType.SUCCESS);
         list.addListSelectionListener(e -> {
             this.log(System.lineSeparator() + "Selecting new individual... ",
                     MessageType.INFO);
             this.update(
                     individuals[list.getSelectedIndex()],
-
                     System.lineSeparator()
                             + individuals[list.getSelectedIndex()].toString(),
                     MessageType.NORMAL);
         });
     }
 
-    private void log(final String s, final MessageType format) {
+    public void log(final String s, final MessageType format) {
         info.append(s + System.lineSeparator(), format);
         System.out.println(s);
     }

@@ -20,12 +20,17 @@ public class Simulation extends SwingWorker<Void, Individual> {
         this.dimension = dimension;
         this.displayGUI = displayGUI;
         startTime = System.currentTimeMillis();
-        gui = displayGUI ? new FitnessGUI(dimension, true,
-                generations > 0 ? generations : -1) : null;
+        gui =
+                displayGUI ? new FitnessGUI(dimension, true,
+                        generations > 0 ? generations : -1) : null;
         population = new Population(size, dimension);
         if (gui != null) {
             gui.update(population.getFittest(), "Simulating....",
                     MessageType.INFO);
+            if (generations > 0) {
+                gui.log("The simulation has artifically been slowed down for viewer use!",
+                        MessageType.WARNING);
+            }
             gui.setTarget(population.getFittest().getFitness());
         }
         evolutions = 0;
@@ -43,6 +48,9 @@ public class Simulation extends SwingWorker<Void, Individual> {
             }
             population.evolve();
             evolutions++;
+            if (displayGUI && generations > 0) {
+                Thread.sleep(20);
+            }
         }
         return null;
     }
@@ -50,12 +58,13 @@ public class Simulation extends SwingWorker<Void, Individual> {
     @Override
     protected void done() {
         population.finalize();
-        final String result = "Execution time taken: "
-                + Util.getRuntime(startTime) + System.lineSeparator()
-                + "Generations: " + evolutions + System.lineSeparator()
-                + "Population Size: " + size + System.lineSeparator()
-                + "Dimension: " + dimension + System.lineSeparator()
-                + "Attributes: " + population.getFittest().toString();
+        final String result =
+                "Execution time taken: " + Util.getRuntime(startTime)
+                        + System.lineSeparator() + "Generations: " + evolutions
+                        + System.lineSeparator() + "Population Size: " + size
+                        + System.lineSeparator() + "Dimension: " + dimension
+                        + System.lineSeparator() + "Attributes: "
+                        + population.getFittest().toString();
         if (displayGUI && gui != null) {
             gui.finalize(population, result);
         } else {
@@ -65,9 +74,10 @@ public class Simulation extends SwingWorker<Void, Individual> {
 
     @Override
     public void process(final List<Individual> list) {
-        final String update = "There have been " + evolutions
-                + " generations and the fittest individual is "
-                + population.getFittest().getFitness() + ".";
+        final String update =
+                "There have been " + evolutions
+                        + " generations and the fittest individual is "
+                        + population.getFittest().getFitness() + ".";
         if (gui != null && displayGUI) {
             gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
                     : list.get(list.size() - 1).getFitness());
