@@ -1,6 +1,9 @@
+package me.matt.genetics.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import me.matt.genetics.wrapper.Individual;
 
 /**
  * Provides a method returning a random permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation.

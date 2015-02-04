@@ -1,3 +1,4 @@
+package me.matt.genetics;
 /**
  * An enum containing all of the Effects used within IRC protocall
  *

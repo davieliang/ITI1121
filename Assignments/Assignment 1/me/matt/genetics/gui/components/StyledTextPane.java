@@ -1,3 +1,4 @@
+package me.matt.genetics.gui.components;
 import java.awt.Color;
 
 import javax.swing.JTextPane;
@@ -5,6 +6,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+
+import me.matt.genetics.MessageType;
 
 /**
  * Creates a text pane that can hold color.
