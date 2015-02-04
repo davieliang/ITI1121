@@ -33,7 +33,7 @@ public class FitnessGUI extends JFrame {
     private final int dimension;
     private int target;
     private final boolean infinite;
-    private JProgressBar bar = new JProgressBar();
+    private final JProgressBar bar = new JProgressBar();
     private JList<String> list;
 
     /**
@@ -47,7 +47,7 @@ public class FitnessGUI extends JFrame {
         this.dimension = dimension;
         this.target = target;
         this.infinite = target < 0;
-        createResult(simulation);
+        this.createResult(simulation);
     }
 
     private void checkAction(final ActionEvent e) {
@@ -55,9 +55,9 @@ public class FitnessGUI extends JFrame {
         int box = -1;
 
         // Determine the location of the checkbox in the array
-        for (int j = 0; j < check.length; j++) {
-            if (check[j] == source) {
-                check[j].setEnabled(false);
+        for (int j = 0; j < this.check.length; j++) {
+            if (this.check[j] == source) {
+                this.check[j].setEnabled(false);
                 box = j;
                 break;
             }
@@ -65,15 +65,16 @@ public class FitnessGUI extends JFrame {
 
         // Determine which rows and columns should be eliminated
         if (box > -1) {
-            for (int j = 0; j < dimension; j++) {
-                check[box + j - (box % dimension)].setEnabled(false);
-                check[box % dimension + (j * dimension)].setEnabled(false);
+            for (int j = 0; j < this.dimension; j++) {
+                this.check[box + j - (box % this.dimension)].setEnabled(false);
+                this.check[box % this.dimension + (j * this.dimension)]
+                        .setEnabled(false);
             }
         }
 
         // Check if every checkbox has been disabled
         boolean calculate = true;
-        for (final JCheckBox c : check) {
+        for (final JCheckBox c : this.check) {
             if (c.isEnabled()) {
                 calculate = false;
             }
@@ -81,53 +82,51 @@ public class FitnessGUI extends JFrame {
 
         // If the board is ready, calculate the fitness
         if (calculate) {
-            final int[] permiutation = new int[dimension];
-            for (int j = 0; j < check.length; j++) {
-                if (check[j].isSelected()) {
-                    permiutation[j % dimension] = j / dimension;
+            final int[] permiutation = new int[this.dimension];
+            for (int j = 0; j < this.check.length; j++) {
+                if (this.check[j].isSelected()) {
+                    permiutation[j % this.dimension] = j / this.dimension;
                 }
             }
             final Individual ind = new Individual(permiutation);
-            info.setText("fitness: " + ind.getFitness()
+            this.info.setText("fitness: " + ind.getFitness()
                     + System.lineSeparator() + "Attributes: " + ind.toString());
         }
     }
 
-    private void createResult(boolean simulator) {
-        check = new JCheckBox[dimension * dimension];
-        info =
-                new JTextArea((simulator ? "Populating the queens..."
-                        : "Each checkbox represents a queen.")
-                        + System.lineSeparator());
-        grid = new JPanel();
+    private void createResult(final boolean simulator) {
+        this.check = new JCheckBox[this.dimension * this.dimension];
+        this.info = new JTextArea((simulator ? "Populating the queens..."
+                : "Each checkbox represents a queen.") + System.lineSeparator());
+        this.grid = new JPanel();
 
-        bar.setStringPainted(true);
+        this.bar.setStringPainted(true);
 
-        grid.setLayout(new GridLayout(dimension, dimension));
-        populateCheckboxes(simulator);
+        this.grid.setLayout(new GridLayout(this.dimension, this.dimension));
+        this.populateCheckboxes(simulator);
 
-        DefaultCaret caret = (DefaultCaret) info.getCaret();
+        final DefaultCaret caret = (DefaultCaret) this.info.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        info.setLineWrap(true);
-        info.setWrapStyleWord(true);
-        info.setColumns(grid.getWidth());
-        info.setRows(5);
-        info.setEditable(false);
+        this.info.setLineWrap(true);
+        this.info.setWrapStyleWord(true);
+        this.info.setColumns(this.grid.getWidth());
+        this.info.setRows(5);
+        this.info.setEditable(false);
 
-        list = new JList<>(new String[] { "Simulating....." });
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.list = new JList<>(new String[] { "Simulating....." });
+        this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        final JScrollPane gridScroll = new JScrollPane(grid);
-        final JScrollPane infoScroll = new JScrollPane(info);
-        final JScrollPane listScroll = new JScrollPane(list);
+        final JScrollPane gridScroll = new JScrollPane(this.grid);
+        final JScrollPane infoScroll = new JScrollPane(this.info);
+        final JScrollPane listScroll = new JScrollPane(this.list);
         if (gridScroll.getPreferredSize().width > 600
                 || gridScroll.getPreferredSize().height > 600) {
             gridScroll.setPreferredSize(new Dimension(400, 400));
         }
         listScroll.setPreferredSize(new Dimension(100, 0));
 
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        this.setLayout(new GridBagLayout());
+        final GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -135,7 +134,7 @@ public class FitnessGUI extends JFrame {
         if (simulator) {
             c.gridx = 0;
             c.gridy = 1;
-            this.add(bar, c);
+            this.add(this.bar, c);
             c.gridx = 0;
             c.gridy = 2;
             this.add(infoScroll, c);
@@ -151,83 +150,88 @@ public class FitnessGUI extends JFrame {
             c.gridy = 1;
             this.add(infoScroll, c);
         }
-        setTitle("N-Queen Solver - Genetic Algorithm");
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
+        this.setTitle("N-Queen Solver - Genetic Algorithm");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        this.setVisible(true);
     }
 
-    private void populateCheckboxes(boolean simulation) {
-        for (int i = 0; i < check.length; i++) {
-            check[i] = new JCheckBox();
-            check[i].setEnabled(!simulation);
-            grid.add(check[i]);
+    public void finalize(final Population p, final String information) {
+        this.update(p.getFittest(), information);
+        this.log("Removing Duplicates");
+        final Individual[] individuals = Util.removeDuplicates(p
+                .getIndividuals());
+        this.log((p.getIndividuals().length - individuals.length)
+                + " duplicates removed");
+        final String[] elements = new String[individuals.length];
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = "Fitness: " + individuals[i].getFitness();
+        }
+        this.list.setListData(elements);
+        this.list.setSelectedIndex(0);
+        this.list.addListSelectionListener(e -> {
+            this.update(
+                    individuals[this.list.getSelectedIndex()],
+                    System.lineSeparator()
+                            + "Selecting new individual... "
+                            + System.lineSeparator()
+                            + individuals[this.list.getSelectedIndex()]
+                                    .toString());
+        });
+    }
+
+    private void log(final String s) {
+        this.info.append(s + System.lineSeparator());
+        System.out.println(s);
+    }
+
+    private void populateCheckboxes(final boolean simulation) {
+        for (int i = 0; i < this.check.length; i++) {
+            this.check[i] = new JCheckBox();
+            this.check[i].setEnabled(!simulation);
+            this.grid.add(this.check[i]);
             if (!simulation) {
-                check[i].addActionListener(e -> {
-                    checkAction(e);
+                this.check[i].addActionListener(e -> {
+                    this.checkAction(e);
                 });
             }
         }
     }
 
-    public void update(Individual ind, long evolutions) {
-        for (int i = 0; i < check.length; i++) {
-            check[i].setSelected(false);
-            if (i / ind.getPositions().length == ind.getPositions()[i
-                    % ind.getPositions().length]) {
-                check[i].setSelected(true);
-            }
-            if (!infinite && target > 0) {
-                bar.setValue((int) (((double) evolutions / (double) target) * 100));
-            } else if (infinite && target > 0) {
-                bar.setValue(100 - (int) (((double) evolutions / (double) target) * 100));
-            }
-            bar.setString(!infinite ? evolutions + "/" + target
-                    + " generations" : "Current fitness: " + evolutions
-                    + " Start Fitness: " + target);
-        }
-    }
-
-    public void update(Individual ind, String information) {
-        log(information);
-        info.setCaretPosition(info.getDocument().getLength());
-        for (int i = 0; i < check.length; i++) {
-            check[i].setSelected(false);
-            if (i / ind.getPositions().length == ind.getPositions()[i
-                    % ind.getPositions().length]) {
-                check[i].setSelected(true);
-            }
-        }
-    }
-
-    private void log(String s) {
-        info.append(s + System.lineSeparator());
-        System.out.println(s);
-    }
-
-    public void finalize(Population p, String information) {
-        update(p.getFittest(), information);
-        log("Removing Duplicates");
-        Individual[] individuals = Util.removeDuplicates(p.getIndividuals());
-        log((p.getIndividuals().length - individuals.length)
-                + " duplicates removed");
-        String[] elements = new String[individuals.length];
-        for (int i = 0; i < elements.length; i++) {
-            elements[i] = "Fitness: " + individuals[i].getFitness();
-        }
-        list.setListData(elements);
-        list.setSelectedIndex(0);
-        list.addListSelectionListener(e -> {
-            update(individuals[list.getSelectedIndex()], System.lineSeparator()
-                    + "Selecting new individual... " + System.lineSeparator()
-                    + individuals[list.getSelectedIndex()].toString());
-        });
-    }
-
-    public void setTarget(int target) {
+    public void setTarget(final int target) {
         if (this.target < 0) {
             this.target = target;
+        }
+    }
+
+    public void update(final Individual ind, final long evolutions) {
+        for (int i = 0; i < this.check.length; i++) {
+            this.check[i].setSelected(false);
+            if (i / ind.getPositions().length == ind.getPositions()[i
+                    % ind.getPositions().length]) {
+                this.check[i].setSelected(true);
+            }
+            if (!this.infinite && this.target > 0) {
+                this.bar.setValue((int) (((double) evolutions / (double) this.target) * 100));
+            } else if (this.infinite && this.target > 0) {
+                this.bar.setValue(100 - (int) (((double) evolutions / (double) this.target) * 100));
+            }
+            this.bar.setString(!this.infinite ? evolutions + "/" + this.target
+                    + " generations" : "Current fitness: " + evolutions
+                    + " Start Fitness: " + this.target);
+        }
+    }
+
+    public void update(final Individual ind, final String information) {
+        this.log(information);
+        this.info.setCaretPosition(this.info.getDocument().getLength());
+        for (int i = 0; i < this.check.length; i++) {
+            this.check[i].setSelected(false);
+            if (i / ind.getPositions().length == ind.getPositions()[i
+                    % ind.getPositions().length]) {
+                this.check[i].setSelected(true);
+            }
         }
     }
 

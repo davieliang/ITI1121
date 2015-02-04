@@ -28,8 +28,7 @@ import java.util.Arrays;
  * <p>
  * Herein, we define the fitness value of an individual as the number of pairs of queens attacking each other.
  * </p>
- * You must complete the implementation of the class <code>Individual</code> following all the
- * directives.
+ * You must complete the implementation of the class <code>Individual</code> following all the directives.
  *
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
@@ -40,8 +39,7 @@ public class Individual implements Comparable<Individual> {
     private final int fitness;
 
     /**
-     * Creates an <code>Individual</code> having <code>size</code> attributes. This constructor is
-     * used by the class <code>Population</code>.
+     * Creates an <code>Individual</code> having <code>size</code> attributes. This constructor is used by the class <code>Population</code>.
      *
      * @param size
      *            the number of attributes of this <code>Individual</code>
@@ -52,8 +50,7 @@ public class Individual implements Comparable<Individual> {
     }
 
     /**
-     * Creates an <code>Individual</code> using the provided permutation. The method must copy the
-     * values of the permutation into a new array. This
+     * Creates an <code>Individual</code> using the provided permutation. The method must copy the values of the permutation into a new array. This
      * constructor is primarily used for testing.
      *
      * @param permutation
@@ -61,12 +58,13 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual(final int[] permutation) {
-        positions = permutation;
+        this.positions = permutation;
         int fitness = 0;
-        for (int i = 0; i < positions.length - 1; i++) {
-            for (int j = positions.length - 1; j > i; j--) {
-                if (positions[j] == positions[i] + Math.abs(i - j)
-                        || positions[j] == positions[i] - Math.abs(i - j)) {
+        for (int i = 0; i < this.positions.length - 1; i++) {
+            for (int j = this.positions.length - 1; j > i; j--) {
+                if (this.positions[j] == this.positions[i] + Math.abs(i - j)
+                        || this.positions[j] == this.positions[i]
+                                - Math.abs(i - j)) {
                     fitness++;
                 }
             }
@@ -86,7 +84,7 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public int compareTo(final Individual other) {
-        return getFitness() - other.getFitness();
+        return this.getFitness() - other.getFitness();
     }
 
     /**
@@ -115,10 +113,10 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual crossover(final Individual other, final int position) {
-        final int[] permiutation = new int[positions.length];
+        final int[] permiutation = new int[this.positions.length];
         int offset = 0;
         for (int i = 0; i < position; i++) {
-            permiutation[i] = positions[i];
+            permiutation[i] = this.positions[i];
         }
         for (int i = 0; i < other.getPositions().length; i++) {
             boolean found = false;
@@ -138,14 +136,32 @@ public class Individual implements Comparable<Individual> {
     }
 
     /**
-     * Returns the fitness value of <code>this Individual</code>, which is defined as the number of
-     * pairs of queens attacking each other.
+     * Checks if the individual is the same as the other individual.
+     *
+     * @param other
+     *            The other individual to check
+     * @return <code>true</code> if the individual is the same as the other individual; otherwise <code>false</code>
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Individual)) {
+            return false;
+        }
+        return Arrays.equals(this.getPositions(),
+                ((Individual) obj).getPositions());
+    }
+
+    /**
+     * Returns the fitness value of <code>this Individual</code>, which is defined as the number of pairs of queens attacking each other.
      *
      * @return the fitness value of <code>this Individual</code>.
      */
 
     public int getFitness() {
-        return fitness;
+        return this.fitness;
     }
 
     /**
@@ -154,7 +170,7 @@ public class Individual implements Comparable<Individual> {
      * @return The positions of each individual queen on the board
      */
     public int[] getPositions() {
-        return positions;
+        return this.positions;
     }
 
     /**
@@ -169,15 +185,14 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual mutate() {
-        final int i = Util.random(0, positions.length);
+        final int i = Util.random(0, this.positions.length);
         int j;
-        while ((j = Util.random(0, positions.length)) == i);
-        return mutate(i, j);
+        while ((j = Util.random(0, this.positions.length)) == i);
+        return this.mutate(i, j);
     }
 
     /**
-     * Returns the offspring resulting from applying a mutation to this <code>Individual</code>. In
-     * order to make sure that the result is valid
+     * Returns the offspring resulting from applying a mutation to this <code>Individual</code>. In order to make sure that the result is valid
      * permutation, the method exchanges the value of two attributes, those found at positions <code>i</code> and <code>j</code>.
      *
      * This method is primarily used for testing.
@@ -190,7 +205,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual mutate(final int i, final int j) {
-        final int[] copy = Arrays.copyOf(positions, positions.length);
+        final int[] copy = Arrays.copyOf(this.positions, this.positions.length);
         final int temp = copy[i];
         copy[i] = copy[j];
         copy[j] = temp;
@@ -221,25 +236,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual recombine(final Individual other) {
-        return crossover(other, Util.random(1, positions.length - 1));
-    }
-
-    /**
-     * Checks if the individual is the same as the other individual.
-     * 
-     * @param other
-     *            The other individual to check
-     * @return <code>true</code> if the individual is the same as the other individual; otherwise <code>false</code>
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof Individual)) {
-            return false;
-        }
-        return Arrays.equals(getPositions(), ((Individual) obj).getPositions());
+        return this.crossover(other, Util.random(1, this.positions.length - 1));
     }
 
     /**
@@ -250,8 +247,8 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public String toString() {
-        return "{ Fitness: " + getFitness() + ", Attributes: "
-                + Arrays.toString(positions) + "}";
+        return "{ Fitness: " + this.getFitness() + ", Attributes: "
+                + Arrays.toString(this.positions) + "}";
     }
 
 }

@@ -17,8 +17,7 @@ public class Util {
      *
      * @param n
      *            is the size of the permutation
-     * @return an array of size <code>n</code> containing the numbers 0 to <code>n-1</code> in
-     *         random order
+     * @return an array of size <code>n</code> containing the numbers 0 to <code>n-1</code> in random order
      */
 
     public static int[] getPermutation(final int n) {
@@ -82,9 +81,9 @@ public class Util {
     }
 
     // Create an array with all unique elements
-    public static Individual[] removeDuplicates(Individual[] individuals) {
-        List<Individual> cleaned = new ArrayList<Individual>();
-        for (Individual individual : individuals) {
+    public static Individual[] removeDuplicates(final Individual[] individuals) {
+        final List<Individual> cleaned = new ArrayList<Individual>();
+        for (final Individual individual : individuals) {
             if (!cleaned.contains(individual)) {
                 cleaned.add(individual);
             }
