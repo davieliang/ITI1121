@@ -42,13 +42,13 @@ public class Population {
         if (dead) {
             return;
         }
-        final int j = Util.random(0, individuals.length);
+        final Individual j = individuals[Util.random(0, individuals.length)];
 
-        int k;
-        while ((k = Util.random(0, individuals.length)) == j);
-        final Individual crossover = Util.random(1, 101) < Population.MUTATION_RATE ? individuals[j]
-                .recombine(individuals[k]).mutate() : individuals[j]
-                .recombine(individuals[k]);
+        Individual k;
+        while ((k = individuals[Util.random(0, individuals.length)]).equals(j));
+        final Individual crossover =
+                Util.random(1, 101) < Population.MUTATION_RATE ? j.recombine(k)
+                        .mutate() : j.recombine(k);
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
             if (individuals[idx].getFitness() < individuals[i].getFitness()) {
