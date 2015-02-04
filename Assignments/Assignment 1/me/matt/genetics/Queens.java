@@ -1,6 +1,12 @@
+package me.matt.genetics;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import me.matt.genetics.concurrent.Simulation;
+import me.matt.genetics.gui.FitnessGUI;
+import me.matt.genetics.util.StudentInfo;
 
 /**
  * The class <b>Queens</b> implements the top-level of the genetic algorithm. It has a main method that reads parameters from the command line or
@@ -28,9 +34,10 @@ public class Queens {
             dimension = Integer.parseInt(args[2]);
             s = args[3];
         } else {
-            s = (String) JOptionPane.showInputDialog(null, "",
-                    "Method Selection", JOptionPane.PLAIN_MESSAGE, null,
-                    options, s);
+            s =
+                    (String) JOptionPane.showInputDialog(null, "",
+                            "Method Selection", JOptionPane.PLAIN_MESSAGE,
+                            null, options, s);
         }
 
         if (s == null) {
@@ -38,15 +45,25 @@ public class Queens {
         }
         if (s.equalsIgnoreCase(options[0]) || s.equalsIgnoreCase(options[1])) {
             if (args.length != 4) {
-                generations = Integer.parseInt(JOptionPane.showInputDialog(
-                        "Input the number of generations. -1 for infinite",
-                        String.valueOf(generations)));
-                size = Integer.parseInt(JOptionPane.showInputDialog(
-                        "Input the size of the population",
-                        String.valueOf(size)));
-                dimension = Integer.parseInt(JOptionPane.showInputDialog(
-                        "Input the dimension of the board",
-                        String.valueOf(dimension)));
+                try {
+                    generations =
+                            Integer.parseInt(JOptionPane
+                                    .showInputDialog(
+                                            "Input the number of generations. -1 for infinite",
+                                            String.valueOf(generations)));
+                    size =
+                            Integer.parseInt(JOptionPane.showInputDialog(
+                                    "Input the size of the population (>1)",
+                                    String.valueOf(size)));
+                    dimension =
+                            Integer.parseInt(JOptionPane.showInputDialog(
+                                    "Input the dimension of the board (>3)",
+                                    String.valueOf(dimension)));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid input entered. Please try again.");
+                    System.exit(0);
+                }
             }
             if (s.equalsIgnoreCase(options[0])) {
                 Queens.simulate(generations, size, dimension, true);
@@ -54,8 +71,9 @@ public class Queens {
                 Queens.simulate(generations, size, dimension, false);
             }
         } else {
-            dimension = Integer.parseInt(JOptionPane.showInputDialog(
-                    "Input the dimension of the board", "8"));
+            dimension =
+                    Integer.parseInt(JOptionPane.showInputDialog(
+                            "Input the dimension of the board", "8"));
             new FitnessGUI(dimension, false, -1);
         }
     }
@@ -108,6 +126,10 @@ public class Queens {
 
     public static void simulate(final int generations, final int size,
             final int dimension, final boolean displayGUI) {
-        new Simulation(generations, size, dimension, displayGUI).execute();
+        try {
+            new Simulation(generations, size, dimension, displayGUI).execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage() + " Please try again.");
+        }
     }
 }

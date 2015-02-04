@@ -1,3 +1,4 @@
+package me.matt.genetics.gui;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,12 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.text.DefaultCaret;
+
+import me.matt.genetics.MessageType;
+import me.matt.genetics.gui.components.StyledTextPane;
+import me.matt.genetics.util.Util;
+import me.matt.genetics.wrapper.Individual;
+import me.matt.genetics.wrapper.Population;
 
 /**
  * Creates a GUI for the N-Queens solver solution.

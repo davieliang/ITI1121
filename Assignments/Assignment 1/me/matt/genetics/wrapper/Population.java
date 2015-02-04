@@ -1,4 +1,9 @@
+package me.matt.genetics.wrapper;
+
 import java.util.Arrays;
+
+import me.matt.genetics.util.Configuration;
+import me.matt.genetics.util.Util;
 
 /**
  * A <code>Population</code> is a collection of individuals (each one representing a candidate solution for the n-queens problem). To facilitate the
@@ -9,8 +14,6 @@ public class Population {
 
     private final Individual[] individuals;
 
-    public static final int MUTATION_RATE = 80;
-
     private boolean dead = false;
 
     /**
@@ -20,9 +23,16 @@ public class Population {
      *            is the number of individuals of this population
      * @param dimension
      *            is the size of the board and also the number of queens
+     * @throws Exception
+     *             The size of the population or dimension is too low
      */
 
-    public Population(final int size, final int dimension) {
+    public Population(final int size, final int dimension) throws Exception {
+        if (size < 2) {
+            throw new Exception("Invalid population size. (<2)");
+        } else if (dimension < 3) {
+            throw new Exception("Invalid dimension size. (<3)");
+        }
         individuals = new Individual[size];
         for (int i = 0; i < individuals.length; i++) {
             individuals[i] = new Individual(dimension);
@@ -47,8 +57,8 @@ public class Population {
         Individual k;
         while ((k = individuals[Util.random(0, individuals.length)]).equals(j));
         final Individual crossover =
-                Util.random(1, 101) < Population.MUTATION_RATE ? j.recombine(k)
-                        .mutate() : j.recombine(k);
+                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
+                        .recombine(k).mutate() : j.recombine(k);
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
             if (individuals[idx].getFitness() < individuals[i].getFitness()) {

@@ -1,4 +1,8 @@
+package me.matt.genetics.wrapper;
+
 import java.util.Arrays;
+
+import me.matt.genetics.util.Util;
 
 /**
  * <p>
@@ -62,8 +66,8 @@ public class Individual implements Comparable<Individual> {
         int fitness = 0;
         for (int i = 0; i < positions.length - 1; i++) {
             for (int j = positions.length - 1; j > i; j--) {
-                if (positions[j] == positions[i] + Math.abs(i - j)
-                        || positions[j] == positions[i] - Math.abs(i - j)) {
+                if (positions[j] == positions[i] + (j - i)
+                        || positions[j] == positions[i] - (j - i)) {
                     fitness++;
                 }
             }
