@@ -205,6 +205,9 @@ public class FitnessGUI extends JFrame {
         update(p.getFittest(), information);
         info.append(System.lineSeparator() + "Removing Duplicates");
         Individual[] individuals = Util.removeDuplicates(p.getIndividuals());
+        info.append(System.lineSeparator()
+                + (p.getIndividuals().length - individuals.length)
+                + " duplicates removed");
         String[] elements = new String[individuals.length];
         for (int i = 0; i < elements.length; i++) {
             elements[i] = "Fitness: " + individuals[i].getFitness();
