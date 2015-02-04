@@ -56,9 +56,8 @@ public class Population {
 
         Individual k;
         while ((k = individuals[Util.random(0, individuals.length)]).equals(j));
-        final Individual crossover =
-                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
-                        .recombine(k).mutate() : j.recombine(k);
+        final Individual crossover = Util.random(1, 101) < Configuration.MUTATION_RATE ? j
+                .recombine(k).mutate() : j.recombine(k);
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
             if (individuals[idx].getFitness() < individuals[i].getFitness()) {

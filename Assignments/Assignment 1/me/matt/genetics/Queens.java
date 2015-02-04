@@ -34,10 +34,9 @@ public class Queens {
             dimension = Integer.parseInt(args[2]);
             s = args[3];
         } else {
-            s =
-                    (String) JOptionPane.showInputDialog(null, "",
-                            "Method Selection", JOptionPane.PLAIN_MESSAGE,
-                            null, options, s);
+            s = (String) JOptionPane.showInputDialog(null, "",
+                    "Method Selection", JOptionPane.PLAIN_MESSAGE, null,
+                    options, s);
         }
 
         if (s == null) {
@@ -46,20 +45,16 @@ public class Queens {
         if (s.equalsIgnoreCase(options[0]) || s.equalsIgnoreCase(options[1])) {
             if (args.length != 4) {
                 try {
-                    generations =
-                            Integer.parseInt(JOptionPane
-                                    .showInputDialog(
-                                            "Input the number of generations. -1 for infinite",
-                                            String.valueOf(generations)));
-                    size =
-                            Integer.parseInt(JOptionPane.showInputDialog(
-                                    "Input the size of the population (>1)",
-                                    String.valueOf(size)));
-                    dimension =
-                            Integer.parseInt(JOptionPane.showInputDialog(
-                                    "Input the dimension of the board (>3)",
-                                    String.valueOf(dimension)));
-                } catch (Exception e) {
+                    generations = Integer.parseInt(JOptionPane.showInputDialog(
+                            "Input the number of generations. -1 for infinite",
+                            String.valueOf(generations)));
+                    size = Integer.parseInt(JOptionPane.showInputDialog(
+                            "Input the size of the population (>1)",
+                            String.valueOf(size)));
+                    dimension = Integer.parseInt(JOptionPane.showInputDialog(
+                            "Input the dimension of the board (>3)",
+                            String.valueOf(dimension)));
+                } catch (final Exception e) {
                     JOptionPane.showMessageDialog(null,
                             "Invalid input entered. Please try again.");
                     System.exit(0);
@@ -71,9 +66,8 @@ public class Queens {
                 Queens.simulate(generations, size, dimension, false);
             }
         } else {
-            dimension =
-                    Integer.parseInt(JOptionPane.showInputDialog(
-                            "Input the dimension of the board", "8"));
+            dimension = Integer.parseInt(JOptionPane.showInputDialog(
+                    "Input the dimension of the board", "8"));
             new FitnessGUI(dimension, false, -1);
         }
     }
@@ -128,8 +122,9 @@ public class Queens {
             final int dimension, final boolean displayGUI) {
         try {
             new Simulation(generations, size, dimension, displayGUI).execute();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() + " Please try again.");
+        } catch (final Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()
+                    + " Please try again.");
         }
     }
 }

@@ -34,9 +34,8 @@ public class Simulation extends SwingWorker<Void, Individual> {
         this.dimension = dimension;
         this.displayGUI = displayGUI;
         startTime = System.currentTimeMillis();
-        gui =
-                displayGUI ? new FitnessGUI(dimension, true,
-                        generations > 0 ? generations : -1) : null;
+        gui = displayGUI ? new FitnessGUI(dimension, true,
+                generations > 0 ? generations : -1) : null;
         if (displayGUI || !Configuration.MULTI_THREADED) {
             population = new Population(size, dimension);
         }
@@ -51,17 +50,62 @@ public class Simulation extends SwingWorker<Void, Individual> {
         evolutions = 0;
     }
 
-    private void runSimulationInParallel() throws InterruptedException,
-            ExecutionException {
-        ExecutorService executor =
-                Executors.newFixedThreadPool(Configuration.THREAD_COUNT);
-        CompletionService<Population> service =
-                new ExecutorCompletionService<>(executor);
-        for (int i = 0; i < Configuration.THREAD_COUNT; i++) {
-            service.submit(new SimulationTask(generations, size, dimension, i));
+    @Override
+    protected Void doInBackground() throws Exception {
+        if (displayGUI && gui != null) {
+            this.runSimulation();
+        } else {
+            if (Configuration.MULTI_THREADED) {
+                System.out.println("Running tasks concurrently");
+                this.runSimulationInParallel();
+            } else {
+                this.runSimulation();
+            }
+
         }
-        population = service.take().get();
-        executor.shutdownNow();
+        return null;
+    }
+
+    @Override
+    protected void done() {
+        if (dimension > 3) {
+            if (population != null) {
+                population.finalize();
+                final String result = "Execution time taken: "
+                        + Util.getRuntime(startTime) + System.lineSeparator()
+                        + "Generations: " + evolutions + System.lineSeparator()
+                        + "Population Size: " + size + System.lineSeparator()
+                        + "Dimension: " + dimension + System.lineSeparator()
+                        + "Attributes: " + population.getFittest().toString();
+                if (displayGUI && gui != null) {
+                    gui.finalize(population, result);
+                } else {
+                    System.out.println(result);
+                    System.exit(0);
+                }
+            } else {
+                if (displayGUI && gui != null) {
+                    gui.log("There has been an error creating the population!",
+                            MessageType.ERROR);
+                } else {
+                    System.out
+                            .println("There has been an error creating the population!");
+                    System.exit(0);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void process(final List<Individual> list) {
+        final String update = "There have been " + evolutions
+                + " generations and the fittest individual is "
+                + population.getFittest().getFitness() + ".";
+        if (gui != null && displayGUI) {
+            gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
+                    : list.get(list.size() - 1).getFitness());
+        }
+        System.out.println(update);
     }
 
     public void runSimulation() throws InterruptedException {
@@ -81,64 +125,17 @@ public class Simulation extends SwingWorker<Void, Individual> {
         }
     }
 
-    @Override
-    protected Void doInBackground() throws Exception {
-        if (displayGUI && gui != null) {
-            runSimulation();
-        } else {
-            if (Configuration.MULTI_THREADED) {
-                System.out.println("Running tasks concurrently");
-                runSimulationInParallel();
-            } else {
-                runSimulation();
-            }
-
+    private void runSimulationInParallel() throws InterruptedException,
+            ExecutionException {
+        final ExecutorService executor = Executors
+                .newFixedThreadPool(Configuration.THREAD_COUNT);
+        final CompletionService<Population> service = new ExecutorCompletionService<>(
+                executor);
+        for (int i = 0; i < Configuration.THREAD_COUNT; i++) {
+            service.submit(new SimulationTask(generations, size, dimension, i));
         }
-        return null;
-    }
-
-    @Override
-    protected void done() {
-        if (dimension > 3) {
-            if (population != null) {
-                population.finalize();
-                final String result =
-                        "Execution time taken: " + Util.getRuntime(startTime)
-                                + System.lineSeparator() + "Generations: "
-                                + evolutions + System.lineSeparator()
-                                + "Population Size: " + size
-                                + System.lineSeparator() + "Dimension: "
-                                + dimension + System.lineSeparator()
-                                + "Attributes: "
-                                + population.getFittest().toString();
-                if (displayGUI && gui != null) {
-                    gui.finalize(population, result);
-                } else {
-                    System.out.println(result);
-                }
-            } else {
-                if (displayGUI && gui != null) {
-                    gui.log("There has been an error creating the population!",
-                            MessageType.ERROR);
-                } else {
-                    System.out
-                            .println("There has been an error creating the population!");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void process(final List<Individual> list) {
-        final String update =
-                "There have been " + evolutions
-                        + " generations and the fittest individual is "
-                        + population.getFittest().getFitness() + ".";
-        if (gui != null && displayGUI) {
-            gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
-                    : list.get(list.size() - 1).getFitness());
-        }
-        System.out.println(update);
+        population = service.take().get();
+        executor.shutdownNow();
     }
 
 }

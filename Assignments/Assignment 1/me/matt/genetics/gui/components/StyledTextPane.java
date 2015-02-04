@@ -1,4 +1,5 @@
 package me.matt.genetics.gui.components;
+
 import java.awt.Color;
 
 import javax.swing.JTextPane;
@@ -10,9 +11,9 @@ import javax.swing.text.StyleConstants;
 import me.matt.genetics.MessageType;
 
 /**
- * Creates a text pane that can hold color.
+ * Creates a text pane that can hold color and text effects.
  *
- * @author matthewlanglois
+ * @author Matt Langlois
  *
  */
 public class StyledTextPane extends JTextPane {

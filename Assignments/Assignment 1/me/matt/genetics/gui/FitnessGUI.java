@@ -1,4 +1,5 @@
 package me.matt.genetics.gui;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -94,7 +95,7 @@ public class FitnessGUI extends JFrame {
                 }
             }
             final Individual ind = new Individual(permiutation);
-            log(System.lineSeparator() + "Attributes: " + ind.toString(),
+            this.log(System.lineSeparator() + "Attributes: " + ind.toString(),
                     MessageType.NORMAL);
         }
     }
@@ -196,8 +197,8 @@ public class FitnessGUI extends JFrame {
     public void finalize(final Population p, final String information) {
         bar.setValue(100);
         this.log("Removing Duplicates", MessageType.INFO);
-        final Individual[] individuals =
-                Util.removeDuplicates(p.getIndividuals());
+        final Individual[] individuals = Util.removeDuplicates(p
+                .getIndividuals());
         this.log((p.getIndividuals().length - individuals.length)
                 + " duplicates removed", MessageType.WARNING);
         final String[] elements = new String[individuals.length];

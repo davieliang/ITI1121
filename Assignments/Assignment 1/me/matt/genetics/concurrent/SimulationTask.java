@@ -13,24 +13,24 @@ public class SimulationTask implements Callable<Population> {
     private Population population;
     private final int size;
     private final int dimension;
-    private final int test;
+    private final int thread;
 
     SimulationTask(final int generations, final int size, final int dimension,
-            int test) {
+            final int thread) {
         this.generations = generations;
         this.size = size;
         this.dimension = dimension;
-        this.test = test;
+        this.thread = thread;
     }
 
     @Override
     public Population call() throws Exception {
         if (Configuration.DEBUG) {
-            System.out.println("Thread " + test + " started.");
+            System.out.println("Thread " + thread + " started.");
         }
         population = new Population(size, dimension);
         if (Configuration.DEBUG) {
-            System.out.println("Thread " + test + " populated.");
+            System.out.println("Thread " + thread + " populated.");
         }
         while (!Thread.currentThread().isInterrupted() && dimension > 3) {
             if (evolutions == generations) {
@@ -41,7 +41,7 @@ public class SimulationTask implements Callable<Population> {
             }
             population.evolve();
             if (Configuration.DEBUG) {
-                System.out.println("Thread " + test + " generation "
+                System.out.println("Thread " + thread + " generation "
                         + evolutions + " fittest "
                         + population.getFittest().getFitness());
             }
@@ -49,7 +49,7 @@ public class SimulationTask implements Callable<Population> {
         }
         if (Configuration.DEBUG) {
             if (!Thread.currentThread().isInterrupted()) {
-                System.out.println("Thread " + test + " complete");
+                System.out.println("Thread " + thread + " complete");
             }
         }
         return population;

@@ -1,6 +1,7 @@
 package me.matt.genetics;
+
 /**
- * An enum containing all of the Effects used within IRC protocall
+ * An enum containing various text effects to be used with <code>SytledTextPane</code>
  *
  * @author Matt
  *
