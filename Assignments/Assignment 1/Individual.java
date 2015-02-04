@@ -225,6 +225,24 @@ public class Individual implements Comparable<Individual> {
     }
 
     /**
+     * Checks if the individual is the same as the other individual.
+     * 
+     * @param other
+     *            The other individual to check
+     * @return <code>true</code> if the individual is the same as the other individual; otherwise <code>false</code>
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Individual)) {
+            return false;
+        }
+        return Arrays.equals(getPositions(), ((Individual) obj).getPositions());
+    }
+
+    /**
      * Returns a string representation of this <code>Individual</code>.
      *
      * @return a string representation of this <code>Individual</code>
@@ -235,4 +253,5 @@ public class Individual implements Comparable<Individual> {
         return "{ Fitness: " + getFitness() + ", Attributes: "
                 + Arrays.toString(positions) + "}";
     }
+
 }

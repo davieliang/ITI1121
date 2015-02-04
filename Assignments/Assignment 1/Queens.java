@@ -56,7 +56,7 @@ public class Queens {
         } else {
             dimension = Integer.parseInt(JOptionPane.showInputDialog(
                     "Input the dimension of the board", "8"));
-            new FitnessGUI(dimension);
+            new FitnessGUI(dimension, false, -1);
         }
     }
 

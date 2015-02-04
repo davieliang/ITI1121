@@ -74,6 +74,10 @@ public class Population {
         return individuals[0];
     }
 
+    public Individual[] getIndividuals() {
+        return individuals;
+    }
+
     /**
      * Returns a <code>String</code> representation of this <code>Population</code>.
      *

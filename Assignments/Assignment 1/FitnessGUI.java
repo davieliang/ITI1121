@@ -1,13 +1,18 @@
-import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.ListSelectionModel;
+import javax.swing.text.DefaultCaret;
 
 /**
  * Creates a GUI for the N-Queens solver solution.
@@ -26,6 +31,10 @@ public class FitnessGUI extends JFrame {
     private JPanel grid;
     private JTextArea info;
     private final int dimension;
+    private int target;
+    private final boolean infinite;
+    private JProgressBar bar = new JProgressBar();
+    private JList<String> list;
 
     /**
      * Creates and displays a GUI with the board dimensions specified
@@ -33,22 +42,12 @@ public class FitnessGUI extends JFrame {
      * @param dimension
      *            The dimension of the board
      */
-    public FitnessGUI(final int dimension) {
+    public FitnessGUI(final int dimension, final boolean simulation,
+            final int target) {
         this.dimension = dimension;
-        createResult();
-    }
-
-    /**
-     * Creates and displays a GUI with the board dimensions specified
-     *
-     * @param dimension
-     *            The dimension of the board
-     * @param fitnessTest
-     *            Determine how the checkboxes should be setup
-     */
-    public FitnessGUI(final Individual fittest, final String result) {
-        this.dimension = fittest.getPositions().length;
-        createResult(fittest, result);
+        this.target = target;
+        this.infinite = target < 0;
+        createResult(simulation);
     }
 
     private void checkAction(final ActionEvent e) {
@@ -94,52 +93,134 @@ public class FitnessGUI extends JFrame {
         }
     }
 
-    private void createResult() {
-        createResult(null, "Check the checkboxes you wish to represent queens.");
-    }
-
-    private void createResult(final Individual fittest, final String result) {
+    private void createResult(boolean simulator) {
         check = new JCheckBox[dimension * dimension];
-        info = new JTextArea(result);
+        info =
+                new JTextArea((simulator ? "Populating the queens..."
+                        : "Each checkbox represents a queen.")
+                        + System.lineSeparator());
         grid = new JPanel();
 
-        setLayout(new BorderLayout());
-        grid.setLayout(new GridLayout(dimension, dimension));
-        populateCheckboxes(fittest);
+        bar.setStringPainted(true);
 
+        grid.setLayout(new GridLayout(dimension, dimension));
+        populateCheckboxes(simulator);
+
+        DefaultCaret caret = (DefaultCaret) info.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         info.setLineWrap(true);
         info.setWrapStyleWord(true);
         info.setColumns(grid.getWidth());
         info.setRows(5);
-        info.setSize(info.getPreferredSize());
-
         info.setEditable(false);
-        final JScrollPane scroll = new JScrollPane(info,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        list = new JList<>(new String[] { "Simulating....." });
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        final JScrollPane gridScroll = new JScrollPane(grid);
+        final JScrollPane infoScroll = new JScrollPane(info);
+        final JScrollPane listScroll = new JScrollPane(list);
+        if (gridScroll.getPreferredSize().width > 600
+                || gridScroll.getPreferredSize().height > 600) {
+            gridScroll.setPreferredSize(new Dimension(400, 400));
+        }
+        listScroll.setPreferredSize(new Dimension(100, 0));
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(gridScroll, c);
+        if (simulator) {
+            c.gridx = 0;
+            c.gridy = 1;
+            this.add(bar, c);
+            c.gridx = 0;
+            c.gridy = 2;
+            this.add(infoScroll, c);
+            c.gridx = 1;
+            c.gridy = 0;
+            c.gridheight = 3;
+            c.weightx = 100;
+            c.fill = GridBagConstraints.VERTICAL;
+            c.anchor = GridBagConstraints.NORTH;
+            this.add(listScroll, c);
+        } else {
+            c.gridx = 0;
+            c.gridy = 1;
+            this.add(infoScroll, c);
+        }
+        setTitle("N-Queen Solver - Genetic Algorithm");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.add(grid, BorderLayout.NORTH);
-        this.add(scroll, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
 
-    private void populateCheckboxes(final Individual fittest) {
+    private void populateCheckboxes(boolean simulation) {
         for (int i = 0; i < check.length; i++) {
             check[i] = new JCheckBox();
-            check[i].setEnabled(fittest == null);
+            check[i].setEnabled(!simulation);
             grid.add(check[i]);
-            if (fittest != null) {
-                if (i / fittest.getPositions().length == fittest.getPositions()[i
-                        % fittest.getPositions().length]) {
-                    check[i].setSelected(true);
-                }
-            } else {
+            if (!simulation) {
                 check[i].addActionListener(e -> {
                     checkAction(e);
                 });
             }
+        }
+    }
+
+    public void update(Individual ind, long evolutions) {
+        for (int i = 0; i < check.length; i++) {
+            check[i].setSelected(false);
+            if (i / ind.getPositions().length == ind.getPositions()[i
+                    % ind.getPositions().length]) {
+                check[i].setSelected(true);
+            }
+            if (!infinite && target > 0) {
+                bar.setValue((int) (((double) evolutions / (double) target) * 100));
+            } else if (infinite && target > 0) {
+                bar.setValue(100 - (int) (((double) evolutions / (double) target) * 100));
+            }
+            bar.setString(!infinite ? evolutions + "/" + target
+                    + " generations" : "Current fitness: " + evolutions
+                    + " Start Fitness: " + target);
+        }
+    }
+
+    public void update(Individual ind, String information) {
+        info.append(information + System.lineSeparator());
+        info.setCaretPosition(info.getDocument().getLength());
+        for (int i = 0; i < check.length; i++) {
+            check[i].setSelected(false);
+            if (i / ind.getPositions().length == ind.getPositions()[i
+                    % ind.getPositions().length]) {
+                check[i].setSelected(true);
+            }
+        }
+    }
+
+    public void finalize(Population p, String information) {
+        update(p.getFittest(), information);
+        info.append(System.lineSeparator() + "Removing Duplicates");
+        Individual[] individuals = Util.removeDuplicates(p.getIndividuals());
+        String[] elements = new String[individuals.length];
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = "Fitness: " + individuals[i].getFitness();
+        }
+        list.setListData(elements);
+        list.setSelectedIndex(0);
+        list.addListSelectionListener(e -> {
+            update(individuals[list.getSelectedIndex()], System.lineSeparator()
+                    + "Selecting new individual... " + System.lineSeparator()
+                    + individuals[list.getSelectedIndex()].toString());
+        });
+    }
+
+    public void setTarget(int target) {
+        if (this.target < 0) {
+            this.target = target;
         }
     }
 

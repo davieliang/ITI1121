@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -77,6 +79,17 @@ public class Util {
      */
     public static int random(final int min, final int max) {
         return min + (max == min ? 0 : Util.random.nextInt(max - min));
+    }
+
+    // Create an array with all unique elements
+    public static Individual[] removeDuplicates(Individual[] individuals) {
+        List<Individual> cleaned = new ArrayList<Individual>();
+        for (Individual individual : individuals) {
+            if (!cleaned.contains(individual)) {
+                cleaned.add(individual);
+            }
+        }
+        return cleaned.toArray(new Individual[cleaned.size()]);
     }
 
     /** Uses a a generator of pseudo-random numbers */
