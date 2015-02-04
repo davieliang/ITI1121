@@ -58,13 +58,12 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual(final int[] permutation) {
-        this.positions = permutation;
+        positions = permutation;
         int fitness = 0;
-        for (int i = 0; i < this.positions.length - 1; i++) {
-            for (int j = this.positions.length - 1; j > i; j--) {
-                if (this.positions[j] == this.positions[i] + Math.abs(i - j)
-                        || this.positions[j] == this.positions[i]
-                                - Math.abs(i - j)) {
+        for (int i = 0; i < positions.length - 1; i++) {
+            for (int j = positions.length - 1; j > i; j--) {
+                if (positions[j] == positions[i] + Math.abs(i - j)
+                        || positions[j] == positions[i] - Math.abs(i - j)) {
                     fitness++;
                 }
             }
@@ -113,10 +112,10 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual crossover(final Individual other, final int position) {
-        final int[] permiutation = new int[this.positions.length];
+        final int[] permiutation = new int[positions.length];
         int offset = 0;
         for (int i = 0; i < position; i++) {
-            permiutation[i] = this.positions[i];
+            permiutation[i] = positions[i];
         }
         for (int i = 0; i < other.getPositions().length; i++) {
             boolean found = false;
@@ -161,7 +160,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public int getFitness() {
-        return this.fitness;
+        return fitness;
     }
 
     /**
@@ -170,7 +169,7 @@ public class Individual implements Comparable<Individual> {
      * @return The positions of each individual queen on the board
      */
     public int[] getPositions() {
-        return this.positions;
+        return positions;
     }
 
     /**
@@ -185,9 +184,9 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual mutate() {
-        final int i = Util.random(0, this.positions.length);
+        final int i = Util.random(0, positions.length);
         int j;
-        while ((j = Util.random(0, this.positions.length)) == i);
+        while ((j = Util.random(0, positions.length)) == i);
         return this.mutate(i, j);
     }
 
@@ -205,7 +204,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual mutate(final int i, final int j) {
-        final int[] copy = Arrays.copyOf(this.positions, this.positions.length);
+        final int[] copy = Arrays.copyOf(positions, positions.length);
         final int temp = copy[i];
         copy[i] = copy[j];
         copy[j] = temp;
@@ -236,7 +235,7 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual recombine(final Individual other) {
-        return this.crossover(other, Util.random(1, this.positions.length - 1));
+        return this.crossover(other, Util.random(1, positions.length - 1));
     }
 
     /**
@@ -248,7 +247,7 @@ public class Individual implements Comparable<Individual> {
     @Override
     public String toString() {
         return "{ Fitness: " + this.getFitness() + ", Attributes: "
-                + Arrays.toString(this.positions) + "}";
+                + Arrays.toString(positions) + "}";
     }
 
 }

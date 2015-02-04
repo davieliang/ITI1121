@@ -23,9 +23,9 @@ public class Population {
      */
 
     public Population(final int size, final int dimension) {
-        this.individuals = new Individual[size];
-        for (int i = 0; i < this.individuals.length; i++) {
-            this.individuals[i] = new Individual(dimension);
+        individuals = new Individual[size];
+        for (int i = 0; i < individuals.length; i++) {
+            individuals[i] = new Individual(dimension);
         }
     }
 
@@ -39,27 +39,26 @@ public class Population {
      */
 
     public void evolve() {
-        if (this.dead) {
+        if (dead) {
             return;
         }
-        final int j = Util.random(0, this.individuals.length);
+        final int j = Util.random(0, individuals.length);
 
         int k;
-        while ((k = Util.random(0, this.individuals.length)) == j);
-        final Individual crossover = Util.random(1, 101) < Population.MUTATION_RATE ? this.individuals[j]
-                .recombine(this.individuals[k]).mutate() : this.individuals[j]
-                .recombine(this.individuals[k]);
+        while ((k = Util.random(0, individuals.length)) == j);
+        final Individual crossover = Util.random(1, 101) < Population.MUTATION_RATE ? individuals[j]
+                .recombine(individuals[k]).mutate() : individuals[j]
+                .recombine(individuals[k]);
         int idx = 0;
-        for (int i = 1; i < this.individuals.length; i++) {
-            if (this.individuals[idx].getFitness() < this.individuals[i]
-                    .getFitness()) {
+        for (int i = 1; i < individuals.length; i++) {
+            if (individuals[idx].getFitness() < individuals[i].getFitness()) {
                 idx = i;
             }
         }
-        if (this.individuals[idx].getFitness() > crossover.getFitness()) {
-            this.individuals[idx] = crossover;
+        if (individuals[idx].getFitness() > crossover.getFitness()) {
+            individuals[idx] = crossover;
         }
-        Arrays.sort(this.individuals);
+        Arrays.sort(individuals);
     }
 
     /**
@@ -69,7 +68,7 @@ public class Population {
 
     @Override
     public void finalize() {
-        this.dead = true;
+        dead = true;
     }
 
     /**
@@ -80,7 +79,7 @@ public class Population {
      */
 
     public Individual getFittest() {
-        return this.individuals[0];
+        return individuals[0];
     }
 
     /**
@@ -89,7 +88,7 @@ public class Population {
      * @return The individuals in the population
      */
     public Individual[] getIndividuals() {
-        return this.individuals;
+        return individuals;
     }
 
     /**
@@ -101,7 +100,7 @@ public class Population {
     @Override
     public String toString() {
         String s = "";
-        for (final Individual i : this.individuals) {
+        for (final Individual i : individuals) {
             s += i.getFitness() + ",";
         }
         return s;

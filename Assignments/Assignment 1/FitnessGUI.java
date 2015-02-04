@@ -10,7 +10,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.text.DefaultCaret;
 
@@ -29,7 +28,7 @@ public class FitnessGUI extends JFrame {
 
     private JCheckBox[] check;
     private JPanel grid;
-    private JTextArea info;
+    private StyledTextPane info;
     private final int dimension;
     private int target;
     private final boolean infinite;
@@ -46,7 +45,7 @@ public class FitnessGUI extends JFrame {
             final int target) {
         this.dimension = dimension;
         this.target = target;
-        this.infinite = target < 0;
+        infinite = target < 0;
         this.createResult(simulation);
     }
 
@@ -55,9 +54,9 @@ public class FitnessGUI extends JFrame {
         int box = -1;
 
         // Determine the location of the checkbox in the array
-        for (int j = 0; j < this.check.length; j++) {
-            if (this.check[j] == source) {
-                this.check[j].setEnabled(false);
+        for (int j = 0; j < check.length; j++) {
+            if (check[j] == source) {
+                check[j].setEnabled(false);
                 box = j;
                 break;
             }
@@ -65,16 +64,15 @@ public class FitnessGUI extends JFrame {
 
         // Determine which rows and columns should be eliminated
         if (box > -1) {
-            for (int j = 0; j < this.dimension; j++) {
-                this.check[box + j - (box % this.dimension)].setEnabled(false);
-                this.check[box % this.dimension + (j * this.dimension)]
-                        .setEnabled(false);
+            for (int j = 0; j < dimension; j++) {
+                check[box + j - (box % dimension)].setEnabled(false);
+                check[box % dimension + (j * dimension)].setEnabled(false);
             }
         }
 
         // Check if every checkbox has been disabled
         boolean calculate = true;
-        for (final JCheckBox c : this.check) {
+        for (final JCheckBox c : check) {
             if (c.isEnabled()) {
                 calculate = false;
             }
@@ -82,73 +80,104 @@ public class FitnessGUI extends JFrame {
 
         // If the board is ready, calculate the fitness
         if (calculate) {
-            final int[] permiutation = new int[this.dimension];
-            for (int j = 0; j < this.check.length; j++) {
-                if (this.check[j].isSelected()) {
-                    permiutation[j % this.dimension] = j / this.dimension;
+            final int[] permiutation = new int[dimension];
+            for (int j = 0; j < check.length; j++) {
+                if (check[j].isSelected()) {
+                    permiutation[j % dimension] = j / dimension;
                 }
             }
             final Individual ind = new Individual(permiutation);
-            this.info.setText("fitness: " + ind.getFitness()
+            info.setText("fitness: " + ind.getFitness()
                     + System.lineSeparator() + "Attributes: " + ind.toString());
         }
     }
 
     private void createResult(final boolean simulator) {
-        this.check = new JCheckBox[this.dimension * this.dimension];
-        this.info = new JTextArea((simulator ? "Populating the queens..."
-                : "Each checkbox represents a queen.") + System.lineSeparator());
-        this.grid = new JPanel();
+        check = new JCheckBox[dimension * dimension];
+        info = new StyledTextPane();
+        grid = new JPanel();
 
-        this.bar.setStringPainted(true);
+        bar.setStringPainted(true);
 
-        this.grid.setLayout(new GridLayout(this.dimension, this.dimension));
-        this.populateCheckboxes(simulator);
+        grid.setLayout(new GridLayout(dimension, dimension));
+        if (dimension <= 100) {
+            this.populateCheckboxes(simulator);
+        }
 
-        final DefaultCaret caret = (DefaultCaret) this.info.getCaret();
+        final DefaultCaret caret = (DefaultCaret) info.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        this.info.setLineWrap(true);
-        this.info.setWrapStyleWord(true);
-        this.info.setColumns(this.grid.getWidth());
-        this.info.setRows(5);
-        this.info.setEditable(false);
+        info.setEditable(false);
+        info.append(
+                (simulator ? "Populating the queens..."
+                        : "Each checkbox represents a queen.")
+                        + System.lineSeparator(), MessageType.INFO);
 
-        this.list = new JList<>(new String[] { "Simulating....." });
-        this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list = new JList<>(new String[] { "Simulating....." });
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        final JScrollPane gridScroll = new JScrollPane(this.grid);
-        final JScrollPane infoScroll = new JScrollPane(this.info);
-        final JScrollPane listScroll = new JScrollPane(this.list);
+        final JScrollPane gridScroll = new JScrollPane(grid);
+        final JScrollPane infoScroll = new JScrollPane(info);
+        final JScrollPane listScroll = new JScrollPane(list);
         if (gridScroll.getPreferredSize().width > 600
                 || gridScroll.getPreferredSize().height > 600) {
             gridScroll.setPreferredSize(new Dimension(400, 400));
         }
         listScroll.setPreferredSize(new Dimension(100, 0));
+        infoScroll.setPreferredSize(new Dimension(300, 100));
+        if (dimension > 100) {
+            infoScroll.setPreferredSize(new Dimension(600, 400));
+        }
 
         this.setLayout(new GridBagLayout());
         final GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        this.add(gridScroll, c);
-        if (simulator) {
+        if (dimension <= 100) {
             c.gridx = 0;
-            c.gridy = 1;
-            this.add(this.bar, c);
-            c.gridx = 0;
-            c.gridy = 2;
-            this.add(infoScroll, c);
-            c.gridx = 1;
             c.gridy = 0;
-            c.gridheight = 3;
-            c.weightx = 100;
-            c.fill = GridBagConstraints.VERTICAL;
-            c.anchor = GridBagConstraints.NORTH;
-            this.add(listScroll, c);
+            this.add(gridScroll, c);
+        }
+        if (simulator) {
+            if (dimension <= 100) {
+                c.gridx = 0;
+                c.gridy = 1;
+                this.add(bar, c);
+                c.gridx = 0;
+                c.gridy = 2;
+                this.add(infoScroll, c);
+                c.gridx = 1;
+                c.gridy = 0;
+                c.gridheight = 3;
+                c.weightx = 100;
+                c.fill = GridBagConstraints.VERTICAL;
+                c.anchor = GridBagConstraints.NORTH;
+                this.add(listScroll, c);
+            } else {
+                c.gridx = 0;
+                c.gridy = 0;
+                this.add(infoScroll, c);
+                c.gridx = 0;
+                c.gridy = 1;
+                this.add(bar, c);
+                c.gridx = 1;
+                c.gridy = 0;
+                c.gridheight = 2;
+                c.fill = GridBagConstraints.VERTICAL;
+                c.anchor = GridBagConstraints.NORTH;
+                this.add(listScroll, c);
+                this.log(
+                        "Dimension is too large to display grid. Only text will be shown, however you will see the population at the end.",
+                        MessageType.ERROR);
+            }
         } else {
             c.gridx = 0;
             c.gridy = 1;
             this.add(infoScroll, c);
+            if (dimension > 100) {
+                info.setText("");
+                info.append(
+                        "Dimension is too big (> 100)!!! The checker requires a dimension of 100 or less.",
+                        MessageType.ERROR);
+            }
         }
         this.setTitle("N-Queen Solver - Genetic Algorithm");
         this.setResizable(false);
@@ -158,41 +187,44 @@ public class FitnessGUI extends JFrame {
     }
 
     public void finalize(final Population p, final String information) {
-        this.update(p.getFittest(), information);
-        this.log("Removing Duplicates");
+        this.log("Printing Results..." + System.lineSeparator(),
+                MessageType.INFO);
+        this.update(p.getFittest(), information, MessageType.NORMAL);
+        this.log("Removing Duplicates", MessageType.INFO);
         final Individual[] individuals = Util.removeDuplicates(p
                 .getIndividuals());
         this.log((p.getIndividuals().length - individuals.length)
-                + " duplicates removed");
+                + " duplicates removed", MessageType.WARNING);
         final String[] elements = new String[individuals.length];
         for (int i = 0; i < elements.length; i++) {
             elements[i] = "Fitness: " + individuals[i].getFitness();
         }
-        this.list.setListData(elements);
-        this.list.setSelectedIndex(0);
-        this.list.addListSelectionListener(e -> {
+        list.setListData(elements);
+        list.setSelectedIndex(0);
+        list.addListSelectionListener(e -> {
+            this.log(System.lineSeparator() + "Selecting new individual... ",
+                    MessageType.INFO);
             this.update(
-                    individuals[this.list.getSelectedIndex()],
+                    individuals[list.getSelectedIndex()],
+
                     System.lineSeparator()
-                            + "Selecting new individual... "
-                            + System.lineSeparator()
-                            + individuals[this.list.getSelectedIndex()]
-                                    .toString());
+                            + individuals[list.getSelectedIndex()].toString(),
+                    MessageType.NORMAL);
         });
     }
 
-    private void log(final String s) {
-        this.info.append(s + System.lineSeparator());
+    private void log(final String s, final MessageType format) {
+        info.append(s + System.lineSeparator(), format);
         System.out.println(s);
     }
 
     private void populateCheckboxes(final boolean simulation) {
-        for (int i = 0; i < this.check.length; i++) {
-            this.check[i] = new JCheckBox();
-            this.check[i].setEnabled(!simulation);
-            this.grid.add(this.check[i]);
+        for (int i = 0; i < check.length; i++) {
+            check[i] = new JCheckBox();
+            check[i].setEnabled(!simulation);
+            grid.add(check[i]);
             if (!simulation) {
-                this.check[i].addActionListener(e -> {
+                check[i].addActionListener(e -> {
                     this.checkAction(e);
                 });
             }
@@ -206,31 +238,36 @@ public class FitnessGUI extends JFrame {
     }
 
     public void update(final Individual ind, final long evolutions) {
-        for (int i = 0; i < this.check.length; i++) {
-            this.check[i].setSelected(false);
-            if (i / ind.getPositions().length == ind.getPositions()[i
-                    % ind.getPositions().length]) {
-                this.check[i].setSelected(true);
+        if (dimension <= 100) {
+            for (int i = 0; i < check.length; i++) {
+                check[i].setSelected(false);
+                if (i / ind.getPositions().length == ind.getPositions()[i
+                        % ind.getPositions().length]) {
+                    check[i].setSelected(true);
+                }
             }
-            if (!this.infinite && this.target > 0) {
-                this.bar.setValue((int) (((double) evolutions / (double) this.target) * 100));
-            } else if (this.infinite && this.target > 0) {
-                this.bar.setValue(100 - (int) (((double) evolutions / (double) this.target) * 100));
-            }
-            this.bar.setString(!this.infinite ? evolutions + "/" + this.target
-                    + " generations" : "Current fitness: " + evolutions
-                    + " Start Fitness: " + this.target);
         }
+        if (!infinite && target > 0) {
+            bar.setValue((int) (((double) evolutions / (double) target) * 100));
+        } else if (infinite && target > 0) {
+            bar.setValue(100 - (int) (((double) evolutions / (double) target) * 100));
+        }
+        bar.setString(!infinite ? evolutions + "/" + target + " generations"
+                : "Current fitness: " + evolutions + " Start Fitness: "
+                        + target);
     }
 
-    public void update(final Individual ind, final String information) {
-        this.log(information);
-        this.info.setCaretPosition(this.info.getDocument().getLength());
-        for (int i = 0; i < this.check.length; i++) {
-            this.check[i].setSelected(false);
-            if (i / ind.getPositions().length == ind.getPositions()[i
-                    % ind.getPositions().length]) {
-                this.check[i].setSelected(true);
+    public void update(final Individual ind, final String information,
+            final MessageType type) {
+        this.log(information, type);
+        info.setCaretPosition(info.getDocument().getLength());
+        if (dimension <= 100) {
+            for (int i = 0; i < check.length; i++) {
+                check[i].setSelected(false);
+                if (i / ind.getPositions().length == ind.getPositions()[i
+                        % ind.getPositions().length]) {
+                    check[i].setSelected(true);
+                }
             }
         }
     }

@@ -17,46 +17,46 @@ public class Simulation extends SwingWorker<Void, Individual> {
         this.generations = generations;
         this.size = size;
         this.displayGUI = displayGUI;
-        this.startTime = System.currentTimeMillis();
-        this.gui = displayGUI ? new FitnessGUI(dimension, true,
+        startTime = System.currentTimeMillis();
+        gui = displayGUI ? new FitnessGUI(dimension, true,
                 generations > 0 ? generations : -1) : null;
-        this.population = new Population(size, dimension);
-        if (this.gui != null) {
-            this.gui.update(this.population.getFittest(), "Simulating....");
-            this.gui.setTarget(this.population.getFittest().getFitness());
+        population = new Population(size, dimension);
+        if (gui != null) {
+            gui.update(population.getFittest(), "Simulating....",
+                    MessageType.INFO);
+            gui.setTarget(population.getFittest().getFitness());
         }
-        this.evolutions = 0;
+        evolutions = 0;
     }
 
     @Override
     protected Void doInBackground() throws Exception {
         while (true) {
-            this.publish(this.population.getFittest());
-            if (this.evolutions == this.generations) {
+            this.publish(population.getFittest());
+            if (evolutions == generations) {
                 break;
             }
-            if (this.population.getFittest().getFitness() == 0) {
+            if (population.getFittest().getFitness() == 0) {
                 break;
             }
-            this.population.evolve();
-            this.evolutions++;
+            population.evolve();
+            evolutions++;
         }
         return null;
     }
 
     @Override
     protected void done() {
-        this.population.finalize();
-        final String result = "Printing Results..." + System.lineSeparator()
-                + System.lineSeparator() + "Execution time taken: "
-                + Util.getRuntime(this.startTime) + System.lineSeparator()
-                + "Generations: " + this.evolutions + System.lineSeparator()
-                + "Population Size: " + this.size + System.lineSeparator()
-                + "fitness: " + this.population.getFittest().getFitness()
+        population.finalize();
+        final String result = "Execution time taken: "
+                + Util.getRuntime(startTime) + System.lineSeparator()
+                + "Generations: " + evolutions + System.lineSeparator()
+                + "Population Size: " + size + System.lineSeparator()
+                + "fitness: " + population.getFittest().getFitness()
                 + System.lineSeparator() + "Attributes: "
-                + this.population.getFittest().toString();
-        if (this.displayGUI && this.gui != null) {
-            this.gui.finalize(this.population, result);
+                + population.getFittest().toString();
+        if (displayGUI && gui != null) {
+            gui.finalize(population, result);
         } else {
             System.out.println(result);
         }
@@ -64,14 +64,12 @@ public class Simulation extends SwingWorker<Void, Individual> {
 
     @Override
     public void process(final List<Individual> list) {
-        final String update = "There have been " + this.evolutions
+        final String update = "There have been " + evolutions
                 + " generations and the fittest individual is "
-                + this.population.getFittest().getFitness() + ".";
-        if (this.gui != null && this.displayGUI) {
-            this.gui.update(
-                    list.get(list.size() - 1),
-                    this.generations > 0 ? this.evolutions : list.get(
-                            list.size() - 1).getFitness());
+                + population.getFittest().getFitness() + ".";
+        if (gui != null && displayGUI) {
+            gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
+                    : list.get(list.size() - 1).getFitness());
         }
         System.out.println(update);
     }
