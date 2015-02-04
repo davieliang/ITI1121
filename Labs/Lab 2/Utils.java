@@ -1,13 +1,12 @@
-
 public class Utils {
 
-    public static String[] findAndReplace(String[] in, String[] what,
-            String[] with) {
+    public static String[] findAndReplace(final String[] in,
+            final String[] what, final String[] with) {
         if (in == null || what == null || with == null
                 || what.length != with.length) {
             return null;
         }
-        String[] copy = in.clone();
+        final String[] copy = in.clone();
         for (int i = 0; i < copy.length; i++) {
             for (int j = 0; j < what.length; j++) {
                 if (copy[i] == null || what[j] == null || with[j] == null) {

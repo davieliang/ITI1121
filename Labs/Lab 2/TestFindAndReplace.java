@@ -15,103 +15,16 @@ import junit.framework.TestCase;
 @SuppressWarnings("deprecation")
 public class TestFindAndReplace extends TestCase {
 
-    public static void testInIsNull() {
-        String[] query = { "I" };
-        String[] replacement = { "You" };
-        Assert.assertNull(Utils.findAndReplace(null, query, replacement));
-    }
-
-    public static void testQueryIsNull() {
-        String[] text = { "I", "understand" };
-        String[] replacement = { "You" };
-        Assert.assertNull(Utils.findAndReplace(text, null, replacement));
-    }
-
-    public static void testReplacementIsNull() {
-        String[] text = { "I", "understand" };
-        String[] query = { "I" };
-        Assert.assertNull(Utils.findAndReplace(text, query, null));
-    }
-
-    public static void testInAndQueryAreNull() {
-        String[] replacement = { "You" };
-        Assert.assertNull(Utils.findAndReplace(null, null, replacement));
-    }
-
-    public static void testInAndReplacementreNull() {
-        String[] query = { "I" };
-        Assert.assertNull(Utils.findAndReplace(null, query, null));
-    }
-
-    public static void testQueryAndReplacementreNull() {
-        String[] text = { "I", "understand" };
-        Assert.assertNull(Utils.findAndReplace(text, null, null));
-    }
-
     public static void testAllNull() {
         Assert.assertNull(Utils.findAndReplace(null, null, null));
     }
 
-    public static void testNotSameLength() {
-        String[] text = { "I", "understand" };
-        String[] query = { "I" };
-        String[] replacement = { "You", "They" };
-        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
-    }
-
-    public static void testNullInIn() {
-        String[] text = { "I", null };
-        String[] query = { "I" };
-        String[] replacement = { "You" };
-        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
-    }
-
-    public static void testNullInQuery() {
-        String[] text = { "I", "understand" };
-        String[] query = { "I", null };
-        String[] replacement = { "You", "They" };
-        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
-    }
-
-    public static void testNullInReplacement() {
-        String[] text = { "I", "understand" };
-        String[] query = { "I", "We" };
-        String[] replacement = { null, "They" };
-        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
-    }
-
-    public static void testNoChange1() {
-        String[] text = { "I", "understand" };
-        String[] query = {};
-        String[] replacement = {};
-        String[] result = Utils.findAndReplace(text, query, replacement);
-        Assert.assertNotNull(result);
-        Assert.assertFalse(text == result);
-        Assert.assertTrue(text.length == result.length);
-        for (int i = 0; i < text.length; i++) {
-            Assert.assertEquals(text[i], result[i]);
-        }
-    }
-
-    public static void testNoChange2() {
-        String[] text = { "I", "understand" };
-        String[] query = { "You" };
-        String[] replacement = { "I" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
-        Assert.assertNotNull(result);
-        Assert.assertFalse(text == result);
-        Assert.assertTrue(text.length == result.length);
-        for (int i = 0; i < text.length; i++) {
-            Assert.assertEquals(text[i], result[i]);
-        }
-    }
-
     public static void testChangeFirst1() {
-        String[] text = { "I", "understand" };
-        String[] query = { text[0] };
-        String[] replacement = { "You" };
-        String[] expected = { replacement[0], text[1] };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] text = { "I", "understand" };
+        final String[] query = { text[0] };
+        final String[] replacement = { "You" };
+        final String[] expected = { replacement[0], text[1] };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -121,11 +34,11 @@ public class TestFindAndReplace extends TestCase {
     }
 
     public static void testChangeFirst2() {
-        String[] text = { "I", "understand" };
-        String[] query = { new String("I") };
-        String[] replacement = { "You" };
-        String[] expected = { "You", "understand" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] text = { "I", "understand" };
+        final String[] query = { new String("I") };
+        final String[] replacement = { "You" };
+        final String[] expected = { "You", "understand" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -135,11 +48,11 @@ public class TestFindAndReplace extends TestCase {
     }
 
     public static void testChangeLast() {
-        String[] text = { "I", "understand" };
-        String[] query = { new String("understand") };
-        String[] replacement = { "see" };
-        String[] expected = { "I", "see" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] text = { "I", "understand" };
+        final String[] query = { new String("understand") };
+        final String[] replacement = { "see" };
+        final String[] expected = { "I", "see" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -149,11 +62,12 @@ public class TestFindAndReplace extends TestCase {
     }
 
     public static void testChangeLeft() {
-        String[] text = { "I", "understand" };
-        String[] query = { new String("understand"), new String("understand") };
-        String[] replacement = { "see", "grasp" };
-        String[] expected = { "I", "see" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] text = { "I", "understand" };
+        final String[] query = { new String("understand"),
+                new String("understand") };
+        final String[] replacement = { "see", "grasp" };
+        final String[] expected = { "I", "see" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -162,13 +76,48 @@ public class TestFindAndReplace extends TestCase {
         }
     }
 
+    public static void testInAndQueryAreNull() {
+        final String[] replacement = { "You" };
+        Assert.assertNull(Utils.findAndReplace(null, null, replacement));
+    }
+
+    public static void testInAndReplacementreNull() {
+        final String[] query = { "I" };
+        Assert.assertNull(Utils.findAndReplace(null, query, null));
+    }
+
+    public static void testInIsNull() {
+        final String[] query = { "I" };
+        final String[] replacement = { "You" };
+        Assert.assertNull(Utils.findAndReplace(null, query, replacement));
+    }
+
+    public static void testInIsUnchanged() {
+        final String[] text = { "I", "like", "Java" };
+        final String[] query = { new String("I"), new String("Java"),
+                new String("like") };
+        final String[] replacement = { "You", "object-oriented programming",
+                "enjoy" };
+        final String[] expected = new String[text.length];
+        System.arraycopy(text, 0, expected, 0, text.length);
+        final String[] result = Utils.findAndReplace(text, query, replacement);
+        Assert.assertNotNull(result);
+        Assert.assertFalse(text == result);
+        Assert.assertTrue(text.length == result.length);
+        for (int i = 0; i < text.length; i++) {
+            Assert.assertEquals(expected[i], text[i]);
+        }
+    }
+
     public static void testMultipleChanges1() {
-        String[] text = { "I", "like", "Java" };
-        String[] query = { new String("I"), new String("like"),
+        final String[] text = { "I", "like", "Java" };
+        final String[] query = { new String("I"), new String("like"),
                 new String("Java") };
-        String[] replacement = { "You", "enjoy", "object-oriented programming" };
-        String[] expected = { "You", "enjoy", "object-oriented programming" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] replacement = { "You", "enjoy",
+                "object-oriented programming" };
+        final String[] expected = { "You", "enjoy",
+                "object-oriented programming" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -178,12 +127,14 @@ public class TestFindAndReplace extends TestCase {
     }
 
     public static void testMultipleChanges2() {
-        String[] text = { "I", "like", "Java" };
-        String[] query = { new String("I"), new String("Java"),
+        final String[] text = { "I", "like", "Java" };
+        final String[] query = { new String("I"), new String("Java"),
                 new String("like") };
-        String[] replacement = { "You", "object-oriented programming", "enjoy" };
-        String[] expected = { "You", "enjoy", "object-oriented programming" };
-        String[] result = Utils.findAndReplace(text, query, replacement);
+        final String[] replacement = { "You", "object-oriented programming",
+                "enjoy" };
+        final String[] expected = { "You", "enjoy",
+                "object-oriented programming" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
@@ -192,20 +143,75 @@ public class TestFindAndReplace extends TestCase {
         }
     }
 
-    public static void testInIsUnchanged() {
-        String[] text = { "I", "like", "Java" };
-        String[] query = { new String("I"), new String("Java"),
-                new String("like") };
-        String[] replacement = { "You", "object-oriented programming", "enjoy" };
-        String[] expected = new String[text.length];
-        System.arraycopy(text, 0, expected, 0, text.length);
-        String[] result = Utils.findAndReplace(text, query, replacement);
+    public static void testNoChange1() {
+        final String[] text = { "I", "understand" };
+        final String[] query = {};
+        final String[] replacement = {};
+        final String[] result = Utils.findAndReplace(text, query, replacement);
         Assert.assertNotNull(result);
         Assert.assertFalse(text == result);
         Assert.assertTrue(text.length == result.length);
         for (int i = 0; i < text.length; i++) {
-            Assert.assertEquals(expected[i], text[i]);
+            Assert.assertEquals(text[i], result[i]);
         }
+    }
+
+    public static void testNoChange2() {
+        final String[] text = { "I", "understand" };
+        final String[] query = { "You" };
+        final String[] replacement = { "I" };
+        final String[] result = Utils.findAndReplace(text, query, replacement);
+        Assert.assertNotNull(result);
+        Assert.assertFalse(text == result);
+        Assert.assertTrue(text.length == result.length);
+        for (int i = 0; i < text.length; i++) {
+            Assert.assertEquals(text[i], result[i]);
+        }
+    }
+
+    public static void testNotSameLength() {
+        final String[] text = { "I", "understand" };
+        final String[] query = { "I" };
+        final String[] replacement = { "You", "They" };
+        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
+    }
+
+    public static void testNullInIn() {
+        final String[] text = { "I", null };
+        final String[] query = { "I" };
+        final String[] replacement = { "You" };
+        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
+    }
+
+    public static void testNullInQuery() {
+        final String[] text = { "I", "understand" };
+        final String[] query = { "I", null };
+        final String[] replacement = { "You", "They" };
+        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
+    }
+
+    public static void testNullInReplacement() {
+        final String[] text = { "I", "understand" };
+        final String[] query = { "I", "We" };
+        final String[] replacement = { null, "They" };
+        Assert.assertNull(Utils.findAndReplace(text, query, replacement));
+    }
+
+    public static void testQueryAndReplacementreNull() {
+        final String[] text = { "I", "understand" };
+        Assert.assertNull(Utils.findAndReplace(text, null, null));
+    }
+
+    public static void testQueryIsNull() {
+        final String[] text = { "I", "understand" };
+        final String[] replacement = { "You" };
+        Assert.assertNull(Utils.findAndReplace(text, null, replacement));
+    }
+
+    public static void testReplacementIsNull() {
+        final String[] text = { "I", "understand" };
+        final String[] query = { "I" };
+        Assert.assertNull(Utils.findAndReplace(text, query, null));
     }
 
 }

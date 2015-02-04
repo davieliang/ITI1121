@@ -4,17 +4,17 @@ public class SecurityAgent {
     private final DoorLock doorlock;
 
     public SecurityAgent() {
-        this.combination = new Combination((int) (Math.random() * 5) + 1,
+        combination = new Combination((int) (Math.random() * 5) + 1,
                 (int) (Math.random() * 5) + 1, (int) (Math.random() * 5) + 1);
-        this.doorlock = new DoorLock(this.combination);
-    }
-
-    public DoorLock getDoorLock() {
-        return doorlock;
+        doorlock = new DoorLock(combination);
     }
 
     public void activateDoorLock() {
         doorlock.activate(combination);
+    }
+
+    public DoorLock getDoorLock() {
+        return doorlock;
     }
 
 }
