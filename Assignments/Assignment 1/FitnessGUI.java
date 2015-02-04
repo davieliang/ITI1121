@@ -187,7 +187,7 @@ public class FitnessGUI extends JFrame {
     }
 
     public void finalize(final Population p, final String information) {
-        this.log("Printing Results..." + System.lineSeparator(),
+        this.log("Printing Optimal Solution..." + System.lineSeparator(),
                 MessageType.INFO);
         this.update(p.getFittest(), information, MessageType.NORMAL);
         this.log("Removing Duplicates", MessageType.INFO);

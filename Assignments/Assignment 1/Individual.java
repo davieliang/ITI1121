@@ -246,7 +246,7 @@ public class Individual implements Comparable<Individual> {
 
     @Override
     public String toString() {
-        return "{ Fitness: " + this.getFitness() + ", Attributes: "
+        return "{ Fitness: " + this.getFitness() + ", Positions: "
                 + Arrays.toString(positions) + "}";
     }
 

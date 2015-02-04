@@ -11,11 +11,13 @@ public class Simulation extends SwingWorker<Void, Individual> {
     private final Population population;
     private final FitnessGUI gui;
     private final int size;
+    private final int dimension;
 
     public Simulation(final int generations, final int size,
             final int dimension, final boolean displayGUI) {
         this.generations = generations;
         this.size = size;
+        this.dimension = dimension;
         this.displayGUI = displayGUI;
         startTime = System.currentTimeMillis();
         gui = displayGUI ? new FitnessGUI(dimension, true,
@@ -52,9 +54,8 @@ public class Simulation extends SwingWorker<Void, Individual> {
                 + Util.getRuntime(startTime) + System.lineSeparator()
                 + "Generations: " + evolutions + System.lineSeparator()
                 + "Population Size: " + size + System.lineSeparator()
-                + "fitness: " + population.getFittest().getFitness()
-                + System.lineSeparator() + "Attributes: "
-                + population.getFittest().toString();
+                + "Dimension: " + dimension + System.lineSeparator()
+                + "Attributes: " + population.getFittest().toString();
         if (displayGUI && gui != null) {
             gui.finalize(population, result);
         } else {
