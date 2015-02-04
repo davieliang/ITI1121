@@ -190,7 +190,7 @@ public class FitnessGUI extends JFrame {
     }
 
     public void update(Individual ind, String information) {
-        info.append(information + System.lineSeparator());
+        log(information);
         info.setCaretPosition(info.getDocument().getLength());
         for (int i = 0; i < check.length; i++) {
             check[i].setSelected(false);
@@ -201,12 +201,16 @@ public class FitnessGUI extends JFrame {
         }
     }
 
+    private void log(String s) {
+        info.append(s + System.lineSeparator());
+        System.out.println(s);
+    }
+
     public void finalize(Population p, String information) {
         update(p.getFittest(), information);
-        info.append(System.lineSeparator() + "Removing Duplicates");
+        log("Removing Duplicates");
         Individual[] individuals = Util.removeDuplicates(p.getIndividuals());
-        info.append(System.lineSeparator()
-                + (p.getIndividuals().length - individuals.length)
+        log((p.getIndividuals().length - individuals.length)
                 + " duplicates removed");
         String[] elements = new String[individuals.length];
         for (int i = 0; i < elements.length; i++) {

@@ -51,11 +51,11 @@ public class Simulation extends SwingWorker<Void, Individual> {
                 "There have been " + evolutions
                         + " generations and the fittest individual is "
                         + population.getFittest().getFitness() + ".";
-        System.out.println(update);
         if (gui != null && displayGUI) {
             gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
                     : list.get(list.size() - 1).getFitness());
         }
+        System.out.println(update);
     }
 
     @Override
@@ -71,8 +71,9 @@ public class Simulation extends SwingWorker<Void, Individual> {
                         + population.getFittest().toString();
         if (displayGUI && gui != null) {
             gui.finalize(population, result);
+        } else {
+            System.out.println(result);
         }
-        System.out.println(result);
     }
 
 }
