@@ -117,9 +117,10 @@ public class Simulation extends SwingWorker<Void, Individual> {
             if (population.getFittest().getFitness() == 0) {
                 break;
             }
+
             population.evolve();
             evolutions++;
-            if (displayGUI && generations > 0) {
+            if (displayGUI && generations > 0 && Configuration.ARTIFICALLY_SLOW_DOWN) {
                 Thread.sleep(20);
             }
         }

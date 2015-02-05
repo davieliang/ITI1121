@@ -98,13 +98,4 @@ public class Util {
     /** Uses a a generator of pseudo-random numbers */
 
     private static final Random random = new Random();
-
-    public static boolean allEqual(Individual[] individuals) {
-        for (int i = 1; i < individuals.length; i++) {
-            if (!individuals[i - 1].equals(individuals[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

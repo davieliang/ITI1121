@@ -17,6 +17,7 @@ import javax.swing.text.DefaultCaret;
 
 import me.matt.genetics.MessageType;
 import me.matt.genetics.gui.components.StyledTextPane;
+import me.matt.genetics.util.Configuration;
 import me.matt.genetics.util.Util;
 import me.matt.genetics.wrapper.Individual;
 import me.matt.genetics.wrapper.Population;
@@ -108,7 +109,7 @@ public class FitnessGUI extends JFrame {
         bar.setStringPainted(true);
 
         grid.setLayout(new GridLayout(dimension, dimension));
-        if (dimension <= 100) {
+        if (dimension <= Configuration.MAX_GUI_SIZE) {
             this.populateCheckboxes(simulator);
         }
 
@@ -132,20 +133,20 @@ public class FitnessGUI extends JFrame {
         }
         listScroll.setPreferredSize(new Dimension(100, 0));
         infoScroll.setPreferredSize(new Dimension(300, 100));
-        if (dimension > 100) {
+        if (dimension > Configuration.MAX_GUI_SIZE) {
             infoScroll.setPreferredSize(new Dimension(600, 400));
         }
 
         this.setLayout(new GridBagLayout());
         final GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
-        if (dimension <= 100) {
+        if (dimension <= Configuration.MAX_GUI_SIZE) {
             c.gridx = 0;
             c.gridy = 0;
             this.add(gridScroll, c);
         }
         if (simulator) {
-            if (dimension <= 100) {
+            if (dimension <= Configuration.MAX_GUI_SIZE) {
                 c.gridx = 0;
                 c.gridy = 1;
                 this.add(bar, c);
@@ -180,10 +181,12 @@ public class FitnessGUI extends JFrame {
             c.gridx = 0;
             c.gridy = 1;
             this.add(infoScroll, c);
-            if (dimension > 100) {
+            if (dimension > Configuration.MAX_GUI_SIZE) {
                 info.setText("");
-                info.append(
-                        "Dimension is too big (> 100)!!! The checker requires a dimension of 100 or less.",
+                info.append("Dimension is too big (> "
+                        + Configuration.MAX_GUI_SIZE
+                        + ")!!! The checker requires a dimension of "
+                        + Configuration.MAX_GUI_SIZE + " or less.",
                         MessageType.ERROR);
             }
         }
@@ -250,7 +253,7 @@ public class FitnessGUI extends JFrame {
     }
 
     public void update(final Individual ind, final long evolutions) {
-        if (dimension <= 100) {
+        if (dimension <= Configuration.MAX_GUI_SIZE) {
             for (int i = 0; i < check.length; i++) {
                 check[i].setSelected(false);
                 if (i / ind.getPositions().length == ind.getPositions()[i
@@ -273,7 +276,7 @@ public class FitnessGUI extends JFrame {
             final MessageType type) {
         this.log(information, type);
         info.setCaretPosition(info.getDocument().getLength());
-        if (dimension <= 100) {
+        if (dimension <= Configuration.MAX_GUI_SIZE) {
             for (int i = 0; i < check.length; i++) {
                 check[i].setSelected(false);
                 if (i / ind.getPositions().length == ind.getPositions()[i

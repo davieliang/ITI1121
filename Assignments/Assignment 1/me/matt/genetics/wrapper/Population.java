@@ -46,31 +46,39 @@ public class Population {
      * from the population. Remember that the <code>population</code> is kept in increasing order of fitness. For the selection of the parents, you
      * can experiment with different scenarios. A possible scenario is to randomly select two parents. Another possible one would be to select the
      * most fit, and a randomly selected one. Or else, select the two most fitted individuals.
+     * 
+     * @throws Exception
+     *             The population will never evolve
      */
 
     public void evolve() {
+
+        /*
+         * Prevent useless evolutions, the population is done
+         */
         if (dead) {
             return;
         }
-        final Individual j = individuals[Util.random(0, individuals.length)];
 
-        Individual k;
-        boolean allEqual = Util.allEqual(individuals);
-        while ((k = individuals[Util.random(0, individuals.length)]).equals(j)
-                && !allEqual);
-        final Individual crossover =
-                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
-                        .crossover(k).mutate() : j.crossover(k);
-        int idx = 0;
-        for (int i = 1; i < individuals.length; i++) {
-            if (individuals[idx].getFitness() < individuals[i].getFitness()) {
-                idx = i;
+        /*
+         * Setup the variables to be used in this evolution
+         */
+        final Individual j = individuals[Util.random(0, individuals.length)];
+        final Individual k = individuals[Util.random(0, individuals.length)];
+        final int mutateChance = Util.random(1, 101);
+
+        /*
+         * Prevent useless evolutions, only crossover when either j != k or there will be a mutation
+         */
+        if (!j.equals(k) && mutateChance < Configuration.MUTATION_RATE) {
+            final Individual crossover =
+                    mutateChance < Configuration.MUTATION_RATE ? j.crossover(k)
+                            .mutate() : j.crossover(k);
+            if (getLeastFit().getFitness() > crossover.getFitness()) {
+                individuals[getSize() - 1] = crossover;
             }
+            Arrays.sort(individuals);
         }
-        if (individuals[idx].getFitness() > crossover.getFitness()) {
-            individuals[idx] = crossover;
-        }
-        Arrays.sort(individuals);
     }
 
     /**
@@ -92,6 +100,17 @@ public class Population {
 
     public Individual getFittest() {
         return getIndividual(0);
+    }
+
+    /**
+     * The instance method <code>public Individual getLestFit()</code> returns the "worst" individual of the population, i.e. the one that has the
+     * smallest fitness value.
+     *
+     * @return returns the least fit individual of the population
+     */
+
+    public Individual getLeastFit() {
+        return getIndividual(getSize() - 1);
     }
 
     /**
