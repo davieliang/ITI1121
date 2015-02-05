@@ -10,7 +10,7 @@ public class Configuration {
     /**
      * Should the program try to find muliple solutions in parallel
      */
-    public final static boolean MULTI_THREADED = true;
+    public final static boolean MULTI_THREADED = false;
 
     /**
      * How many threads should the parallel solution run on

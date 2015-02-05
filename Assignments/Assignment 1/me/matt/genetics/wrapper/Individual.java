@@ -238,7 +238,7 @@ public class Individual implements Comparable<Individual> {
      * @return the offspring resulting from the crossover of <code>this</code> and <code>other</code>
      */
 
-    public Individual recombine(final Individual other) {
+    public Individual crossover(final Individual other) {
         return this.crossover(other, Util.random(1, positions.length - 1));
     }
 

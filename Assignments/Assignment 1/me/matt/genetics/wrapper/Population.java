@@ -55,9 +55,12 @@ public class Population {
         final Individual j = individuals[Util.random(0, individuals.length)];
 
         Individual k;
-        while ((k = individuals[Util.random(0, individuals.length)]).equals(j));
-        final Individual crossover = Util.random(1, 101) < Configuration.MUTATION_RATE ? j
-                .recombine(k).mutate() : j.recombine(k);
+        boolean allEqual = Util.allEqual(individuals);
+        while ((k = individuals[Util.random(0, individuals.length)]).equals(j)
+                && !allEqual);
+        final Individual crossover =
+                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
+                        .crossover(k).mutate() : j.crossover(k);
         int idx = 0;
         for (int i = 1; i < individuals.length; i++) {
             if (individuals[idx].getFitness() < individuals[i].getFitness()) {
@@ -77,7 +80,7 @@ public class Population {
 
     @Override
     public void finalize() {
-        dead = true;
+        this.dead = true;
     }
 
     /**
@@ -88,16 +91,28 @@ public class Population {
      */
 
     public Individual getFittest() {
-        return individuals[0];
+        return getIndividual(0);
     }
 
     /**
-     * Returns an array of individuals contained in the population
+     * Returns the size of the population
      *
-     * @return The individuals in the population
+     * @return The size of the population
      */
-    public Individual[] getIndividuals() {
-        return individuals;
+
+    public int getSize() {
+        return individuals.length;
+    }
+
+    /**
+     * Fetchs a specific individual from the population
+     * 
+     * @param index
+     *            The index of the individual
+     * @return The individual at the specific index
+     */
+    public Individual getIndividual(int index) {
+        return individuals[index];
     }
 
     /**

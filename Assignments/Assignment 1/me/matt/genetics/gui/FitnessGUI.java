@@ -197,10 +197,13 @@ public class FitnessGUI extends JFrame {
     public void finalize(final Population p, final String information) {
         bar.setValue(100);
         this.log("Removing Duplicates", MessageType.INFO);
-        final Individual[] individuals = Util.removeDuplicates(p
-                .getIndividuals());
-        this.log((p.getIndividuals().length - individuals.length)
-                + " duplicates removed", MessageType.WARNING);
+        final Individual[] population = new Individual[p.getSize()];
+        for (int i = 0; i < p.getSize(); i++) {
+            population[i] = p.getIndividual(i);
+        }
+        final Individual[] individuals = Util.removeDuplicates(population);
+        this.log((p.getSize() - individuals.length) + " duplicates removed",
+                MessageType.WARNING);
         final String[] elements = new String[individuals.length];
         for (int i = 0; i < elements.length; i++) {
             elements[i] = "Fitness: " + individuals[i].getFitness();
