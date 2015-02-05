@@ -65,20 +65,15 @@ public class Population {
          */
         final Individual j = individuals[Util.random(0, individuals.length)];
         final Individual k = individuals[Util.random(0, individuals.length)];
-        final int mutateChance = Util.random(1, 101);
 
-        /*
-         * Prevent useless evolutions, only crossover when either j != k or there will be a mutation
-         */
-        if (!j.equals(k) && mutateChance < Configuration.MUTATION_RATE) {
-            final Individual crossover =
-                    mutateChance < Configuration.MUTATION_RATE ? j.crossover(k)
-                            .mutate() : j.crossover(k);
-            if (getLeastFit().getFitness() > crossover.getFitness()) {
-                individuals[getSize() - 1] = crossover;
-            }
-            Arrays.sort(individuals);
+        final Individual crossover =
+                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
+                        .crossover(k).mutate() : j.crossover(k);
+                        
+        if (getLeastFit().getFitness() > crossover.getFitness()) {
+            individuals[getSize() - 1] = crossover;
         }
+        Arrays.sort(individuals);
     }
 
     /**
