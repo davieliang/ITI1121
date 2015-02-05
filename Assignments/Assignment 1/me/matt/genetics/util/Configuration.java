@@ -3,17 +3,18 @@ package me.matt.genetics.util;
 public class Configuration {
 
     /**
-     * The percentage representing how often a crossover has a mutation (must be greater than 1)
+     * The percentage representing how often a crossover has a mutation. If it is 0, there is a chance that the population will be unable to evolve at
+     * a certian point
      */
     public final static int MUTATION_RATE = 80;
-    
+
     /**
-     *  The maximum dimension that the gui will populate (i.e. 50 = 50x50 or 2500 checkboxes so, 100x100 = 100,000 checkboxes) 
+     * The maximum dimension that the gui will populate (i.e. 50 = 50x50 or 2500 checkboxes so, 100x100 = 100,000 checkboxes)
      */
     public final static int MAX_GUI_SIZE = 50;
-    
+
     /**
-     *  Artifically slow down the program so the user can see the evolutions occuring
+     * Artifically slow down the program so the user can see the evolutions occuring
      */
     public final static boolean ARTIFICALLY_SLOW_DOWN = true;
 

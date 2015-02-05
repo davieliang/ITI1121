@@ -92,6 +92,33 @@ public class Individual implements Comparable<Individual> {
 
     /**
      * <p>
+     * Returns the offspring resulting from the crossover of <code>this</code> <code>Individual</code> and <code>other</code>. The method randomly
+     * selects the position of the crossover. The result must be a valid permutation!
+     * </p>
+     *
+     * <p>
+     * In particular, the naive solution consisting of taking the first <code>position-1</code> attributes of this <code>Individual</code> and the
+     * last <code>size-position</code> attributes of <code>other</code> would not generate a valid permutation in most cases.
+     * </p>
+     *
+     * <p>
+     * Instead, we are proposing that the first <code>position-1</code> attributes of this <code>Individual</code> are copied to the offspring, then
+     * the missing values will be selected from <code>other</code>, whilst preserving their order of appearance in <code>other</code>.
+     * </p>
+     *
+     * This method is used by <code>Population</code>.
+     *
+     * @param other
+     *            a reference to an <code>Individual</code>
+     * @return the offspring resulting from the crossover of <code>this</code> and <code>other</code>
+     */
+
+    public Individual crossover(final Individual other) {
+        return this.crossover(other, Util.random(1, positions.length - 1));
+    }
+
+    /**
+     * <p>
      * Returns the offspring resulting from the crossover of <code>this</code> <code>Individual</code> and <code>other</code>. The result must be a
      * valid permutation!
      * </p>
@@ -213,33 +240,6 @@ public class Individual implements Comparable<Individual> {
         copy[i] = copy[j];
         copy[j] = temp;
         return new Individual(copy);
-    }
-
-    /**
-     * <p>
-     * Returns the offspring resulting from the crossover of <code>this</code> <code>Individual</code> and <code>other</code>. The method randomly
-     * selects the position of the crossover. The result must be a valid permutation!
-     * </p>
-     *
-     * <p>
-     * In particular, the naive solution consisting of taking the first <code>position-1</code> attributes of this <code>Individual</code> and the
-     * last <code>size-position</code> attributes of <code>other</code> would not generate a valid permutation in most cases.
-     * </p>
-     *
-     * <p>
-     * Instead, we are proposing that the first <code>position-1</code> attributes of this <code>Individual</code> are copied to the offspring, then
-     * the missing values will be selected from <code>other</code>, whilst preserving their order of appearance in <code>other</code>.
-     * </p>
-     *
-     * This method is used by <code>Population</code>.
-     *
-     * @param other
-     *            a reference to an <code>Individual</code>
-     * @return the offspring resulting from the crossover of <code>this</code> and <code>other</code>
-     */
-
-    public Individual crossover(final Individual other) {
-        return this.crossover(other, Util.random(1, positions.length - 1));
     }
 
     /**

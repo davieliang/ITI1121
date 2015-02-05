@@ -26,9 +26,9 @@
  * @author Marcel Turcotte (turcotte@site.uottawa.ca)
  */
 
-import me.matt.genetics.util.StudentInfo;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import me.matt.genetics.util.StudentInfo;
 
 public class TestAll {
 

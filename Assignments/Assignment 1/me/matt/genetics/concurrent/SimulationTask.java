@@ -4,6 +4,7 @@ import java.util.concurrent.Callable;
 
 import me.matt.genetics.util.Configuration;
 import me.matt.genetics.wrapper.Population;
+import me.matt.genetics.wrapper.exception.EvolveException;
 
 /** Try to ping a URL. Return true only if successful. */
 public class SimulationTask implements Callable<Population> {
@@ -39,7 +40,14 @@ public class SimulationTask implements Callable<Population> {
             if (population.getFittest().getFitness() == 0) {
                 break;
             }
-            population.evolve();
+
+            try {
+                population.evolve();
+            } catch (final EvolveException e) {
+                System.out
+                        .println("It is impossible for the population to evolve any futher.");
+                Thread.currentThread().interrupt();
+            }
             if (Configuration.DEBUG) {
                 System.out.println("Thread " + thread + " generation "
                         + evolutions + " fittest "

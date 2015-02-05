@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import me.matt.genetics.util.Configuration;
 import me.matt.genetics.util.Util;
+import me.matt.genetics.wrapper.exception.EvolveException;
 
 /**
  * A <code>Population</code> is a collection of individuals (each one representing a candidate solution for the n-queens problem). To facilitate the
@@ -39,6 +40,15 @@ public class Population {
         }
     }
 
+    private boolean allEqual() {
+        for (int i = 1; i < individuals.length; i++) {
+            if (!individuals[i - 1].equals(individuals[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * The method <code>evolve</code> selects parent individuals. An offspring is then created from the two parents, using the method
      * <code>crossover</code>. With probability <code>MUTATION_RATE</code>, the offspring is <code>mutated</code>. Use 0.8 as the default
@@ -46,12 +56,12 @@ public class Population {
      * from the population. Remember that the <code>population</code> is kept in increasing order of fitness. For the selection of the parents, you
      * can experiment with different scenarios. A possible scenario is to randomly select two parents. Another possible one would be to select the
      * most fit, and a randomly selected one. Or else, select the two most fitted individuals.
-     * 
+     *
      * @throws Exception
      *             The population will never evolve
      */
 
-    public void evolve() {
+    public void evolve() throws EvolveException {
 
         /*
          * Prevent useless evolutions, the population is done
@@ -63,17 +73,27 @@ public class Population {
         /*
          * Setup the variables to be used in this evolution
          */
-        final Individual j = individuals[Util.random(0, individuals.length)];
-        final Individual k = individuals[Util.random(0, individuals.length)];
+        final Individual mother = individuals[Util
+                .random(0, individuals.length)];
+        final Individual father = individuals[Util
+                .random(0, individuals.length)];
+        final int mutationChance = Util.random(1, 101);
 
-        final Individual crossover =
-                Util.random(1, 101) < Configuration.MUTATION_RATE ? j
-                        .crossover(k).mutate() : j.crossover(k);
-                        
-        if (getLeastFit().getFitness() > crossover.getFitness()) {
-            individuals[getSize() - 1] = crossover;
+        if (Configuration.MUTATION_RATE < 1 && this.allEqual()) {
+            throw new EvolveException(
+                    "It is impossible for this population to evolve any more.");
         }
-        Arrays.sort(individuals);
+
+        if (!mother.equals(father)
+                || mutationChance < Configuration.MUTATION_RATE) {
+            final Individual crossover = mutationChance < Configuration.MUTATION_RATE ? mother
+                    .crossover(father).mutate() : mother.crossover(father);
+
+            if (this.getLeastFit().getFitness() > crossover.getFitness()) {
+                individuals[this.getSize() - 1] = crossover;
+            }
+            Arrays.sort(individuals);
+        }
     }
 
     /**
@@ -83,7 +103,7 @@ public class Population {
 
     @Override
     public void finalize() {
-        this.dead = true;
+        dead = true;
     }
 
     /**
@@ -94,7 +114,18 @@ public class Population {
      */
 
     public Individual getFittest() {
-        return getIndividual(0);
+        return this.getIndividual(0);
+    }
+
+    /**
+     * Fetchs a specific individual from the population
+     *
+     * @param index
+     *            The index of the individual
+     * @return The individual at the specific index
+     */
+    public Individual getIndividual(final int index) {
+        return individuals[index];
     }
 
     /**
@@ -105,7 +136,7 @@ public class Population {
      */
 
     public Individual getLeastFit() {
-        return getIndividual(getSize() - 1);
+        return this.getIndividual(this.getSize() - 1);
     }
 
     /**
@@ -116,17 +147,6 @@ public class Population {
 
     public int getSize() {
         return individuals.length;
-    }
-
-    /**
-     * Fetchs a specific individual from the population
-     * 
-     * @param index
-     *            The index of the individual
-     * @return The individual at the specific index
-     */
-    public Individual getIndividual(int index) {
-        return individuals[index];
     }
 
     /**

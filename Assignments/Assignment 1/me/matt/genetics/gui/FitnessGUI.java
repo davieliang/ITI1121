@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultCaret;
 
 import me.matt.genetics.MessageType;
@@ -121,7 +124,7 @@ public class FitnessGUI extends JFrame {
                         : "Each checkbox represents a queen.")
                         + System.lineSeparator(), MessageType.INFO);
 
-        list = new JList<>(new String[] { "Simulating....." });
+        list = new JList<String>(new String[] { "Simulating....." });
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         final JScrollPane gridScroll = new JScrollPane(grid);
@@ -217,14 +220,19 @@ public class FitnessGUI extends JFrame {
         this.log("Printing Optimal Solution..." + System.lineSeparator(),
                 MessageType.INFO);
         this.update(individuals[0], information, MessageType.SUCCESS);
-        list.addListSelectionListener(e -> {
-            this.log(System.lineSeparator() + "Selecting new individual... ",
-                    MessageType.INFO);
-            this.update(
-                    individuals[list.getSelectedIndex()],
-                    System.lineSeparator()
-                            + individuals[list.getSelectedIndex()].toString(),
-                    MessageType.NORMAL);
+        list.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(final ListSelectionEvent arg0) {
+                FitnessGUI.this.log(System.lineSeparator()
+                        + "Selecting new individual... ", MessageType.INFO);
+                FitnessGUI.this.update(
+                        individuals[list.getSelectedIndex()],
+                        System.lineSeparator()
+                                + individuals[list.getSelectedIndex()]
+                                        .toString(), MessageType.NORMAL);
+            }
+
         });
     }
 
@@ -239,8 +247,11 @@ public class FitnessGUI extends JFrame {
             check[i].setEnabled(!simulation);
             grid.add(check[i]);
             if (!simulation) {
-                check[i].addActionListener(e -> {
-                    this.checkAction(e);
+                check[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(final ActionEvent e) {
+                        FitnessGUI.this.checkAction(e);
+                    }
                 });
             }
         }
