@@ -143,26 +143,26 @@ public class Individual implements Comparable<Individual> {
      */
 
     public Individual crossover(final Individual other, final int position) {
-        final int[] permiutation = new int[positions.length];
+        final int[] permutation = new int[positions.length];
         int offset = 0;
         for (int i = 0; i < position; i++) {
-            permiutation[i] = positions[i];
+            permutation[i] = positions[i];
         }
         for (int i = 0; i < other.getPositions().length; i++) {
             boolean found = false;
-            for (final int element : permiutation) {
+            for (final int element : permutation) {
                 if (other.getPositions()[i] == element) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                permiutation[position + (i - offset)] = other.getPositions()[i];
+                permutation[position + (i - offset)] = other.getPositions()[i];
             } else {
                 offset++;
             }
         }
-        return new Individual(permiutation);
+        return new Individual(permutation);
     }
 
     /**
