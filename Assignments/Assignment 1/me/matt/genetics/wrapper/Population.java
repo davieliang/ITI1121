@@ -79,11 +79,9 @@ public class Population {
                 .random(0, individuals.length)];
         final int mutationChance = Util.random(1, 101);
 
-        if (Configuration.MUTATION_RATE < 1) {
-            if (this.allEqual()) {
-                throw new EvolveException(
-                        "It is impossible for this population to evolve any more.");
-            }
+        if (Configuration.MUTATION_RATE < 1 && this.allEqual()) {
+            throw new EvolveException(
+                    "It is impossible for this population to evolve any more.");
         }
 
         if (!mother.equals(father)
