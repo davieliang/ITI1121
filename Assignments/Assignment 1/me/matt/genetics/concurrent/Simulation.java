@@ -37,17 +37,6 @@ public class Simulation extends SwingWorker<Void, Individual> {
         startTime = System.currentTimeMillis();
         gui = displayGUI ? new FitnessGUI(dimension, true,
                 generations > 0 ? generations : -1) : null;
-        if (displayGUI || !Configuration.MULTI_THREADED) {
-            population = new Population(size, dimension);
-        }
-        if (gui != null) {
-            gui.log("Simulating....", MessageType.INFO);
-            gui.setTarget(population.getFittest().getFitness());
-            if (generations > 0) {
-                gui.log("The simulation has artifically been slowed down for viewer use!",
-                        MessageType.WARNING);
-            }
-        }
         evolutions = 0;
     }
 
@@ -105,11 +94,30 @@ public class Simulation extends SwingWorker<Void, Individual> {
         if (gui != null && displayGUI) {
             gui.update(list.get(list.size() - 1), generations > 0 ? evolutions
                     : list.get(list.size() - 1).getFitness());
+            if (Configuration.DEBUG) {
+                gui.log(update, MessageType.INFO);
+            }
         }
         System.out.println(update);
     }
 
-    public void runSimulation() throws InterruptedException {
+    public void runSimulation() throws Exception {
+        if (displayGUI || !Configuration.MULTI_THREADED) {
+            population = new Population(size, dimension);
+        }
+        gui.setTarget(population.getFittest().getFitness());
+        if (gui != null) {
+            gui.log("Simulating. Dimension: " + dimension
+                    + " Population Size: " + population.getSize(),
+                    MessageType.INFO);
+            if (Configuration.ARTIFICALLY_SLOW_DOWN && generations > 0) {
+                gui.log("The simulation has artifically been slowed down for viewer use!",
+                        MessageType.WARNING);
+            }
+        } else {
+            System.out.println("Simulating. Dimension: " + dimension
+                    + " Population Size: " + population.getSize());
+        }
         while (dimension > 3 && !this.isCancelled()) {
             this.publish(population.getFittest());
             if (evolutions == generations) {

@@ -104,8 +104,21 @@ public class FitnessGUI extends JFrame {
         }
     }
 
+    private void checkCheckboxes(final Individual individual) {
+        if (dimension <= Configuration.MAX_GUI_SIZE) {
+            for (int i = 0; i < check.length; i++) {
+                check[i].setSelected(false);
+                if (i / individual.getSize() == individual.getPosition(i
+                        % individual.getSize())) {
+                    check[i].setSelected(true);
+                }
+            }
+        }
+    }
+
     private void createResult(final boolean simulator) {
-        check = new JCheckBox[dimension * dimension];
+        check = dimension > Configuration.MAX_GUI_SIZE ? null
+                : new JCheckBox[dimension * dimension];
         info = new StyledTextPane();
         grid = new JPanel();
 
@@ -223,7 +236,7 @@ public class FitnessGUI extends JFrame {
         list.addListSelectionListener(new ListSelectionListener() {
 
             @Override
-            public void valueChanged(final ListSelectionEvent arg0) {
+            public void valueChanged(final ListSelectionEvent lse) {
                 FitnessGUI.this.log(System.lineSeparator()
                         + "Selecting new individual... ", MessageType.INFO);
                 FitnessGUI.this.update(
@@ -263,16 +276,8 @@ public class FitnessGUI extends JFrame {
         }
     }
 
-    public void update(final Individual ind, final long evolutions) {
-        if (dimension <= Configuration.MAX_GUI_SIZE) {
-            for (int i = 0; i < check.length; i++) {
-                check[i].setSelected(false);
-                if (i / ind.getPositions().length == ind.getPositions()[i
-                        % ind.getPositions().length]) {
-                    check[i].setSelected(true);
-                }
-            }
-        }
+    public void update(final Individual individual, final long evolutions) {
+        this.checkCheckboxes(individual);
         if (!infinite && target > 0) {
             bar.setValue((int) (((double) evolutions / (double) target) * 100));
         } else if (infinite && target > 0) {
@@ -283,19 +288,11 @@ public class FitnessGUI extends JFrame {
                         + target);
     }
 
-    public void update(final Individual ind, final String information,
+    public void update(final Individual individual, final String information,
             final MessageType type) {
         this.log(information, type);
         info.setCaretPosition(info.getDocument().getLength());
-        if (dimension <= Configuration.MAX_GUI_SIZE) {
-            for (int i = 0; i < check.length; i++) {
-                check[i].setSelected(false);
-                if (i / ind.getPositions().length == ind.getPositions()[i
-                        % ind.getPositions().length]) {
-                    check[i].setSelected(true);
-                }
-            }
-        }
+        this.checkCheckboxes(individual);
     }
 
 }

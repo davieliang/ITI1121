@@ -36,7 +36,14 @@ public class Population {
         }
         individuals = new Individual[size];
         for (int i = 0; i < individuals.length; i++) {
+            if (Configuration.DEBUG) {
+                System.out.println("Populating individul: " + i);
+            }
             individuals[i] = new Individual(dimension);
+            if (Configuration.DEBUG) {
+                System.out.println("Invidiaul " + i
+                        + " successfully populated.");
+            }
         }
     }
 

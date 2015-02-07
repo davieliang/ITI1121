@@ -148,16 +148,16 @@ public class Individual implements Comparable<Individual> {
         for (int i = 0; i < position; i++) {
             permiutation[i] = positions[i];
         }
-        for (int i = 0; i < other.getPositions().length; i++) {
+        for (int i = 0; i < other.positions.length; i++) {
             boolean found = false;
             for (final int element : permiutation) {
-                if (other.getPositions()[i] == element) {
+                if (other.positions[i] == element) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                permiutation[position + (i - offset)] = other.getPositions()[i];
+                permiutation[position + (i - offset)] = other.positions[i];
             } else {
                 offset++;
             }
@@ -180,8 +180,7 @@ public class Individual implements Comparable<Individual> {
         if (!(obj instanceof Individual)) {
             return false;
         }
-        return Arrays.equals(this.getPositions(),
-                ((Individual) obj).getPositions());
+        return Arrays.equals(positions, ((Individual) obj).positions);
     }
 
     /**
@@ -195,12 +194,23 @@ public class Individual implements Comparable<Individual> {
     }
 
     /**
-     * Returns the positions of the queens on the board, represented by a permutation.
+     * Returns the position of the queen on the board at the specified index.
      *
-     * @return The positions of each individual queen on the board
+     * @param index
+     *            The index of the queen
+     * @return The position of the queen on the board at the given index
      */
-    public int[] getPositions() {
-        return positions;
+    public int getPosition(final int index) {
+        return positions[index];
+    }
+
+    /**
+     * Returns the size of the individual
+     *
+     * @return The size of the individual
+     */
+    public int getSize() {
+        return positions.length;
     }
 
     /**
