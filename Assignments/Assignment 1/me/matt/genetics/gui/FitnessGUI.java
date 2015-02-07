@@ -92,13 +92,13 @@ public class FitnessGUI extends JFrame {
 
         // If the board is ready, calculate the fitness
         if (calculate) {
-            final int[] permiutation = new int[dimension];
+            final int[] permutation = new int[dimension];
             for (int j = 0; j < check.length; j++) {
                 if (check[j].isSelected()) {
-                    permiutation[j % dimension] = j / dimension;
+                    permutation[j % dimension] = j / dimension;
                 }
             }
-            final Individual ind = new Individual(permiutation);
+            final Individual ind = new Individual(permutation);
             this.log(System.lineSeparator() + "Attributes: " + ind.toString(),
                     MessageType.NORMAL);
         }
