@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -14,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultCaret;
 
 import me.matt.genetics.MessageType;
@@ -233,19 +230,14 @@ public class FitnessGUI extends JFrame {
         this.log("Printing Optimal Solution..." + System.lineSeparator(),
                 MessageType.INFO);
         this.update(individuals[0], information, MessageType.SUCCESS);
-        list.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(final ListSelectionEvent lse) {
-                FitnessGUI.this.log(System.lineSeparator()
-                        + "Selecting new individual... ", MessageType.INFO);
-                FitnessGUI.this.update(
-                        individuals[list.getSelectedIndex()],
-                        System.lineSeparator()
-                                + individuals[list.getSelectedIndex()]
-                                        .toString(), MessageType.NORMAL);
-            }
-
+        list.addListSelectionListener(lse -> {
+            FitnessGUI.this.log(System.lineSeparator()
+                    + "Selecting new individual... ", MessageType.INFO);
+            FitnessGUI.this.update(
+                    individuals[list.getSelectedIndex()],
+                    System.lineSeparator()
+                            + individuals[list.getSelectedIndex()].toString(),
+                    MessageType.NORMAL);
         });
     }
 
@@ -260,12 +252,7 @@ public class FitnessGUI extends JFrame {
             check[i].setEnabled(!simulation);
             grid.add(check[i]);
             if (!simulation) {
-                check[i].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(final ActionEvent e) {
-                        FitnessGUI.this.checkAction(e);
-                    }
-                });
+                check[i].addActionListener(e -> FitnessGUI.this.checkAction(e));
             }
         }
     }

@@ -1,0 +1,57 @@
+5
+5
+Primus
+Secundus
+Tertius
+Quartus
+Quintus
+C1Q1 - Primus Category - Worth 500 points
+C1A1
+C1Q2 - Worth 400 points
+C1A2
+C1Q3 - Worth 300 points
+C1A3
+C1Q4 - Worth 200 points
+C1A4
+C1Q5 - Worth 100 points
+C1A5
+C2Q1 - Secundus category - Worth 500 points
+C2A1
+C2Q2 - Worth 400 points
+C2A2
+C2Q3
+C2A3
+C2Q4
+C2A4
+C2Q5
+C2A5
+C3Q1
+C3A1
+C3Q2
+C3A2
+C3Q3
+C3A3
+C3Q4
+C3A4
+C3Q5
+C3A5
+C4Q1
+C4A1
+C4Q2
+C4A2
+C4Q3
+C4A3
+C4Q4
+C4A4
+C4Q5
+C4A5
+C5Q1
+C5A1
+C5Q2
+C5A2
+C5Q3
+C5A3
+C5Q4
+C5A4
+C5Q5
+C5A5

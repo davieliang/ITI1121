@@ -68,6 +68,7 @@ public class Population {
      *             The population will never evolve
      */
 
+    @SuppressWarnings("unused")
     public void evolve() throws EvolveException {
 
         /*
