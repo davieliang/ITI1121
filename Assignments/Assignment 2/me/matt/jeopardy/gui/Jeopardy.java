@@ -22,6 +22,10 @@ import me.matt.jeopardy.util.Database;
  * The main handles of the Jeopardy game. Allows the user to specify a database and then loads the questions from that database. It creates a grid of
  * questions below a label for the category. Requires at least one category and one question to be valid.
  *
+ * Assignment: 2
+ * Course: ITI1121 Section 1
+ * Student no: 7731813
+ * 
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */

@@ -23,6 +23,8 @@ public class StudentInfo {
         System.out
                 .println("* Section 1                                                *");
         System.out
+                .println("* Assignment 2                                             *");
+        System.out
                 .println("************************************************************");
         System.out.println();
 
