@@ -2,6 +2,7 @@ package me.matt.jeopardy.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -52,21 +53,24 @@ public class Jeopardy extends JFrame {
         /*
          * Allow the user to select a database file of file format .txt
          */
-        load.addActionListener(event -> {
-            final JFileChooser chooser = new JFileChooser();
-            chooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES",
-                    "txt"));
-            chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
-            final int choice = chooser.showOpenDialog(null);
-            if (choice == JFileChooser.APPROVE_OPTION) {
-                try {
-                    questions.removeAll();
-                    this.populateQuestions(Database.readQuestions(chooser
-                            .getSelectedFile().toPath()), questions);
-                } catch (final Exception e) {
-                    JOptionPane
-                            .showMessageDialog(null,
-                                    "Error Loading File. Please ensure the database is in the correct format.");
+        load.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                final JFileChooser chooser = new JFileChooser();
+                chooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES",
+                        "txt"));
+                chooser.removeChoosableFileFilter(chooser
+                        .getAcceptAllFileFilter());
+                final int choice = chooser.showOpenDialog(null);
+                if (choice == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        questions.removeAll();
+                        populateQuestions(Database.readQuestions(chooser
+                                .getSelectedFile()), questions);
+                    } catch (final Exception e) {
+                        JOptionPane
+                                .showMessageDialog(null,
+                                        "Error Loading File. Please ensure the database is in the correct format.");
+                    }
                 }
             }
         });
@@ -98,29 +102,7 @@ public class Jeopardy extends JFrame {
          */
         final JeopardyButton[][] buttons = new JeopardyButton[database
                 .getNumCategories()][database.getNumQuestions()];
-        /*
-         * Create a listener to add to each jeopardy button
-         */
-        final ActionListener listener = e -> {
-            final JeopardyButton source = ((JeopardyButton) e.getSource());
 
-            if (source.getText().equalsIgnoreCase("-")) {
-                return;
-            }
-
-            final String[] options = { "Reveal", "Cancel" };
-            final int opt = JOptionPane.showOptionDialog(null, database
-                    .getQuestion(source.getCategory(), source.getQuestion())
-                    .getQuestion(), "Question", JOptionPane.YES_OPTION,
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if (opt == 0) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        database.getQuestion(source.getCategory(),
-                                source.getQuestion()).getResponse());
-                source.setText("-");
-            }
-        };
         /*
          * Use a grid layout manager to manage the buttons
          */
@@ -140,8 +122,7 @@ public class Jeopardy extends JFrame {
          */
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
-                buttons[i][j] = new JeopardyButton(listener, i, j,
-                        (database.getNumQuestions() - j) * 100);
+                buttons[i][j] = new JeopardyButton(database, i, j);
             }
         }
         /*

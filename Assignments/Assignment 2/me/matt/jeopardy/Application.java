@@ -24,11 +24,13 @@ public class Application {
             UnsupportedLookAndFeelException {
         StudentInfo.display(); // Display student information
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Make GUI look nice on windows
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new Jeopardy().setVisible(true);
-            } catch (final Exception e) {
-                System.out.println("Error initilizing application.");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new Jeopardy().setVisible(true);
+                } catch (final Exception e) {
+                    System.out.println("Error initilizing application.");
+                }
             }
         });
 

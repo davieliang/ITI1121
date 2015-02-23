@@ -1,7 +1,9 @@
 package me.matt.jeopardy.util;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Arrays;
 
 /**
  * A database of questions which shall be asked in the Jeopardy game.
@@ -22,14 +24,27 @@ public class Database {
      *            The path to the database file
      * @return A database of questions
      */
-    public static Database readQuestions(final Path file) {
+    public static Database readQuestions(final File file) {
         String[] lines;
+
         try {
             /*
              * Reads all of the lines of the file to an ordered list, and converts it to an array
              */
-            lines = Files.readAllLines(file).toArray(new String[] {});
+            BufferedReader br = new BufferedReader(new FileReader(
+                    file.getAbsoluteFile()));
+
+            String current;
+            String all = "";
+            while ((current = br.readLine()) != null) {
+                all += current + System.getProperty("line.seperator");
+            }
+            lines = all
+                    .split("(" + System.getProperty("line.sepearator") + ")");
+            System.out.println(Arrays.toString(lines));
+            br.close();
         } catch (final Exception e) {
+            e.printStackTrace();
             System.out
                     .println("File read error - Please ensure the file is valid.");
             return null;
