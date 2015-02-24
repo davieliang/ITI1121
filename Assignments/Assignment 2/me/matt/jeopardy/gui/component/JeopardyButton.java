@@ -18,7 +18,7 @@ import me.matt.jeopardy.util.Database;
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */
-public class JeopardyButton extends JButton {
+public class JeopardyButton extends JButton implements ActionListener {
 
     /**
      * An automatically generated ID
@@ -46,11 +46,7 @@ public class JeopardyButton extends JButton {
         this.category = category;
         this.question = question;
         this.database = database;
-        this.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                displayQuestion();
-            }
-        });
+        this.addActionListener(this);
     }
 
     /**
@@ -71,7 +67,7 @@ public class JeopardyButton extends JButton {
         return question;
     }
 
-    private void displayQuestion() {
+    public void actionPerformed(ActionEvent e) {
         if (this.getText().equalsIgnoreCase("-")) {
             return;
         }
