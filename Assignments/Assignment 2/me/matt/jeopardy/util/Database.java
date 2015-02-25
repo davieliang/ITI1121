@@ -7,7 +7,10 @@ import java.io.FileReader;
 /**
  * A database of questions which shall be asked in the Jeopardy game.
  *
- * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ * Assignment: 2
+ * Course: ITI1121
+ * Section: 1
+ * Student no: 7731813
  *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *

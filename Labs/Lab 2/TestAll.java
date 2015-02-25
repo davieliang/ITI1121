@@ -1,12 +1,14 @@
-/* ITI 1121. Introduction to Computing II; Laboratory 2
+/*
+ * ITI 1121. Introduction to Computing II; Laboratory 2
  * ITI 1521. Introduction a l'informatique II; Laboratoire 2
  */
 
-/** Runs all the tests using a textual runner.  This is the
- *  alternative to running all the tests within your favorite
- *  development environment (DrJava, Eclipse...).  This may require
- *  downloading JUnit from
- *  <a href="https://github.com/KentBeck/junit/wiki/Download-and-Install">github.com/KentBeck/junit/wiki/Download-and-Install</a>.
+/**
+ * Runs all the tests using a textual runner. This is the
+ * alternative to running all the tests within your favorite
+ * development environment (DrJava, Eclipse...). This may require
+ * downloading JUnit from
+ * <a href="https://github.com/KentBeck/junit/wiki/Download-and-Install">github.com/KentBeck/junit/wiki/Download-and-Install</a>.
  *
  * <pre>
  * > javac -cp junit.jar:. RunTests.java
@@ -17,12 +19,14 @@
  * *                                                          *
  * *                                                          *
  * ************************************************************
- *
+ * 
  * ..............
  * Time: 0.031
- *
+ * 
  * OK (14 tests)
- *  * </pre>
+ *  *
+ * </pre>
+ *
  * @author Marcel Turcotte (turcotte@site.uottawa.ca)
  */
 

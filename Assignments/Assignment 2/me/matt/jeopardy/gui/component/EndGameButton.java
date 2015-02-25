@@ -11,7 +11,10 @@ import me.matt.jeopardy.gui.Jeopardy;
 /**
  * A button used to end the current game of jeopardy
  *
- * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ * Assignment: 2
+ * Course: ITI1121
+ * Section: 1
+ * Student no: 7731813
  *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *

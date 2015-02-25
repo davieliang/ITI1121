@@ -1,6 +1,6 @@
 // Test.java --- Tests Combination, DoorLock and SecurityAgent
-// Author          : Marcel Turcotte
-// Created On      : Mon Jan 26 14:24:07 2004
+// Author : Marcel Turcotte
+// Created On : Mon Jan 26 14:24:07 2004
 // Last Modified By: Marcel Turcotte
 // Last Modified On: Thu Jan 10 10:22:16 2008
 

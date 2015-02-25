@@ -11,7 +11,10 @@ import me.matt.jeopardy.util.Database;
 /**
  * A button used in the Jeopardy game GUI. Contains some basic information to be used by the Jeopardy class.
  *
- * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ * Assignment: 2
+ * Course: ITI1121
+ * Section: 1
+ * Student no: 7731813
  *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *

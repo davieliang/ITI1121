@@ -14,7 +14,10 @@ import me.matt.jeopardy.util.Database;
 /**
  * A button used to load the database of questions
  *
- * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ * Assignment: 2
+ * Course: ITI1121
+ * Section: 1
+ * Student no: 7731813
  *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *

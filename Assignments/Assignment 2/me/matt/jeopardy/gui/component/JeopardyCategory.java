@@ -8,7 +8,10 @@ import javax.swing.SwingConstants;
 /**
  * A special label to highligh the category
  *
- * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ * Assignment: 2
+ * Course: ITI1121
+ * Section: 1
+ * Student no: 7731813
  *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
