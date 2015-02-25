@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultCaret;
 
 import me.matt.genetics.MessageType;
@@ -42,7 +45,7 @@ public class FitnessGUI extends JFrame {
     private int target;
     private final boolean infinite;
     private final JProgressBar bar = new JProgressBar();
-    private JList<String> list;
+    private JList list;
 
     /**
      * Creates and displays a GUI with the board dimensions specified
@@ -96,8 +99,8 @@ public class FitnessGUI extends JFrame {
                 }
             }
             final Individual ind = new Individual(permutation);
-            this.log(System.lineSeparator() + "Attributes: " + ind.toString(),
-                    MessageType.NORMAL);
+            this.log(System.getProperty("line.seperator") + "Attributes: "
+                    + ind.toString(), MessageType.NORMAL);
         }
     }
 
@@ -132,9 +135,10 @@ public class FitnessGUI extends JFrame {
         info.append(
                 (simulator ? "Populating the queens..."
                         : "Each checkbox represents a queen.")
-                        + System.lineSeparator(), MessageType.INFO);
+                        + System.getProperty("line.seperator"),
+                MessageType.INFO);
 
-        list = new JList<String>(new String[] { "Simulating....." });
+        list = new JList(new String[] { "Simulating....." });
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         final JScrollPane gridScroll = new JScrollPane(grid);
@@ -227,22 +231,29 @@ public class FitnessGUI extends JFrame {
         list.setListData(elements);
         list.setSelectedIndex(0);
 
-        this.log("Printing Optimal Solution..." + System.lineSeparator(),
+        this.log(
+                "Printing Optimal Solution..."
+                        + System.getProperty("line.seperator"),
                 MessageType.INFO);
         this.update(individuals[0], information, MessageType.SUCCESS);
-        list.addListSelectionListener(lse -> {
-            FitnessGUI.this.log(System.lineSeparator()
-                    + "Selecting new individual... ", MessageType.INFO);
-            FitnessGUI.this.update(
-                    individuals[list.getSelectedIndex()],
-                    System.lineSeparator()
-                            + individuals[list.getSelectedIndex()].toString(),
-                    MessageType.NORMAL);
+        list.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(final ListSelectionEvent arg0) {
+                FitnessGUI.this.log(System.getProperty("line.seperator")
+                        + "Selecting new individual... ", MessageType.INFO);
+                FitnessGUI.this.update(
+                        individuals[list.getSelectedIndex()],
+                        System.getProperty("line.seperator")
+                                + individuals[list.getSelectedIndex()]
+                                        .toString(), MessageType.NORMAL);
+            }
+
         });
     }
 
     public void log(final String s, final MessageType format) {
-        info.append(s + System.lineSeparator(), format);
+        info.append(s + System.getProperty("line.seperator"), format);
         System.out.println(s);
     }
 
@@ -252,7 +263,12 @@ public class FitnessGUI extends JFrame {
             check[i].setEnabled(!simulation);
             grid.add(check[i]);
             if (!simulation) {
-                check[i].addActionListener(e -> FitnessGUI.this.checkAction(e));
+                check[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(final ActionEvent e) {
+                        FitnessGUI.this.checkAction(e);
+                    }
+                });
             }
         }
     }

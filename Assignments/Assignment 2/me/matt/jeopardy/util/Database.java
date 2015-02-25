@@ -7,10 +7,8 @@ import java.io.FileReader;
 /**
  * A database of questions which shall be asked in the Jeopardy game.
  *
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * 
+ * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */
@@ -34,7 +32,7 @@ public class Database {
 
             /*
              * Originally I used Files.readAllLines(file.getPath());
-             * 
+             *
              * This would read all of the lines to a List which could then be converted to an array. However I was told this was not allowed, so to
              * maintain functionality I add all of the strings together and then split them based on the systems line separator character. Essentially
              * the same functionality however it requires some form of a buffer
@@ -43,7 +41,7 @@ public class Database {
             /*
              * Creates an instance of a buffered reader to read the lines of the database
              */
-            BufferedReader br = new BufferedReader(new FileReader(
+            final BufferedReader br = new BufferedReader(new FileReader(
                     file.getAbsoluteFile()));
 
             /*
@@ -53,8 +51,8 @@ public class Database {
             String all = "";
             while ((current = br.readLine()) != null) {
                 /*
-                 * Append the line to a single string
-                 * Append the line break character which the buffered reader omits (used for breaking apart the lines into an array)
+                 * Append the line to a single string Append the line break character which the buffered reader omits (used for breaking apart the
+                 * lines into an array)
                  */
                 all += current + System.getProperty("line.seperator");
             }

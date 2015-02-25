@@ -23,10 +23,8 @@ import me.matt.jeopardy.util.Database;
  * The main handles of the Jeopardy game. Allows the user to specify a database and then loads the questions from that database. It creates a grid of
  * questions below a label for the category. Requires at least one category and one question to be valid.
  *
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * 
+ * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */
@@ -54,7 +52,8 @@ public class Jeopardy extends JFrame {
          * Allow the user to select a database file of file format .txt
          */
         load.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
                 final JFileChooser chooser = new JFileChooser();
                 chooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES",
                         "txt"));
@@ -64,8 +63,9 @@ public class Jeopardy extends JFrame {
                 if (choice == JFileChooser.APPROVE_OPTION) {
                     try {
                         questions.removeAll();
-                        populateQuestions(Database.readQuestions(chooser
-                                .getSelectedFile()), questions);
+                        Jeopardy.this.populateQuestions(Database
+                                .readQuestions(chooser.getSelectedFile()),
+                                questions);
                     } catch (final Exception e) {
                         JOptionPane
                                 .showMessageDialog(null,

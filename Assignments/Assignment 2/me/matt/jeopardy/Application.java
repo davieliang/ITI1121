@@ -10,10 +10,8 @@ import me.matt.jeopardy.util.StudentInfo;
 /**
  * This class acts as an entry point for the application. The GUI is initialized and displayed.
  *
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * 
+ * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */
@@ -25,6 +23,7 @@ public class Application {
         StudentInfo.display(); // Display student information
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Make GUI look nice on windows
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new Jeopardy().setVisible(true);

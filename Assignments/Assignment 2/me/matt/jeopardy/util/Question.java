@@ -4,10 +4,8 @@ package me.matt.jeopardy.util;
  *
  * A wrapper for a question in Jeopardy. Represents a question to be asked and a response to said question.
  *
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * 
+ * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */

@@ -11,10 +11,8 @@ import me.matt.jeopardy.util.Database;
 /**
  * A button used in the Jeopardy game GUI. Contains some basic information to be used by the Jeopardy class.
  *
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * 
+ * Assignment: 2 Course: ITI1121 Section 1 Student no: 7731813
+ *
  * @author Matt Langlois (Fletchto99@gmail.com)
  *
  */
@@ -49,25 +47,8 @@ public class JeopardyButton extends JButton implements ActionListener {
         this.addActionListener(this);
     }
 
-    /**
-     * Fetches the category of this button
-     *
-     * @return The button's category
-     */
-    public int getCategory() {
-        return category;
-    }
-
-    /**
-     * Fetches the question of this button
-     *
-     * @return The question this button contains
-     */
-    public int getQuestion() {
-        return question;
-    }
-
-    public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(final ActionEvent e) {
         if (this.getText().equalsIgnoreCase("-")) {
             return;
         }
@@ -85,6 +66,24 @@ public class JeopardyButton extends JButton implements ActionListener {
                                     this.getQuestion()).getResponse());
             this.setText("-");
         }
+    }
+
+    /**
+     * Fetches the category of this button
+     *
+     * @return The button's category
+     */
+    public int getCategory() {
+        return category;
+    }
+
+    /**
+     * Fetches the question of this button
+     *
+     * @return The question this button contains
+     */
+    public int getQuestion() {
+        return question;
     }
 
 }

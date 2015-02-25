@@ -92,7 +92,12 @@ public class Queens {
         }
 
         StudentInfo.display();
-        SwingUtilities.invokeLater(() -> Queens.execute(args));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Queens.execute(args);
+            }
+        });
     }
 
     /**
