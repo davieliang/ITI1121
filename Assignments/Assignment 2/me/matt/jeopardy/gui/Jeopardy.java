@@ -2,21 +2,14 @@ package me.matt.jeopardy.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
+import me.matt.jeopardy.gui.component.EndGameButton;
 import me.matt.jeopardy.gui.component.JeopardyButton;
+import me.matt.jeopardy.gui.component.JeopardyCategory;
+import me.matt.jeopardy.gui.component.LoadGameButton;
 import me.matt.jeopardy.util.Database;
 
 /**
@@ -34,69 +27,85 @@ public class Jeopardy extends JFrame {
      * A generated uID for serialization
      */
     private static final long serialVersionUID = -1395197212740446651L;
+    private final JPanel questions;
+    private final LoadGameButton load;
+    private final EndGameButton end;
+    private boolean active = false;
 
-    public Jeopardy() throws IOException, URISyntaxException {
-        this.initGui();
+    /**
+     * Creates an instance of the jeopardy game. See Application as the entry point for this game
+     */
+    public Jeopardy() {
+
+        /*
+         * Initilize variables
+         */
+        questions = new JPanel();
+        load = new LoadGameButton(this);
+        end = new EndGameButton(this);
+
+        /*
+         * Initialize the layout, add load game button
+         */
+        this.setLayout(new BorderLayout());
+        this.add(load, BorderLayout.SOUTH);
+
+        /*
+         * Setup some settings and titles
+         */
+        this.setTitle("Jeopardy Game");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        /*
+         * Let the layout manager resize to fit
+         */
+        this.pack();
+
+        /*
+         * Set the GUI visible
+         */
+        this.setVisible(true);
     }
 
     /**
-     * Initializes the Graphical user interface
+     * Ends the currently active game of Jeopardy
      */
-    private void initGui() {
-        final JPanel questions = new JPanel();
+    public void end() {
         /*
-         * A button to load the database
+         * Remove all old questions
          */
-        final JButton load = new JButton("Load Game");
-        /*
-         * Allow the user to select a database file of file format .txt
-         */
-        load.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent event) {
-                final JFileChooser chooser = new JFileChooser();
-                chooser.setFileFilter(new FileNameExtensionFilter("TEXT FILES",
-                        "txt"));
-                chooser.removeChoosableFileFilter(chooser
-                        .getAcceptAllFileFilter());
-                final int choice = chooser.showOpenDialog(null);
-                if (choice == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        questions.removeAll();
-                        Jeopardy.this.populateQuestions(Database
-                                .readQuestions(chooser.getSelectedFile()),
-                                questions);
-                    } catch (final Exception e) {
-                        JOptionPane
-                                .showMessageDialog(null,
-                                        "Error Loading File. Please ensure the database is in the correct format.");
-                    }
-                }
-            }
-        });
+        questions.removeAll();
 
         /*
-         * Initialize the layout, add the components and set the GUI visible
+         * Cleanup GUI
          */
-        this.setLayout(new BorderLayout());
-        this.add(questions, BorderLayout.NORTH);
+        this.remove(end);
+        this.remove(questions);
         this.add(load, BorderLayout.SOUTH);
-        this.setTitle("Jeopardy Game");
-        this.setResizable(false);
+
+        /*
+         * Allow the layout manager to resize the GUI
+         */
         this.pack();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        active = false;
     }
 
     /**
      * Populate the board's question buttons along with their point values.
      *
      * @param database
-     *            The database instance
-     * @param questions
-     *            The panel on which to populate the question buttons
+     *            The database of questions to base this game off of
      */
-    private void populateQuestions(final Database database,
-            final JPanel questions) {
+    public void start(final Database database) {
+
+        /*
+         * End active game if one exists
+         */
+        if (active) {
+            this.end();
+        }
+
         /*
          * Creates an empty array of jeopardy buttons
          */
@@ -113,8 +122,7 @@ public class Jeopardy extends JFrame {
          * Add the category labels to the panel
          */
         for (int i = 0; i < database.getNumCategories(); i++) {
-            questions.add(new JLabel(database.getCategory(i),
-                    SwingConstants.CENTER));
+            questions.add(new JeopardyCategory(database.getCategory(i)));
         }
 
         /*
@@ -135,8 +143,16 @@ public class Jeopardy extends JFrame {
         }
 
         /*
+         * Setup buttons
+         */
+        this.remove(load);
+        this.add(questions, BorderLayout.NORTH);
+        this.add(end, BorderLayout.SOUTH);
+
+        /*
          * Cause the layout manager to resize the GUI properly to contain all elements
          */
         this.pack();
+        active = true;
     }
 }

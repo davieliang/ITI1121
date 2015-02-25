@@ -26,7 +26,7 @@ public class Application {
             @Override
             public void run() {
                 try {
-                    new Jeopardy().setVisible(true);
+                    new Jeopardy();
                 } catch (final Exception e) {
                     System.out.println("Error initilizing application.");
                 }

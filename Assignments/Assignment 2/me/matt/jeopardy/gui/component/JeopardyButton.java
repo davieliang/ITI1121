@@ -29,8 +29,6 @@ public class JeopardyButton extends JButton implements ActionListener {
     /**
      * Initializes a JeopardyButton
      *
-     * @param listener
-     *            A listener to perform an event when the button is pressed
      * @param category
      *            The category of the button
      * @param question
@@ -40,7 +38,7 @@ public class JeopardyButton extends JButton implements ActionListener {
      */
     public JeopardyButton(final Database database, final int category,
             final int question) {
-        super(String.valueOf((database.getNumQuestions() - question) * 100));
+        super(String.valueOf((question + 1) * 100));
         this.category = category;
         this.question = question;
         this.database = database;
@@ -58,12 +56,19 @@ public class JeopardyButton extends JButton implements ActionListener {
                 .getQuestion(this.getCategory(), this.getQuestion())
                 .getQuestion(), "Question", JOptionPane.YES_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        /*
+         * Reveal the answer if the reveal button is pressed
+         */
         if (opt == 0) {
             JOptionPane
                     .showMessageDialog(
                             null,
                             database.getQuestion(this.getCategory(),
                                     this.getQuestion()).getResponse());
+            /*
+             * Change the text to "-" to know that that question has been asked
+             */
             this.setText("-");
         }
     }
