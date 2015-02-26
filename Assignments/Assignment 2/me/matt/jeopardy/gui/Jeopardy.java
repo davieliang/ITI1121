@@ -39,6 +39,7 @@ public class Jeopardy extends JFrame {
      * Creates an instance of the jeopardy game. See Application as the entry point for this game
      */
     public Jeopardy() {
+        super("Jeopardy");
 
         /*
          * Initilize variables
@@ -56,7 +57,6 @@ public class Jeopardy extends JFrame {
         /*
          * Setup some settings and titles
          */
-        this.setTitle("Jeopardy Game");
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
