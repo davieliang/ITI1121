@@ -73,6 +73,7 @@ public class JeopardyButton extends JButton implements ActionListener {
              * Change the text to "-" to know that that question has been asked
              */
             this.setText("-");
+            this.setEnabled(false);
         }
     }
 
