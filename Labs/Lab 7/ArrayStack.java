@@ -25,14 +25,7 @@ public class ArrayStack<E> implements Stack<E> {
 
     public boolean isEmpty() {
 
-        // Same as:
-        // if ( top == 0 ) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-
-        return ( top == 0 );
+        return top == 0 ;
     }
 
     // Returns the top element of this ArrayStack without removing it
