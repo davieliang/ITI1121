@@ -45,7 +45,7 @@ public class FitnessGUI extends JFrame {
     private int target;
     private final boolean infinite;
     private final JProgressBar bar = new JProgressBar();
-    private JList list;
+    private JList<String> list;
 
     /**
      * Creates and displays a GUI with the board dimensions specified
@@ -138,7 +138,7 @@ public class FitnessGUI extends JFrame {
                         + System.getProperty("line.seperator"),
                 MessageType.INFO);
 
-        list = new JList(new String[] { "Simulating....." });
+        list = new JList<String>(new String[] { "Simulating....." });
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         final JScrollPane gridScroll = new JScrollPane(grid);
