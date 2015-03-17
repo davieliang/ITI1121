@@ -99,7 +99,7 @@ public class FitnessGUI extends JFrame {
                 }
             }
             final Individual ind = new Individual(permutation);
-            this.log(System.getProperty("line.seperator") + "Attributes: "
+            this.log(System.getProperty("line.separator") + "Attributes: "
                     + ind.toString(), MessageType.NORMAL);
         }
     }
@@ -135,7 +135,7 @@ public class FitnessGUI extends JFrame {
         info.append(
                 (simulator ? "Populating the queens..."
                         : "Each checkbox represents a queen.")
-                        + System.getProperty("line.seperator"),
+                        + System.getProperty("line.separator"),
                 MessageType.INFO);
 
         list = new JList(new String[] { "Simulating....." });
@@ -233,18 +233,18 @@ public class FitnessGUI extends JFrame {
 
         this.log(
                 "Printing Optimal Solution..."
-                        + System.getProperty("line.seperator"),
+                        + System.getProperty("line.separator"),
                 MessageType.INFO);
         this.update(individuals[0], information, MessageType.SUCCESS);
         list.addListSelectionListener(new ListSelectionListener() {
 
             @Override
             public void valueChanged(final ListSelectionEvent arg0) {
-                FitnessGUI.this.log(System.getProperty("line.seperator")
+                FitnessGUI.this.log(System.getProperty("line.separator")
                         + "Selecting new individual... ", MessageType.INFO);
                 FitnessGUI.this.update(
                         individuals[list.getSelectedIndex()],
-                        System.getProperty("line.seperator")
+                        System.getProperty("line.separator")
                                 + individuals[list.getSelectedIndex()]
                                         .toString(), MessageType.NORMAL);
             }
@@ -253,7 +253,7 @@ public class FitnessGUI extends JFrame {
     }
 
     public void log(final String s, final MessageType format) {
-        info.append(s + System.getProperty("line.seperator"), format);
+        info.append(s + System.getProperty("line.separator"), format);
         System.out.println(s);
     }
 

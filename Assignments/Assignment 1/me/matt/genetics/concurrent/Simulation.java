@@ -63,12 +63,12 @@ public class Simulation extends SwingWorker<Void, Individual> {
                 population.finalize();
                 final String result = "Execution time taken: "
                         + Util.getRuntime(startTime)
-                        + System.getProperty("line.seperator")
+                        + System.getProperty("line.separator")
                         + "Generations: " + evolutions
-                        + System.getProperty("line.seperator")
+                        + System.getProperty("line.separator")
                         + "Population Size: " + size
-                        + System.getProperty("line.seperator") + "Dimension: "
-                        + dimension + System.getProperty("line.seperator")
+                        + System.getProperty("line.separator") + "Dimension: "
+                        + dimension + System.getProperty("line.separator")
                         + "Attributes: " + population.getFittest().toString();
                 if (displayGUI && gui != null) {
                     gui.finalize(population, result);
