@@ -1,3 +1,5 @@
+import me.matt.luka.wrappers.Stack;
+
 /**
  * ITI 1121. Introduction à l'informatique II (Hiver 2008).
  * ITI 1521. Introduction to Computer Science II (Winter 2008).

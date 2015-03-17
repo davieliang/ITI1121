@@ -1,3 +1,4 @@
+
 public class L7Test {
 
     public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class L7Test {
         System.out.println(c2.compareTo(c3));
         System.out.println(c3.compareTo(c1));
 
-        Stack<String> s;
+        ArrayStack<String> s;
 
         s = new ArrayStack<String>(10);
 
