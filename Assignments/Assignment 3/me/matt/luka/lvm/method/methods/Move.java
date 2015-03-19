@@ -4,19 +4,18 @@ import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
 import me.matt.luka.wrappers.Token;
 
-public class Divide extends LukaMethod {
+public class Move extends LukaMethod {
 
     @Override
     public boolean canExecute(Token t) {
-        return t.getSymbol().equalsIgnoreCase("div");
+        return t.getSymbol().equalsIgnoreCase("moveto");
     }
 
     @Override
     public boolean execute(MethodsContext context) {
-        Token op1 = context.getStack().pop();
-        Token op2 = context.getStack().pop();
-        Token res = new Token(op2.getNumber() / op1.getNumber());
-        context.getStack().push(res);
+        Token y = context.getStack().pop();
+        Token x = context.getStack().pop();
+        context.getCursorPosiution().setLocation(x.getNumber(), y.getNumber());
         return true;
     }
 

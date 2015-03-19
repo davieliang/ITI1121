@@ -1,23 +1,27 @@
 package me.matt.luka.gui;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import me.matt.luka.lvm.Interpreter;
-
-import java.awt.event.*;
-import java.awt.*;
 
 /**
  * Viewer implements the graphical aspect of this application.
  * <ul>
- * <li>The viewer has a <code>Display</code> to render the result of the
- * execution of a <b>Luka</b> program;</li>
- * <li>It has a <code>TextArea</code> that allows the user to input a (valid)
- * program;</li>
- * <li>Has an interpreter that will be rendering the result of the execution of
- * a program onto the <code>Display</code>;</li>
- * <li>Has a button labeled ``execute''. The <code>Viewer</code> registers
- * itself as the event-handler of the button.</li>
+ * <li>The viewer has a <code>Display</code> to render the result of the execution of a <b>Luka</b> program;</li>
+ * <li>It has a <code>TextArea</code> that allows the user to input a (valid) program;</li>
+ * <li>Has an interpreter that will be rendering the result of the execution of a program onto the <code>Display</code>;</li>
+ * <li>Has a button labeled ``execute''. The <code>Viewer</code> registers itself as the event-handler of the button.</li>
  * </ul>
  *
  * @author Marcel Turcotte
@@ -51,7 +55,8 @@ public class Viewer extends JFrame implements ActionListener {
      * Creates the visual display of the application. Creates a Display, Button
      * and TextArea.
      *
-     * @param lvm a reference to an interpreter.
+     * @param lvm
+     *            a reference to an interpreter.
      */
     public Viewer() {
 
@@ -106,11 +111,11 @@ public class Viewer extends JFrame implements ActionListener {
     }
 
     /**
-     * Obtains the Luka program from the text area. Calls the method
-     * <code>execute</code> of the interpreter, passing the program and
+     * Obtains the Luka program from the text area. Calls the method <code>execute</code> of the interpreter, passing the program and
      * graphical context.
      *
-     * @param g the graphical context
+     * @param g
+     *            the graphical context
      */
     public void execute(Graphics g) {
         String program = input.getText();
