@@ -1,6 +1,7 @@
 package me.matt.luka.wrappers;
 
 import me.matt.luka.exception.EmptyStackException;
+import me.matt.luka.interfaces.Stack;
 
 /**
  * Linked implementation of the interface Stack.

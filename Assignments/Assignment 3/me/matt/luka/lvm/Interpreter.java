@@ -2,8 +2,9 @@ package me.matt.luka.lvm;
 
 import java.awt.*;
 
+import me.matt.luka.interfaces.Stack;
+import me.matt.luka.lvm.method.Methods;
 import me.matt.luka.wrappers.LinkedStack;
-import me.matt.luka.wrappers.Stack;
 import me.matt.luka.wrappers.Token;
 
 /**
@@ -12,12 +13,13 @@ import me.matt.luka.wrappers.Token;
  *
  * @author Marcel Turcotte
  */
-public class Interpreter {
+public class Interpreter extends Methods {
 
     /**
-     * Instance variable. The operands stack.
+     * 
      */
-    private Stack<Token> operands;
+
+    private Methods m;
 
     /**
      * Instance variable. A reference to a lexical analyzer (Reader).
@@ -45,6 +47,7 @@ public class Interpreter {
      * color is blue.
      */
     public Interpreter() {
+        m = new Methods();
         reset();
     }
 
@@ -52,9 +55,6 @@ public class Interpreter {
      * Auxiliary method that resets the graphics state of this interpreter.
      */
     private void reset() {
-
-        operands = new LinkedStack<Token>();
-
         gsX = 0;
         gsY = 0;
         gsColor = Color.BLUE;
@@ -64,10 +64,12 @@ public class Interpreter {
      * Executes the input program and displays the result onto the Graphics
      * object received as an argument.
      *
-     * @param program contains the source to be executed.
-     * @param g the graphics context.
+     * @param program
+     *            contains the source to be executed.
+     * @param g
+     *            the graphics context.
      */
-    
+
     public void execute(String program, Graphics g) {
 
         reset();
@@ -79,59 +81,8 @@ public class Interpreter {
         while (r.hasMoreTokens()) {
 
             Token t = r.nextToken();
-
-            if (t.isNumber()) {
-
-                operands.push(t);
-
-            } else if (t.getSymbol().equals("add")) {
-
-                execute_add();
-
-            } else if (t.getSymbol().equals("sub")) {
-
-                execute_sub();
-
-            } else if (t.getSymbol().equals("mul")) {
-
-                execute_mul();
-
-            } else if (t.getSymbol().equals("div")) {
-
-                execute_div();
-
-            } else if (t.getSymbol().equals("pop")) {
-
-                execute_pop();
-
-            } else if (t.getSymbol().equals("clear")) {
-
-                execute_clear();
-
-            } else if (t.getSymbol().equals("pstack")) {
-
-                execute_pstack();
-
-            } else if (t.getSymbol().equals("moveto")) {
-
-                execute_moveto();
-
-            } else if (t.getSymbol().equals("lineto")) {
-
-                execute_lineto(g);
-
-            } else if (t.getSymbol().equals("arc")) {
-
-                execute_arc(g);
-
-            } else if (t.getSymbol().equals("quit")) {
-
-                execute_quit();
-
-            } else {
-
-                System.err.println("ILLEGAL SYMBOL: " + t);
-
+            if (!m.execute(t)) {
+                System.err.println("ILLEGAL TOKEN: " + t.getSymbol());
             }
         }
 
@@ -155,13 +106,6 @@ public class Interpreter {
         Token op1 = operands.pop();
         Token op2 = operands.pop();
         Token res = new Token(op1.getNumber() * op2.getNumber());
-        operands.push(res);
-    }
-
-    private void execute_div() {
-        Token op1 = operands.pop();
-        Token op2 = operands.pop();
-        Token res = new Token(op2.getNumber() / op1.getNumber());
         operands.push(res);
     }
 

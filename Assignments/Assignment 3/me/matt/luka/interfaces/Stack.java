@@ -1,4 +1,4 @@
-package me.matt.luka.wrappers;
+package me.matt.luka.interfaces;
 
 /**
  * Stack Abstract Data Type. A Stack is a linear data structure following

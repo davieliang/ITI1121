@@ -1,4 +1,4 @@
-import me.matt.luka.wrappers.Stack;
+import me.matt.luka.interfaces.Stack;
 
 /**
  * ITI 1121. Introduction à l'informatique II (Hiver 2008).
