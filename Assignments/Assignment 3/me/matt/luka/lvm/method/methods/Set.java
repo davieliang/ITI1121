@@ -4,18 +4,18 @@ import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
 import me.matt.luka.wrappers.Token;
 
-public class Define extends LukaMethod {
+public class Set extends LukaMethod {
 
     @Override
     public boolean canExecute(Token t) {
-        return t.getSymbol().equals("def");
+        return t.getSymbol().equalsIgnoreCase("set");
     }
 
     @Override
     public boolean execute(MethodsContext context) {
-        Token number = context.getStack().pop();
-        Token variable = context.getStack().pop();
-        context.getDictionary().put(variable.getSymbol().substring(1), number);
+        Token value = context.getStack().pop();
+        String key = context.getStack().pop().getSymbol().substring(1);
+        context.getDictionary().replace(key, value);
         return true;
     }
 

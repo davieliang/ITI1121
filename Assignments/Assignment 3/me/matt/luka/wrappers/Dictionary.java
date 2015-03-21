@@ -39,8 +39,8 @@ public class Dictionary implements Map<String, Token> {
                 }
             }
         }
-        throw new NoSuchElementException(
-                "The map does not contain the key specified");
+        throw new NoSuchElementException("The map does not contain the key: "
+                + key);
     }
 
     @Override
@@ -67,15 +67,15 @@ public class Dictionary implements Map<String, Token> {
             Pair p = pairs[i];
             if (p != null) {
                 if (p.key != null) {
-                    if (p.key == key) {
+                    if (p.key.equals(key)) {
                         p.value = value;
                         return;
                     }
                 }
             }
         }
-        throw new NoSuchElementException(
-                "The map does not contain the key specified");
+        throw new NoSuchElementException("The map does not contain the key: "
+                + key);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Dictionary implements Map<String, Token> {
         Token remove = null;
         for (int i = head - 1; i >= 0; i--) {
             if (pairs[i] != null) {
-                if (pairs[i].key == key) {
+                if (pairs[i].key.equals(key)) {
                     remove = pairs[i].value;
                     pairs[i] = null;
                     break;
@@ -96,8 +96,8 @@ public class Dictionary implements Map<String, Token> {
         if (remove != null) {
             return remove;
         }
-        throw new NoSuchElementException(
-                "The map does not contain the key specified");
+        throw new NoSuchElementException("The map does not contain the key: "
+                + key);
     }
 
     @Override
