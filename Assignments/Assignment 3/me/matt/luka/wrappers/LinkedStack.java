@@ -32,11 +32,14 @@ public class LinkedStack<E> implements Stack<E> {
      */
     private Elem<E> top;
 
+    private int size;
+
     /**
      * Constructs an empty stack.
      */
     public LinkedStack() {
         top = null;
+        size = 0;
     }
 
     /**
@@ -52,23 +55,37 @@ public class LinkedStack<E> implements Stack<E> {
      * Returns the top element of this stack without removing it.
      *
      * @return the top element of the stack.
-     * @throws EmptyStackException if the stack was empty when the method was
-     * called.
+     * @throws EmptyStackException
+     *             if the stack was empty when the method was
+     *             called.
      */
     public E peek() {
-        // pre-conditions:
+        return peek(0);
+    }
+
+    @Override
+    public E peek(int distance) {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return top.info;
+        if (distance >= size) {
+            throw new IndexOutOfBoundsException(
+                    "Cannot peek beyond the size of the stack");
+        }
+        Elem<E> current = top;
+        for (int i = 0; i < distance; i++) {
+            current = current.next;
+        }
+        return current.info;
     }
 
     /**
      * Returns and remove the top element of this stack.
      *
      * @return the top element of the stack.
-     * @throws EmptyStackException if the stack was empty when the method was
-     * called.
+     * @throws EmptyStackException
+     *             if the stack was empty when the method was
+     *             called.
      */
     public E pop() {
         // pre-conditions:
@@ -79,21 +96,22 @@ public class LinkedStack<E> implements Stack<E> {
         E savedInfo = top.info;
 
         top = top.next;
-
+        size--;
         return savedInfo;
     }
 
     /**
      * Puts the element onto the top of this stack.
      *
-     * @param elem the element that will be pushed onto the top of the stack.
+     * @param elem
+     *            the element that will be pushed onto the top of the stack.
      */
     public void push(E elem) {
 
         if (elem == null) {
             throw new NullPointerException();
         }
-
+        size++;
         top = new Elem<E>(elem, top);
     }
 
@@ -119,6 +137,11 @@ public class LinkedStack<E> implements Stack<E> {
 
         b.append("}");
         return b.toString();
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
 }

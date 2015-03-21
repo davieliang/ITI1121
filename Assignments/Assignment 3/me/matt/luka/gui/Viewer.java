@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import me.matt.luka.exception.LukaSyntaxException;
 import me.matt.luka.lvm.Interpreter;
 
 /**
@@ -119,7 +120,11 @@ public class Viewer extends JFrame implements ActionListener {
      */
     public void execute(Graphics g) {
         String program = input.getText();
-        lvm.execute(program, g);
+        try {
+            lvm.execute(program, g);
+        } catch (LukaSyntaxException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
 
 }

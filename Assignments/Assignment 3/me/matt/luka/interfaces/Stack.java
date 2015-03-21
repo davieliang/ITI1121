@@ -25,6 +25,16 @@ public interface Stack<E> {
     public abstract E peek();
 
     /**
+     * Returns a refrence to the element at the specified distance into the stack
+     *
+     * @param distance
+     *            The distance into the stack you wish to peek
+     *
+     * @return The top element of this stack without removing it.
+     */
+    public abstract E peek(int distance);
+
+    /**
      * Removes and returns the element at the top of this stack.
      *
      * @return The top element of this stack.
@@ -32,9 +42,17 @@ public interface Stack<E> {
     public abstract E pop();
 
     /**
+     * Returns the number of elements in the stack.
+     *
+     * @return The number of elements in the stack
+     */
+    public abstract int size();
+
+    /**
      * Puts an element onto the top of this stack.
      *
-     * @param element the element be put onto the top of this stack.
+     * @param element
+     *            the element be put onto the top of this stack.
      */
     public abstract void push(E element);
 

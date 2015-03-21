@@ -50,9 +50,7 @@ public class Interpreter extends Methods {
 
         while (r.hasMoreTokens()) {
             Token t = r.nextToken();
-            if (!m.execute(t)) {
-                System.err.println("ILLEGAL TOKEN: " + t.getSymbol());
-            }
+            m.execute(t);
         }
 
     }

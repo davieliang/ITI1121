@@ -1,5 +1,3 @@
-import me.matt.luka.interfaces.Stack;
-
 /**
  * ITI 1121. Introduction à l'informatique II (Hiver 2008).
  * ITI 1521. Introduction to Computer Science II (Winter 2008).
@@ -11,15 +9,13 @@ public class ArrayStack<E> implements Stack<E> {
 
     // Instance variables
 
-    private E[] elems;  // Used to store the elements of this ArrayStack
-    private int top;    // Designates the first free cell
+    private E[] elems; // Used to store the elements of this ArrayStack
+    private int top; // Designates the first free cell
 
-    @SuppressWarnings( "unchecked" )
-
+    @SuppressWarnings("unchecked")
     // Constructor
-
-    public ArrayStack( int capacity ) {
-        elems = (E[]) new Object[ capacity ];
+    public ArrayStack(int capacity) {
+        elems = (E[]) new Object[capacity];
         top = 0;
     }
 
@@ -27,7 +23,7 @@ public class ArrayStack<E> implements Stack<E> {
 
     public boolean isEmpty() {
 
-        return top == 0 ;
+        return top == 0;
     }
 
     // Returns the top element of this ArrayStack without removing it
@@ -36,7 +32,7 @@ public class ArrayStack<E> implements Stack<E> {
 
         // pre-conditions: ! isEmpty()
 
-        return elems[ top-1 ];
+        return elems[top - 1];
     }
 
     // Removes and returns the top element of this stack
@@ -44,28 +40,28 @@ public class ArrayStack<E> implements Stack<E> {
     public E pop() {
 
         // pre-conditions: ! isEmpty()
-        
-        // *first* decrements top, then access the value!
-        E saved = elems[ --top ];
 
-        elems[ top ] = null; // scrub the memory!
+        // *first* decrements top, then access the value!
+        E saved = elems[--top];
+
+        elems[top] = null; // scrub the memory!
 
         return saved;
     }
 
     // Puts the element onto the top of this stack.
 
-    public void push( E element ) {
+    public void push(E element) {
 
         // Pre-condition: the stack is not full
 
         // *first* stores the element at position top, then increments top
 
-        elems[ top++ ] = element;
+        elems[top++] = element;
     }
 
     public void clear() {
-        while(!isEmpty()) {
+        while (!isEmpty()) {
             pop();
         }
     }

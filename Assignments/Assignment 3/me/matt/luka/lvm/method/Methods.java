@@ -16,6 +16,7 @@ import me.matt.luka.lvm.method.methods.Pop;
 import me.matt.luka.lvm.method.methods.Print;
 import me.matt.luka.lvm.method.methods.Quit;
 import me.matt.luka.lvm.method.methods.Set;
+import me.matt.luka.lvm.method.methods.SetColour;
 import me.matt.luka.lvm.method.methods.Subtract;
 import me.matt.luka.lvm.method.methods.Undefine;
 import me.matt.luka.wrappers.Token;
@@ -41,6 +42,7 @@ public class Methods {
         methods.add(new Define());
         methods.add(new Set());
         methods.add(new Undefine());
+        methods.add(new SetColour());
     }
 
     public void init(Graphics graphics) {
@@ -48,26 +50,38 @@ public class Methods {
     }
 
     public boolean execute(Token token) {
-        if (token.isNumber()) {
-            ctx.getStack().push(token);
-            return true;
-        } else if (token.isSymbol()) {
-            String symbol = token.getSymbol();
-            if (token.getSymbol().startsWith("/")) {
+        String error = null;
+        try {
+            if (token.isNumber()) {
                 ctx.getStack().push(token);
                 return true;
-            } else {
-                for (LukaMethod method : methods) {
-                    if (method.canExecute(token)) {
-                        return method.execute(ctx);
+            } else if (token.isSymbol()) {
+                String symbol = token.getSymbol();
+                if (token.getSymbol().startsWith("/")) {
+                    ctx.getStack().push(
+                            new Token(token.getSymbol().substring(1)));
+                    return true;
+                } else {
+                    for (LukaMethod method : methods) {
+                        if (method.canExecute(token, ctx.getStack())) {
+                            return method.execute(ctx);
+                        }
+                    }
+                    if (ctx.getDictionary().contains(symbol)) {
+                        ctx.getStack().push(ctx.getDictionary().get(symbol));
+                        return true;
                     }
                 }
-                if (ctx.getDictionary().contains(symbol)) {
-                    ctx.getStack().push(ctx.getDictionary().get(symbol));
-                    return true;
-                }
             }
+        } catch (LukaSyntaxException e) {
+            /*
+             * Execution will only get here when an error is caught
+             */
+            error = e.getMessage();
         }
-        throw new LukaSyntaxException("Illegal token");
+        System.out.println(ctx.getDictionary().toString());
+        System.out.println(ctx.getStack().toString());
+        throw new LukaSyntaxException(error != null ? error : "Illegal token "
+                + token.getSymbol());
     }
 }
