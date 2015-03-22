@@ -8,26 +8,30 @@ package me.matt.luka.uitl;
  */
 
 public class StudentInfo {
-
-    /**
-     * Displays the student information: student name, id, section, etc for each member of the team.
-     */
-    public static void display() {
-
-        System.out
-                .println("************************************************************");
-        System.out
-                .println("* Matthew Langlois                                         *");
-        System.out
-                .println("* 7731813                                                  *");
-        System.out
-                .println("* Section 1                                                *");
-        System.out
-                .println("* Assignment 3                                             *");
-        System.out
-                .println("************************************************************");
-        System.out.println();
-
-    }
-
+  
+  /**
+   * Displays the student information: student name, id, section, etc for each member of the team.
+   */
+  public static void display() {
+    
+    System.out
+      .println("************************************************************");
+    System.out
+      .println("* Matthew Langlois                                         *");
+    System.out
+      .println("* 7731813                                                  *");
+    System.out
+      .println("* Joel Faubert                                             *");
+     System.out
+      .println("* 2560106                                                  *");
+    System.out
+      .println("* Section 1                                                *");
+    System.out
+      .println("* Assignment 3                                             *");
+    System.out
+      .println("************************************************************");
+    System.out.println();
+    
+  }
+  
 }
