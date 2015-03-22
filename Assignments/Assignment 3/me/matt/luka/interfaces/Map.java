@@ -5,7 +5,7 @@ package me.matt.luka.interfaces;
  * Note: for the Luka Virtual Machine project, a map can contain duplicate keys.
  * 
  * <ul>
- * <li>Classname: Dictionary.java
+ * <li>Classname: Map.java
  * <li>22-03-2015
  * <li>Assignment 3
  * <li>Course: IT1 1121 A
