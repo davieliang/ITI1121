@@ -28,7 +28,7 @@ public class Move extends LukaMethod {
     public boolean execute(final MethodsContext context) {
         final Token y = context.getStack().pop();
         final Token x = context.getStack().pop();
-        context.getCursorPosiution().setLocation(x.getNumber(), y.getNumber());
+        context.getCursorPosition().setLocation(x.getNumber(), y.getNumber());
         return true;
     }
 

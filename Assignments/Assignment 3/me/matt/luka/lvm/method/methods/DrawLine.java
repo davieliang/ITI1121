@@ -29,10 +29,10 @@ public class DrawLine extends LukaMethod {
         final Token y = context.getStack().pop();
         final Token x = context.getStack().pop();
         context.getGraphics().drawLine(
-                (int) context.getCursorPosiution().getX(),
-                (int) context.getCursorPosiution().getY(), x.getNumber(),
+                (int) context.getCursorPosition().getX(),
+                (int) context.getCursorPosition().getY(), x.getNumber(),
                 y.getNumber());
-        context.getCursorPosiution().setLocation(x.getNumber(), y.getNumber());
+        context.getCursorPosition().setLocation(x.getNumber(), y.getNumber());
         return true;
     }
 

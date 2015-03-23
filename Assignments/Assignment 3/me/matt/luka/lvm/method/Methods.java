@@ -14,6 +14,7 @@ import me.matt.luka.lvm.method.methods.Move;
 import me.matt.luka.lvm.method.methods.Multiply;
 import me.matt.luka.lvm.method.methods.Pop;
 import me.matt.luka.lvm.method.methods.Print;
+import me.matt.luka.lvm.method.methods.PrintDictionary;
 import me.matt.luka.lvm.method.methods.Quit;
 import me.matt.luka.lvm.method.methods.Set;
 import me.matt.luka.lvm.method.methods.SetColour;
@@ -31,6 +32,10 @@ public class Methods {
      */
     public Methods() {
         methods = new ArrayList<LukaMethod>();
+
+        /*
+         * Add every possible method to the methods array
+         */
         methods.add(new Add());
         methods.add(new Clear());
         methods.add(new Divide());
@@ -46,10 +51,11 @@ public class Methods {
         methods.add(new Set());
         methods.add(new Undefine());
         methods.add(new SetColour());
+        methods.add(new PrintDictionary());
     }
 
     /**
-     * Execute the functin of the token being read
+     * Execute the function of the token being read
      * 
      * @param token
      *            The token being read
@@ -58,10 +64,22 @@ public class Methods {
     public boolean execute(final Token token) {
         String error = null;
         try {
+            /*
+             * Are we recieving a number? If so push it to the stack, otherwise use different logic
+             */
             if (token.isNumber()) {
                 ctx.getStack().push(token);
                 return true;
             } else if (token.isSymbol()) {
+                /*
+                 * We've recieved a symbol
+                 * 
+                 * 1. Check if it's an escaped symbol if so then add it to the stack
+                 * 2. Check if it's a well defined method if so execute the method
+                 * 3. Check if it's a well defined dictionary element if so replace it with the proper value
+                 * 
+                 * If all the above fail throw a lukasyntaxexception
+                 */
                 final String symbol = token.getSymbol();
                 if (token.getSymbol().startsWith("/")) {
                     ctx.getStack().push(
@@ -85,6 +103,9 @@ public class Methods {
              */
             error = e.getMessage();
         }
+        /*
+         * Notify the user of the error being caught along with the contents of the dictionary and the stack
+         */
         System.err.println("Luka Error Caught!");
         System.err.println(ctx.getDictionary().toString());
         System.err.println(ctx.getStack().toString());

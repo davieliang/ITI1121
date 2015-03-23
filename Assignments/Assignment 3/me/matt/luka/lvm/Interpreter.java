@@ -14,9 +14,8 @@ import me.matt.luka.wrappers.Token;
 public class Interpreter extends Methods {
 
     /**
-     *
+     * An instance of methods which can be executed by the interpreter
      */
-
     private final Methods m;
 
     /**
@@ -26,8 +25,7 @@ public class Interpreter extends Methods {
 
     /**
      * Initializes this newly created interpreter so that the operand stack is
-     * empty, the accumulator is set 0, the cursor is at (0,0), and the default
-     * color is blue.
+     * empty, the cursor is set to (0,0) and the methods are initialized
      */
     public Interpreter() {
         m = new Methods();
@@ -45,11 +43,22 @@ public class Interpreter extends Methods {
 
     public void execute(final String program, final Graphics g) {
 
+        /*
+         * Reads the luka code
+         */
         r = new Reader(program);
+
+        /*
+         * Initializes the methods class with the graphics canvas to draw
+         */
         m.init(g);
 
         while (r.hasMoreTokens()) {
             final Token t = r.nextToken();
+
+            /*
+             * Execute the requirement for the symbol
+             */
             m.execute(t);
         }
         System.out.println();// Create a padding for execution between two programs

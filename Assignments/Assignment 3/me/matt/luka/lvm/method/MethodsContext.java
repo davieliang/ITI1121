@@ -8,6 +8,18 @@ import me.matt.luka.wrappers.Dictionary;
 import me.matt.luka.wrappers.LinkedStack;
 import me.matt.luka.wrappers.Token;
 
+
+/**
+ * A class containing all of the accessors for the LukaMethods.
+ * 
+ * Assignment: 2
+ * Course: ITI1121 Section 1
+ * Student no: 7731813
+ * Student no: 2560106
+ *
+ * @author Matt Langlois (Fletchto99@gmail.com)
+ * @author Joel Faubert 
+ */
 public class MethodsContext {
 
     private Graphics graphics;
@@ -23,7 +35,7 @@ public class MethodsContext {
      * 
      * @return The location of the cursor on the screen
      */
-    public Point getCursorPosiution() {
+    public Point getCursorPosition() {
         return cursor;
     }
 

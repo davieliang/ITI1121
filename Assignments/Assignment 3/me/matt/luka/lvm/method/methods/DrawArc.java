@@ -30,9 +30,8 @@ public class DrawArc extends LukaMethod {
         final Token a2 = context.getStack().pop();
         final Token a1 = context.getStack().pop();
         final Token r = context.getStack().pop();
-        context.getGraphics().drawArc(
-                (int) context.getCursorPosiution().getX(),
-                (int) context.getCursorPosiution().getY(), r.getNumber(),
+        context.getGraphics().drawArc((int) context.getCursorPosition().getX(),
+                (int) context.getCursorPosition().getY(), r.getNumber(),
                 r.getNumber(), a1.getNumber(), a2.getNumber());
         return true;
     }
