@@ -4,9 +4,22 @@ import me.matt.luka.interfaces.Stack;
 import me.matt.luka.wrappers.Token;
 
 /**
- * An abstract class represnting a luka function which can be called by the luka virtual machine
+ * An abstract class representing a Luka function which can be called by the Luka Virtual Machine
  * 
- * @author Matt
+ * <ul>
+ * <li>Classname: LukaMethod.java
+ * <li>23-03-2015
+ * <li>Assignment 3
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
  *
  */
 public abstract class LukaMethod {

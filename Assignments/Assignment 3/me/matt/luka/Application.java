@@ -7,9 +7,22 @@ import me.matt.luka.gui.Viewer;
 import me.matt.luka.util.StudentInfo;
 
 /**
- * Runs the application.
+ * Runs the application by creating an Interpreter and a Viewer.
+ * <ul>
+ * <li>Classname: Application.java
+ * <li>23-03-2015
+ * <li>Assignment 3
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
  *
- * @author Marcel Turcotte
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
+ *
  */
 public class Application {
 

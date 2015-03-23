@@ -8,9 +8,33 @@ import me.matt.luka.interfaces.Stack;
 import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
 import me.matt.luka.wrappers.Token;
-
+/**
+ * Implementation for the Luka instruction "SetColour"
+ * 
+ * <ul>
+ * <li>Classname: SetColour.java
+ * <li>23-03-2015
+ * <li>Assignment 3
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
+ *
+ */
 public class SetColour extends LukaMethod {
 
+	/**
+	 * Checks preconditions to determine if interpreter should change colour for drawing
+	 * @param t A token which may be an instruction
+	 * @param stack Reference to the Luka Virtual Machine's active stack
+	 * @return true if conditions are met
+	 */
     @Override
     public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("setcolour")
@@ -21,6 +45,10 @@ public class SetColour extends LukaMethod {
         return t.getSymbol().equalsIgnoreCase("setcolour");
     }
 
+    /**
+     * Changes the colour for drawing graphics
+     * @param context Reference to MethodsContext
+     */
     @Override
     public boolean execute(final MethodsContext context) {
         final String colour = context.getStack().pop().getSymbol();
@@ -36,7 +64,7 @@ public class SetColour extends LukaMethod {
                     return (Color) f.get(null);
                 }
             } catch (final IllegalAccessException e) {
-                // Colour should always exist and be accessable
+                // Colour should always exist and be accessible
             }
         }
         throw new LukaSyntaxException("Colour " + colour + " not supported");

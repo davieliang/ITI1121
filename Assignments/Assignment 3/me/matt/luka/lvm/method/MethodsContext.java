@@ -12,13 +12,20 @@ import me.matt.luka.wrappers.Token;
 /**
  * A class containing all of the accessors for the LukaMethods.
  * 
- * Assignment: 2
- * Course: ITI1121 Section 1
- * Student no: 7731813
- * Student no: 2560106
+ * <ul>
+ * <li>Classname: Application.java
+ * <li>23-03-2015
+ * <li>Assignment 3
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
  *
- * @author Matt Langlois (Fletchto99@gmail.com)
- * @author Joel Faubert 
+ * @author Matt Langlois
+ * @version 1
+ *
  */
 public class MethodsContext {
 

@@ -9,7 +9,18 @@ import me.matt.luka.wrappers.Token;
  * Luka Virtual Machine (LVM) -- An interpreter for the Luka programming
  * language.
  *
- * @author Marcel Turcotte
+ * <ul>
+ * <li>Classname: Interpreter.java
+ * <li>23-03-2015
+ * <li>Assignment 3
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ * @author Matt Langlois
+ *
  */
 public class Interpreter extends Methods {
 
