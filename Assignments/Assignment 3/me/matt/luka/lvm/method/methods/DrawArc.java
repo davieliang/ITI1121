@@ -1,5 +1,6 @@
 package me.matt.luka.lvm.method.methods;
 
+import me.matt.luka.exception.LukaSyntaxException;
 import me.matt.luka.interfaces.Stack;
 import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
@@ -8,15 +9,27 @@ import me.matt.luka.wrappers.Token;
 public class DrawArc extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
-        return t.getSymbol().equalsIgnoreCase("arc");
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
+        if (t.getSymbol().equalsIgnoreCase("arc")) {
+            if (stack.size() > 2) {
+                if (stack.peek().isNumber() && stack.peek(1).isNumber()
+                        && stack.peek(2).isNumber()) {
+                    return true;
+                }
+                throw new LukaSyntaxException(
+                        "The last two elements in the stack must be numbers");
+            }
+            throw new LukaSyntaxException("Stack of size 3 or more is required");
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
-        Token a2 = context.getStack().pop();
-        Token a1 = context.getStack().pop();
-        Token r = context.getStack().pop();
+    public boolean execute(final MethodsContext context) {
+        final Token a2 = context.getStack().pop();
+        final Token a1 = context.getStack().pop();
+        final Token r = context.getStack().pop();
         context.getGraphics().drawArc(
                 (int) context.getCursorPosiution().getX(),
                 (int) context.getCursorPosiution().getY(), r.getNumber(),

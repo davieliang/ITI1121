@@ -63,10 +63,10 @@ public class Viewer extends JFrame implements ActionListener {
 
         super("DrLuka");
 
-        this.lvm = new Interpreter();
+        lvm = new Interpreter();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBackground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(Color.WHITE);
 
         // Display will be calling our method paint
         display = new Display(this);
@@ -74,30 +74,30 @@ public class Viewer extends JFrame implements ActionListener {
         display.setSize(400, 400);
         display.setBackground(Color.WHITE);
 
-        add(display, BorderLayout.CENTER);
+        this.add(display, BorderLayout.CENTER);
 
         // When the is pressed, we will execute the program typed in the text
         // area
         bExecute.addActionListener(this);
 
-        Panel controls = new Panel();
+        final Panel controls = new Panel();
         controls.setLayout(new FlowLayout());
         controls.add(bExecute);
 
-        Panel console = new Panel();
+        final Panel console = new Panel();
         console.setLayout(new BorderLayout());
 
         input.setBackground(Color.LIGHT_GRAY);
 
-        JScrollPane sp = new JScrollPane(input);
+        final JScrollPane sp = new JScrollPane(input);
 
         console.add(sp, BorderLayout.CENTER);
         console.add(controls, BorderLayout.SOUTH);
 
-        add(console, BorderLayout.SOUTH);
+        this.add(console, BorderLayout.SOUTH);
 
-        pack();
-        setVisible(true);
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -105,7 +105,8 @@ public class Viewer extends JFrame implements ActionListener {
      * component with a reference to the Graphics object. Finally, the method
      * paint calls our own method
      */
-    public void actionPerformed(ActionEvent e) {
+    @Override
+    public void actionPerformed(final ActionEvent e) {
         if (e.getSource() == bExecute) {
             display.repaint();
         }
@@ -118,12 +119,13 @@ public class Viewer extends JFrame implements ActionListener {
      * @param g
      *            the graphical context
      */
-    public void execute(Graphics g) {
-        String program = input.getText();
+    public void execute(final Graphics g) {
+        final String program = input.getText();
         try {
             lvm.execute(program, g);
-        } catch (LukaSyntaxException e) {
+        } catch (final LukaSyntaxException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(-1);
         }
     }
 

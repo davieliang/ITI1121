@@ -8,12 +8,12 @@ import me.matt.luka.wrappers.Token;
 public class Quit extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         return t.getSymbol().equalsIgnoreCase("quit");
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
+    public boolean execute(final MethodsContext context) {
         System.out.println("Bye!");
         System.exit(0);
         return true;

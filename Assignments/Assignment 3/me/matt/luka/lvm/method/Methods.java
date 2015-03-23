@@ -26,6 +26,9 @@ public class Methods {
     ArrayList<LukaMethod> methods;
     MethodsContext ctx = new MethodsContext();
 
+    /**
+     * Constructs an instance of the methods class, setting up all valid methods which may be executed during runtime
+     */
     public Methods() {
         methods = new ArrayList<LukaMethod>();
         methods.add(new Add());
@@ -45,24 +48,27 @@ public class Methods {
         methods.add(new SetColour());
     }
 
-    public void init(Graphics graphics) {
-        ctx.init(graphics);
-    }
-
-    public boolean execute(Token token) {
+    /**
+     * Execute the functin of the token being read
+     * 
+     * @param token
+     *            The token being read
+     * @return True if the token execution was successful; otherwise false.
+     */
+    public boolean execute(final Token token) {
         String error = null;
         try {
             if (token.isNumber()) {
                 ctx.getStack().push(token);
                 return true;
             } else if (token.isSymbol()) {
-                String symbol = token.getSymbol();
+                final String symbol = token.getSymbol();
                 if (token.getSymbol().startsWith("/")) {
                     ctx.getStack().push(
                             new Token(token.getSymbol().substring(1)));
                     return true;
                 } else {
-                    for (LukaMethod method : methods) {
+                    for (final LukaMethod method : methods) {
                         if (method.canExecute(token, ctx.getStack())) {
                             return method.execute(ctx);
                         }
@@ -73,15 +79,26 @@ public class Methods {
                     }
                 }
             }
-        } catch (LukaSyntaxException e) {
+        } catch (final LukaSyntaxException e) {
             /*
              * Execution will only get here when an error is caught
              */
             error = e.getMessage();
         }
-        System.out.println(ctx.getDictionary().toString());
-        System.out.println(ctx.getStack().toString());
+        System.err.println("Luka Error Caught!");
+        System.err.println(ctx.getDictionary().toString());
+        System.err.println(ctx.getStack().toString());
         throw new LukaSyntaxException(error != null ? error : "Illegal token "
                 + token.getSymbol());
+    }
+
+    /**
+     * Initilizes the methods with the canvas to paint to
+     * 
+     * @param graphics
+     *            The canvas the methods are able to paint to
+     */
+    public void init(final Graphics graphics) {
+        ctx.init(graphics);
     }
 }

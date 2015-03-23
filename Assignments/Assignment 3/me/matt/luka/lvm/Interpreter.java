@@ -14,10 +14,10 @@ import me.matt.luka.wrappers.Token;
 public class Interpreter extends Methods {
 
     /**
-     * 
+     *
      */
 
-    private Methods m;
+    private final Methods m;
 
     /**
      * Instance variable. A reference to a lexical analyzer (Reader).
@@ -43,16 +43,16 @@ public class Interpreter extends Methods {
      *            the graphics context.
      */
 
-    public void execute(String program, Graphics g) {
+    public void execute(final String program, final Graphics g) {
 
         r = new Reader(program);
         m.init(g);
 
         while (r.hasMoreTokens()) {
-            Token t = r.nextToken();
+            final Token t = r.nextToken();
             m.execute(t);
         }
-
+        System.out.println();// Create a padding for execution between two programs
     }
 
 }

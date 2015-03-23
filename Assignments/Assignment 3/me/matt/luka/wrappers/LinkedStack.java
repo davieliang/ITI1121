@@ -17,10 +17,10 @@ public class LinkedStack<E> implements Stack<E> {
      */
     private static class Elem<E> {
 
-        private E info;
-        private Elem<E> next;
+        private final E info;
+        private final Elem<E> next;
 
-        private Elem(E info, Elem<E> next) {
+        private Elem(final E info, final Elem<E> next) {
             this.info = info;
             this.next = next;
         }
@@ -47,6 +47,7 @@ public class LinkedStack<E> implements Stack<E> {
      *
      * @return true if this stack contains no elements.
      */
+    @Override
     public boolean isEmpty() {
         return top == null;
     }
@@ -59,13 +60,14 @@ public class LinkedStack<E> implements Stack<E> {
      *             if the stack was empty when the method was
      *             called.
      */
+    @Override
     public E peek() {
-        return peek(0);
+        return this.peek(0);
     }
 
     @Override
-    public E peek(int distance) {
-        if (isEmpty()) {
+    public E peek(final int distance) {
+        if (this.isEmpty()) {
             throw new EmptyStackException();
         }
         if (distance >= size) {
@@ -87,13 +89,14 @@ public class LinkedStack<E> implements Stack<E> {
      *             if the stack was empty when the method was
      *             called.
      */
+    @Override
     public E pop() {
         // pre-conditions:
-        if (isEmpty()) {
+        if (this.isEmpty()) {
             throw new EmptyStackException();
         }
 
-        E savedInfo = top.info;
+        final E savedInfo = top.info;
 
         top = top.next;
         size--;
@@ -106,7 +109,8 @@ public class LinkedStack<E> implements Stack<E> {
      * @param elem
      *            the element that will be pushed onto the top of the stack.
      */
-    public void push(E elem) {
+    @Override
+    public void push(final E elem) {
 
         if (elem == null) {
             throw new NullPointerException();
@@ -115,11 +119,17 @@ public class LinkedStack<E> implements Stack<E> {
         top = new Elem<E>(elem, top);
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
+
     /**
      * Returns a string representation of this object.
      *
      * @return a string representation of this object.
      */
+    @Override
     public String toString() {
 
         StringBuffer b;
@@ -137,11 +147,6 @@ public class LinkedStack<E> implements Stack<E> {
 
         b.append("}");
         return b.toString();
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 
 }

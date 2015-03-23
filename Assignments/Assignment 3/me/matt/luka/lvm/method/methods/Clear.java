@@ -9,7 +9,7 @@ import me.matt.luka.wrappers.Token;
 public class Clear extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("clear")) {
             if (stack.isEmpty()) {
                 throw new LukaSyntaxException("Stack cannot be empty");
@@ -23,7 +23,7 @@ public class Clear extends LukaMethod {
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
+    public boolean execute(final MethodsContext context) {
         while (!context.getStack().isEmpty()) {
             context.getStack().pop();
         }

@@ -8,12 +8,12 @@ import me.matt.luka.wrappers.Token;
 public class Print extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         return t.getSymbol().equalsIgnoreCase("pstack");
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
+    public boolean execute(final MethodsContext context) {
         System.out.println(context.getStack());
         return true;
     }

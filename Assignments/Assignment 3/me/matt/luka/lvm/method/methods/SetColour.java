@@ -12,7 +12,7 @@ import me.matt.luka.wrappers.Token;
 public class SetColour extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("setcolour")
                 && !stack.peek().isSymbol()) {
             throw new LukaSyntaxException(
@@ -22,20 +22,20 @@ public class SetColour extends LukaMethod {
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
-        String colour = context.getStack().pop().getSymbol();
-        context.getGraphics().setColor(findColour(colour));
+    public boolean execute(final MethodsContext context) {
+        final String colour = context.getStack().pop().getSymbol();
+        context.getGraphics().setColor(this.findColour(colour));
         return false;
     }
 
-    private Color findColour(String colour) {
-        for (Field f : Color.class.getFields()) {
+    private Color findColour(final String colour) {
+        for (final Field f : Color.class.getFields()) {
             try {
                 if (f.getType() == Color.class
                         && f.getName().equalsIgnoreCase(colour)) {
                     return (Color) f.get(null);
                 }
-            } catch (IllegalAccessException e) {
+            } catch (final IllegalAccessException e) {
                 // Colour should always exist and be accessable
             }
         }

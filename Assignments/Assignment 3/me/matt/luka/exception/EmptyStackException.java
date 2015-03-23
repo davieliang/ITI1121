@@ -5,15 +5,18 @@ package me.matt.luka.exception;
  * methods of a <code>Stack</code> to indicate the illegal situations where a
  * stack was empty.
  */
-@SuppressWarnings("serial")
-
 public class EmptyStackException extends RuntimeException {
 
-    public EmptyStackException(String message) {
-        super(message);
-    }
+    /**
+     *
+     */
+    private static final long serialVersionUID = 831138896625089171L;
 
     public EmptyStackException() {
+    }
+
+    public EmptyStackException(final String message) {
+        super(message);
     }
 
 }

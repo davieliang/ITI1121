@@ -9,7 +9,7 @@ import me.matt.luka.wrappers.Token;
 public class Add extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("add")) {
             if (stack.size() > 1) {
                 if (stack.peek().isNumber() && stack.peek(1).isNumber()) {
@@ -18,18 +18,17 @@ public class Add extends LukaMethod {
                 throw new LukaSyntaxException(
                         "The tokens being added should both be numbers");
             }
-            throw new LukaSyntaxException(
-                    "Stack of size 2 or more is required to add elements");
+            throw new LukaSyntaxException("Stack of size 2 or more is required");
         } else {
             return false;
         }
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
-        Token op1 = context.getStack().pop();
-        Token op2 = context.getStack().pop();
-        Token res = new Token(op1.getNumber() + op2.getNumber());
+    public boolean execute(final MethodsContext context) {
+        final Token op1 = context.getStack().pop();
+        final Token op2 = context.getStack().pop();
+        final Token res = new Token(op1.getNumber() + op2.getNumber());
         context.getStack().push(res);
         return true;
     }

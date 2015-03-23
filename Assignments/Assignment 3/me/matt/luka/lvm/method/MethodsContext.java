@@ -18,27 +18,53 @@ public class MethodsContext {
 
     private Dictionary dictionary;
 
-    public void init(Graphics graphics) {
-        this.operands = new LinkedStack<Token>();
-        this.graphics = graphics;
-        this.cursor = new Point(0, 0);
-        this.dictionary = new Dictionary();
-    }
-
-    public Stack<Token> getStack() {
-        return operands;
-    }
-
+    /**
+     * The location of the cursor on the screen
+     * 
+     * @return The location of the cursor on the screen
+     */
     public Point getCursorPosiution() {
         return cursor;
     }
 
+    /**
+     * The dictionary of variables
+     * 
+     * @return All of the valid variables the program has access to, ordered by insertion order
+     */
+    public Dictionary getDictionary() {
+        return dictionary;
+    }
+
+    /**
+     * The graphics instance
+     * 
+     * @return The instance of the graphics that the methods are able to paint to
+     */
     public Graphics getGraphics() {
         return graphics;
     }
 
-    public Dictionary getDictionary() {
-        return dictionary;
+    /**
+     * The stack containing all of the tokens
+     * 
+     * @return A stack of values the program has access to
+     */
+    public Stack<Token> getStack() {
+        return operands;
+    }
+
+    /**
+     * Initilizes the context for the currently running luka program
+     * 
+     * @param graphics
+     *            The canvas to paint too
+     */
+    public void init(final Graphics graphics) {
+        this.graphics = graphics;
+        operands = new LinkedStack<Token>();
+        cursor = new Point(0, 0);
+        dictionary = new Dictionary();
     }
 
 }

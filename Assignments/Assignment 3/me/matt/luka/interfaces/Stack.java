@@ -42,18 +42,18 @@ public interface Stack<E> {
     public abstract E pop();
 
     /**
-     * Returns the number of elements in the stack.
-     *
-     * @return The number of elements in the stack
-     */
-    public abstract int size();
-
-    /**
      * Puts an element onto the top of this stack.
      *
      * @param element
      *            the element be put onto the top of this stack.
      */
     public abstract void push(E element);
+
+    /**
+     * Returns the number of elements in the stack.
+     *
+     * @return The number of elements in the stack
+     */
+    public abstract int size();
 
 }

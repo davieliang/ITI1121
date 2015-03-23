@@ -1,4 +1,4 @@
-package me.matt.luka.uitl;
+package me.matt.luka.util;
 
 /**
  * Contains a method <code>void display()</code> that all the <code>main</code> methods call to display the student information. Fill the box with
@@ -20,6 +20,10 @@ public class StudentInfo {
                 .println("* Matthew Langlois                                         *");
         System.out
                 .println("* 7731813                                                  *");
+        System.out
+                .println("* Joel Faubert                                             *");
+        System.out
+                .println("* 2560106                                                  *");
         System.out
                 .println("* Section 1                                                *");
         System.out

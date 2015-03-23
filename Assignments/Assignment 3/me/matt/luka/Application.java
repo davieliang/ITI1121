@@ -4,7 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import me.matt.luka.gui.Viewer;
-import me.matt.luka.uitl.StudentInfo;
+import me.matt.luka.util.StudentInfo;
 
 /**
  * Runs the application.
@@ -23,7 +23,7 @@ public class Application {
      * @throws InstantiationException
      * @throws ClassNotFoundException
      */
-    public static void main(String[] args) throws ClassNotFoundException,
+    public static void main(final String[] args) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException,
             UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -9,7 +9,7 @@ import me.matt.luka.wrappers.Token;
 public class Define extends LukaMethod {
 
     @Override
-    public boolean canExecute(Token t, Stack<Token> stack) {
+    public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equals("def")) {
             if (stack.size() > 1) {
                 if (stack.peek(1).isSymbol()) {
@@ -29,9 +29,9 @@ public class Define extends LukaMethod {
     }
 
     @Override
-    public boolean execute(MethodsContext context) {
-        Token number = context.getStack().pop();
-        Token variable = context.getStack().pop();
+    public boolean execute(final MethodsContext context) {
+        final Token number = context.getStack().pop();
+        final Token variable = context.getStack().pop();
         context.getDictionary().put(variable.getSymbol(), number);
         return true;
     }

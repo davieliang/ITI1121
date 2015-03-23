@@ -17,9 +17,9 @@ import me.matt.luka.wrappers.Token;
  *     Token t = r.nextToken();
  *
  *     if (!t.isSymbol()) {
- * 	// ...
+ *         // ...
  *     } else if (t.sValue().equals(&quot;plus&quot;)) {
- * 	// ...
+ *         // ...
  *     }
  * }
  * </pre>
@@ -33,14 +33,15 @@ public class Reader {
      * Instance variable. Reader uses a StringTokenizer for the lexical
      * analysis.
      */
-    private StringTokenizer st;
+    private final StringTokenizer st;
 
     /**
      * Create a Reader object for the parameter string.
      *
-     * @param s the expression to be analyzed.
+     * @param s
+     *            the expression to be analyzed.
      */
-    public Reader(String s) {
+    public Reader(final String s) {
         st = new StringTokenizer(s);
     }
 
@@ -60,11 +61,11 @@ public class Reader {
      */
     public Token nextToken() {
 
-        String t = st.nextToken();
+        final String t = st.nextToken();
 
         try {
             return new Token(Integer.parseInt(t));
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return new Token(t);
         }
 
