@@ -43,104 +43,104 @@ import me.matt.luka.lvm.Interpreter;
  */
 public class Viewer extends JFrame implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * A reference to the interpreter.
-	 */
-	private final Interpreter lvm; // Luka Virtual Machine
+    /**
+     * A reference to the interpreter.
+     */
+    private final Interpreter lvm; // Luka Virtual Machine
 
-	/**
-	 * A reference to the display, where the result of the execution of the Luka
-	 * programs will be displayed.
-	 */
-	private final Display display;
+    /**
+     * A reference to the display, where the result of the execution of the Luka
+     * programs will be displayed.
+     */
+    private final Display display;
 
-	/**
-	 * The execute button.
-	 */
-	private final JButton bExecute = new JButton("Run");
+    /**
+     * The execute button.
+     */
+    private final JButton bExecute = new JButton("Run");
 
-	/**
-	 * A <code>TextArea</code> for entering the (Luka) code.
-	 */
-	private final JTextArea input = new JTextArea(6, 80);
+    /**
+     * A <code>TextArea</code> for entering the (Luka) code.
+     */
+    private final JTextArea input = new JTextArea(6, 80);
 
-	/**
-	 * Creates the visual display of the application. Creates a Display, Button
-	 * and TextArea.
-	 *
-	 * @param lvm
-	 *            a reference to an interpreter.
-	 */
-	public Viewer() {
+    /**
+     * Creates the visual display of the application. Creates a Display, Button
+     * and TextArea.
+     *
+     * @param lvm
+     *            a reference to an interpreter.
+     */
+    public Viewer() {
 
-		super("DrLuka");
+        super("DrLuka");
 
-		lvm = new Interpreter();
+        lvm = new Interpreter();
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBackground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(Color.WHITE);
 
-		// Display will be calling our method paint
-		display = new Display(this);
+        // Display will be calling our method paint
+        display = new Display(this);
 
-		display.setSize(400, 400);
-		display.setBackground(Color.WHITE);
+        display.setSize(400, 400);
+        display.setBackground(Color.WHITE);
 
-		this.add(display, BorderLayout.CENTER);
+        this.add(display, BorderLayout.CENTER);
 
-		// When the is pressed, we will execute the program typed in the text
-		// area
-		bExecute.addActionListener(this);
+        // When the is pressed, we will execute the program typed in the text
+        // area
+        bExecute.addActionListener(this);
 
-		final Panel controls = new Panel();
-		controls.setLayout(new FlowLayout());
-		controls.add(bExecute);
+        final Panel controls = new Panel();
+        controls.setLayout(new FlowLayout());
+        controls.add(bExecute);
 
-		final Panel console = new Panel();
-		console.setLayout(new BorderLayout());
+        final Panel console = new Panel();
+        console.setLayout(new BorderLayout());
 
-		input.setBackground(Color.LIGHT_GRAY);
+        input.setBackground(Color.LIGHT_GRAY);
 
-		final JScrollPane sp = new JScrollPane(input);
+        final JScrollPane sp = new JScrollPane(input);
 
-		console.add(sp, BorderLayout.CENTER);
-		console.add(controls, BorderLayout.SOUTH);
+        console.add(sp, BorderLayout.CENTER);
+        console.add(controls, BorderLayout.SOUTH);
 
-		this.add(console, BorderLayout.SOUTH);
+        this.add(console, BorderLayout.SOUTH);
 
-		this.pack();
-		this.setVisible(true);
-	}
+        this.pack();
+        this.setVisible(true);
+    }
 
-	/**
-	 * Calls to display.repaint(), which in turns calls the method paint of the
-	 * component with a reference to the Graphics object. Finally, the method
-	 * paint calls our own method
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e) {
-		if (e.getSource() == bExecute) {
-			display.repaint();
-		}
-	}
+    /**
+     * Calls to display.repaint(), which in turns calls the method paint of the
+     * component with a reference to the Graphics object. Finally, the method
+     * paint calls our own method
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+        if (e.getSource() == bExecute) {
+            display.repaint();
+        }
+    }
 
-	/**
-	 * Obtains the Luka program from the text area. Calls the method <code>execute</code> of the interpreter, passing the program and
-	 * graphical context.
-	 *
-	 * @param g
-	 *            the graphical context
-	 */
-	public void execute(final Graphics g) {
-		final String program = input.getText();
-		try {
-			lvm.execute(program, g);
-		} catch (final LukaSyntaxException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(-1);
-		}
-	}
+    /**
+     * Obtains the Luka program from the text area. Calls the method <code>execute</code> of the interpreter, passing the program and
+     * graphical context.
+     *
+     * @param g
+     *            the graphical context
+     */
+    public void execute(final Graphics g) {
+        final String program = input.getText();
+        try {
+            lvm.execute(program, g);
+        } catch (final LukaSyntaxException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(-1);
+        }
+    }
 
 }

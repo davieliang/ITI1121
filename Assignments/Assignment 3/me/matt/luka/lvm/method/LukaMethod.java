@@ -5,7 +5,7 @@ import me.matt.luka.wrappers.Token;
 
 /**
  * An abstract class representing a Luka function which can be called by the Luka Virtual Machine
- * 
+ *
  * <ul>
  * <li>Classname: LukaMethod.java
  * <li>23-03-2015
@@ -25,7 +25,7 @@ import me.matt.luka.wrappers.Token;
 public abstract class LukaMethod {
 
     /**
-     * 
+     *
      * @param token
      *            The current token being evaluated
      * @param stack
@@ -36,7 +36,7 @@ public abstract class LukaMethod {
 
     /**
      * Executes the luka method
-     * 
+     *
      * @param context
      *            The method's context containing all of the accessable variables
      * @return true if the method was executed successfuly

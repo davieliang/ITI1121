@@ -8,9 +8,10 @@ import me.matt.luka.interfaces.Stack;
 import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
 import me.matt.luka.wrappers.Token;
+
 /**
  * Implementation for the Luka instruction "SetColour"
- * 
+ *
  * <ul>
  * <li>Classname: SetColour.java
  * <li>23-03-2015
@@ -29,12 +30,15 @@ import me.matt.luka.wrappers.Token;
  */
 public class SetColour extends LukaMethod {
 
-	/**
-	 * Checks preconditions to determine if interpreter should change colour for drawing
-	 * @param t A token which may be an instruction
-	 * @param stack Reference to the Luka Virtual Machine's active stack
-	 * @return true if conditions are met
-	 */
+    /**
+     * Checks preconditions to determine if interpreter should change colour for drawing
+     * 
+     * @param t
+     *            A token which may be an instruction
+     * @param stack
+     *            Reference to the Luka Virtual Machine's active stack
+     * @return true if conditions are met
+     */
     @Override
     public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("setcolour")
@@ -47,7 +51,9 @@ public class SetColour extends LukaMethod {
 
     /**
      * Changes the colour for drawing graphics
-     * @param context Reference to MethodsContext
+     * 
+     * @param context
+     *            Reference to MethodsContext
      */
     @Override
     public boolean execute(final MethodsContext context) {
@@ -57,8 +63,14 @@ public class SetColour extends LukaMethod {
     }
 
     private Color findColour(final String colour) {
+        /*
+         * Find all field in the colour class
+         */
         for (final Field f : Color.class.getFields()) {
             try {
+                /*
+                 * If the field is a valid colour object and the name of the field is the name of the color specified, return it's instance
+                 */
                 if (f.getType() == Color.class
                         && f.getName().equalsIgnoreCase(colour)) {
                     return (Color) f.get(null);

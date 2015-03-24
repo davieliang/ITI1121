@@ -12,10 +12,10 @@ import me.matt.luka.wrappers.Token;
  *
  * <pre>
  * Reader r = new Reader(program);
- *
+ * 
  * while (r.hasMoreTokens()) {
  *     Token t = r.nextToken();
- *
+ * 
  *     if (!t.isSymbol()) {
  *         // ...
  *     } else if (t.sValue().equals(&quot;plus&quot;)) {
@@ -26,17 +26,17 @@ import me.matt.luka.wrappers.Token;
  *
  * @see StringTokenizer
  * @author Marcel Turcotte
- * 
- *  <ul>
- * <li>Classname: Reader.java
- * <li>23-03-2015
- * <li>Assignment 3
- * <li>Course: IT1 1121 A
- * <li>Langlois, Matt
- * <li>Student number: 7731813
- * <li>Faubert, Joel
- * <li>Student number: 2560106
- * </ul>
+ *
+ *         <ul>
+ *         <li>Classname: Reader.java
+ *         <li>23-03-2015
+ *         <li>Assignment 3
+ *         <li>Course: IT1 1121 A
+ *         <li>Langlois, Matt
+ *         <li>Student number: 7731813
+ *         <li>Faubert, Joel
+ *         <li>Student number: 2560106
+ *         </ul>
  *
  */
 public class Reader {

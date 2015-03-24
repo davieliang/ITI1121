@@ -8,10 +8,9 @@ import me.matt.luka.wrappers.Dictionary;
 import me.matt.luka.wrappers.LinkedStack;
 import me.matt.luka.wrappers.Token;
 
-
 /**
  * A class containing all of the accessors for the LukaMethods.
- * 
+ *
  * <ul>
  * <li>Classname: Application.java
  * <li>23-03-2015
@@ -39,7 +38,7 @@ public class MethodsContext {
 
     /**
      * The location of the cursor on the screen
-     * 
+     *
      * @return The location of the cursor on the screen
      */
     public Point getCursorPosition() {
@@ -48,7 +47,7 @@ public class MethodsContext {
 
     /**
      * The dictionary of variables
-     * 
+     *
      * @return All of the valid variables the program has access to, ordered by insertion order
      */
     public Dictionary getDictionary() {
@@ -57,7 +56,7 @@ public class MethodsContext {
 
     /**
      * The graphics instance
-     * 
+     *
      * @return The instance of the graphics that the methods are able to paint to
      */
     public Graphics getGraphics() {
@@ -66,7 +65,7 @@ public class MethodsContext {
 
     /**
      * The stack containing all of the tokens
-     * 
+     *
      * @return A stack of values the program has access to
      */
     public Stack<Token> getStack() {
@@ -75,7 +74,7 @@ public class MethodsContext {
 
     /**
      * Initilizes the context for the currently running luka program
-     * 
+     *
      * @param graphics
      *            The canvas to paint too
      */

@@ -23,21 +23,22 @@ package me.matt.luka.exception;
 
 public class EmptyStackException extends RuntimeException {
 
+    private static final long serialVersionUID = 831138896625089171L;
 
-	private static final long serialVersionUID = 831138896625089171L;
+    /**
+     * Class constructor
+     */
+    public EmptyStackException() {
+    }
 
-	/**
-	 * Class constructor
-	 */
-	public EmptyStackException() {
-	}
-
-	/**
-	 * Constructor with message
-	 * @param message Description of cause of exception
-	 */
-	public EmptyStackException(final String message) {
-		super(message);
-	}
+    /**
+     * Constructor with message
+     * 
+     * @param message
+     *            Description of cause of exception
+     */
+    public EmptyStackException(final String message) {
+        super(message);
+    }
 
 }

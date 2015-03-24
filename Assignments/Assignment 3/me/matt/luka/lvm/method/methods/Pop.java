@@ -5,9 +5,10 @@ import me.matt.luka.interfaces.Stack;
 import me.matt.luka.lvm.method.LukaMethod;
 import me.matt.luka.lvm.method.MethodsContext;
 import me.matt.luka.wrappers.Token;
+
 /**
  * Implementation for the Luka instruction "Pop"
- * 
+ *
  * <ul>
  * <li>Classname: Pop.java
  * <li>23-03-2015
@@ -26,12 +27,15 @@ import me.matt.luka.wrappers.Token;
  */
 public class Pop extends LukaMethod {
 
-	/**
-	 * Checks preconditions to determine if interpreter should pop from the stack
-	 * @param t A token which may be an instruction
-	 * @param stack Reference to the Luka Virtual Machine's active stack
-	 * @return true if conditions are met
-	 */
+    /**
+     * Checks preconditions to determine if interpreter should pop from the stack
+     * 
+     * @param t
+     *            A token which may be an instruction
+     * @param stack
+     *            Reference to the Luka Virtual Machine's active stack
+     * @return true if conditions are met
+     */
     @Override
     public boolean canExecute(final Token t, final Stack<Token> stack) {
         if (t.getSymbol().equalsIgnoreCase("pop")) {
@@ -46,7 +50,9 @@ public class Pop extends LukaMethod {
 
     /**
      * Pops the last element from the stack
-     * @param context Reference to MethodsContext
+     * 
+     * @param context
+     *            Reference to MethodsContext
      */
     @Override
     public boolean execute(final MethodsContext context) {

@@ -5,16 +5,16 @@ package me.matt.luka.util;
  * your personal information.
  *
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
- * <ul>
- * <li>Classname: StudentInfo.java
- * <li>23-03-2015
- * <li>Assignment 3
- * <li>Course: IT1 1121 A
- * <li>Langlois, Matt
- * <li>Student number: 7731813
- * <li>Faubert, Joel
- * <li>Student number: 2560106
- * </ul>
+ *         <ul>
+ *         <li>Classname: StudentInfo.java
+ *         <li>23-03-2015
+ *         <li>Assignment 3
+ *         <li>Course: IT1 1121 A
+ *         <li>Langlois, Matt
+ *         <li>Student number: 7731813
+ *         <li>Faubert, Joel
+ *         <li>Student number: 2560106
+ *         </ul>
  *
  */
 public class StudentInfo {

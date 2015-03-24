@@ -99,7 +99,7 @@ public class Dictionary implements Map<String, Token> {
 
     /*
      * Private method to find a specific key in current array and return it's index
-     * 
+     *
      * Throws a NoSuchElementException if the key is not found
      */
     private int getIndex(final String key) {
