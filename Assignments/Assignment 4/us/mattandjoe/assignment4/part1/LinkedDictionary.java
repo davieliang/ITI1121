@@ -30,7 +30,6 @@
 		}
 	
 		private Node head;
-		private int size;
 	
 		/**
 		 * Constructor for LinkedDictionary
@@ -38,7 +37,6 @@
 		public LinkedDictionary() {
 			head = new Node(null, null, null, null); // set up dummy node;
 			head.next = head.previous = head;
-			size = 0;
 		}
 	
 		/**
@@ -58,7 +56,6 @@
 				throw new NullPointerException("Value is null");
 			head.previous = new Node(key, value, head, head.previous);
 			head.previous.previous.next = head.previous;
-			size++;
 		}
 	
 		/**
@@ -156,7 +153,21 @@
 		 */
 		@Override
 		public void replace(String key, Token value) {
-			// TODO Auto-generated method stub
+			if (key == null)
+				throw new NullPointerException("Key is null");
+			if (value == null)
+				throw new NullPointerException("Value is null");
+			
+			Node p = head.previous;
+			while (p != head) {
+				if (p.key.equals(key)) {
+					p.value = value;
+					return;
+				}
+				p = p.previous;	
+			}
+			throw new NoSuchElementException("Element " + key
+					+ " not found in dictionary");
 	
 		}
 	
