@@ -1,4 +1,5 @@
-package me.matt.luka.util;
+package us.mattandjoe.assignment4.util;
+
 
 /**
  * Contains a method <code>void display()</code> that all the <code>main</code> methods call to display the student information. Fill the box with
@@ -7,7 +8,7 @@ package me.matt.luka.util;
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
  *         <ul>
  *         <li>Classname: StudentInfo.java
- *         <li>23-03-2015
+ *         <li>14-04-2015
  *         <li>Assignment 4
  *         <li>Course: IT1 1121 A
  *         <li>Langlois, Matt
