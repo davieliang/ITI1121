@@ -29,7 +29,7 @@ public class DrawLine extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should draw a line
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -54,7 +54,7 @@ public class DrawLine extends LukaMethod {
 
     /**
      * Draws a line from current cursor position to position x,y specified by last two elements of the stack
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

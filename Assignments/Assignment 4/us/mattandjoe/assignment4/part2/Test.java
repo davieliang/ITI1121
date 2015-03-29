@@ -4,16 +4,16 @@ import java.util.List;
 
 public class Test {
 
-    public static void main(String[] args) {
-        
+    public static void main(final String[] args) {
+
         CircularQueue<Integer> q;
         q = new CircularQueue<Integer>(8);
-        
+
         for (int i = 0; i < 6; i++) {
             q.enqueue(i);
         }
-        
-        while (! q.isEmpty()) {
+
+        while (!q.isEmpty()) {
             q.dequeue();
         }
 

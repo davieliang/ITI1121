@@ -29,7 +29,7 @@ public class Subtract extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should subtract
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -54,7 +54,7 @@ public class Subtract extends LukaMethod {
 
     /**
      * Pops two numbers from the stack, subtracts the first from the second, and pushes the results to the stack
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

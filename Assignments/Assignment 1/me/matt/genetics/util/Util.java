@@ -15,6 +15,10 @@ import me.matt.genetics.wrapper.Individual;
 
 public class Util {
 
+    /** Uses a a generator of pseudo-random numbers */
+
+    private static final Random random = new Random();
+
     /**
      * Returns a randomly generated permutation of the numbers 0 to <code>n-1</code>, where <code>n</code> is the size of the permutation. The
      * permutation of size 0 is an empty permutation, which corresponds to an array of size 0.
@@ -94,8 +98,4 @@ public class Util {
         }
         return cleaned.toArray(new Individual[cleaned.size()]);
     }
-
-    /** Uses a a generator of pseudo-random numbers */
-
-    private static final Random random = new Random();
 }

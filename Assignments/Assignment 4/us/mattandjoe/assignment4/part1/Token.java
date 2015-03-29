@@ -32,21 +32,70 @@ public class Token {
     /**
      * Creates a token that represents a NUMBER.
      *
-     * @param value the NUMBER of the token
+     * @param value
+     *            the NUMBER of the token
      */
-    public Token(int value) {
-        this.number = value;
+    public Token(final int value) {
+        number = value;
         type = TokenType.NUMBER;
     }
 
     /**
      * Creates a token that represents a SYMBOL.
      *
-     * @param value the SYMBOL represented by the token
+     * @param value
+     *            the SYMBOL represented by the token
      */
-    public Token(String value) {
-        this.symbol = value;
+    public Token(final String value) {
+        symbol = value;
         type = TokenType.SYMBOL;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Token copy() {
+
+        Token copy;
+
+        if (this.isNumber()) {
+            copy = new Token(number);
+        } else {
+            copy = new Token(symbol);
+        }
+
+        return copy;
+
+    }
+
+    /**
+     * Overrides the method equals from the class Object
+     *
+     * @param obj
+     *            the other object
+     * @return true if both tokens are of the same type and store the same value
+     */
+    @Override
+    public boolean equals(final Object obj) {
+
+        boolean answer;
+
+        if (obj == null) {
+            answer = false;
+        } else if (!(obj instanceof Token)) {
+            answer = false;
+        } else {
+            final Token other = (Token) obj;
+            if (type != other.type) {
+                answer = false;
+            } else if (type == TokenType.NUMBER) {
+                answer = number == other.number;
+            } else {
+                answer = symbol.equals(other.symbol);
+            }
+        }
+        return answer;
     }
 
     /**
@@ -100,24 +149,6 @@ public class Token {
     }
 
     /**
-     *
-     * @return
-     */
-    public Token copy() {
-
-        Token copy;
-
-        if (isNumber()) {
-            copy = new Token(number);
-        } else {
-            copy = new Token(symbol);
-        }
-
-        return copy;
-
-    }
-
-    /**
      * Returns a String representation of this token.
      *
      * @return A String representation of this token.
@@ -134,34 +165,6 @@ public class Token {
                 throw new IllegalStateException(
                         "internal error: this statement should never be executed");
         }
-    }
-
-    /**
-     * Overrides the method equals from the class Object
-     *
-     * @param obj the other object
-     * @return true if both tokens are of the same type and store the same value
-     */
-    @Override
-    public boolean equals(Object obj) {
-
-        boolean answer;
-
-        if (obj == null) {
-            answer = false;
-        } else if (!(obj instanceof Token)) {
-            answer = false;
-        } else {
-            Token other = (Token) obj;
-            if (type != other.type) {
-                answer = false;
-            } else if (type == TokenType.NUMBER) {
-                answer = number == other.number;
-            } else {
-                answer = symbol.equals(other.symbol);
-            }
-        }
-        return answer;
     }
 
 }

@@ -29,7 +29,7 @@ public class Multiply extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should multiply
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -54,7 +54,7 @@ public class Multiply extends LukaMethod {
 
     /**
      * Pops two numbers from the stack, multiples the first and the second, and pushes the results to the stack
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

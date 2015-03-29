@@ -12,10 +12,10 @@ import me.matt.luka.wrappers.Token;
  *
  * <pre>
  * Reader r = new Reader(program);
- * 
+ *
  * while (r.hasMoreTokens()) {
  *     Token t = r.nextToken();
- * 
+ *
  *     if (!t.isSymbol()) {
  *         // ...
  *     } else if (t.sValue().equals(&quot;plus&quot;)) {

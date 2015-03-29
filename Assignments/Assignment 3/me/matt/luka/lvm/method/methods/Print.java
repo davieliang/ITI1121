@@ -28,7 +28,7 @@ public class Print extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should print the stack
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -42,7 +42,7 @@ public class Print extends LukaMethod {
 
     /**
      * Prints the content of the stack
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

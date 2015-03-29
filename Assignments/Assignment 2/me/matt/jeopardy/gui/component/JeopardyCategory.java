@@ -3,6 +3,7 @@ package me.matt.jeopardy.gui.component;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  * A special label to highlight the category
@@ -32,8 +33,8 @@ public class JeopardyCategory extends JLabel {
         /*
          * Create a label horizontally aligned
          */
-        
-        super(category, JLabel.CENTER);
+
+        super(category, SwingConstants.CENTER);
         /*
          * Some specs for the label to match the project
          */

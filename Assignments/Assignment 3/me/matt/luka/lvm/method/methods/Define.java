@@ -29,7 +29,7 @@ public class Define extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should define a new association in the dictionary
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -58,7 +58,7 @@ public class Define extends LukaMethod {
 
     /**
      * Adds a new association to the dictionary
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

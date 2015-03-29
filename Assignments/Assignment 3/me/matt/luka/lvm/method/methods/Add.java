@@ -29,7 +29,7 @@ public class Add extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should add
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -54,7 +54,7 @@ public class Add extends LukaMethod {
 
     /**
      * Takes two elements from the stack, adds them, and puts the result back onto the stack
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

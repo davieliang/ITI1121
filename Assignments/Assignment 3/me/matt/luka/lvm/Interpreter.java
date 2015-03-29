@@ -19,7 +19,7 @@ import me.matt.luka.wrappers.Token;
  * <li>Faubert, Joel
  * <li>Student number: 2560106
  * </ul>
- * 
+ *
  * @author Matt Langlois
  *
  */

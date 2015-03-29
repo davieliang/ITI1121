@@ -33,7 +33,7 @@ public class EmptyStackException extends RuntimeException {
 
     /**
      * Constructor with message
-     * 
+     *
      * @param message
      *            Description of cause of exception
      */

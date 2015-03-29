@@ -29,7 +29,7 @@ public class Divide extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should divide
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -55,7 +55,7 @@ public class Divide extends LukaMethod {
 
     /**
      * Pops two numbers from the stack, divides the first from the second, and pushes the results to the stack
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

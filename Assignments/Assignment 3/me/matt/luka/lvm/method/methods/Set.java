@@ -31,7 +31,7 @@ public class Set extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter must change a definition
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -60,7 +60,7 @@ public class Set extends LukaMethod {
 
     /**
      * Takes the value from the top of the stack and redefines the key specified by the next pop of the stack with that value.
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

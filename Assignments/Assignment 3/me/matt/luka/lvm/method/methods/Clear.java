@@ -29,7 +29,7 @@ public class Clear extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should clear the stack
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -52,7 +52,7 @@ public class Clear extends LukaMethod {
 
     /**
      * Pops all elements of the stack to clear it
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

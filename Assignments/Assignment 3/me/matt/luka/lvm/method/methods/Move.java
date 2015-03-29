@@ -29,7 +29,7 @@ public class Move extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should move cursor
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -54,7 +54,7 @@ public class Move extends LukaMethod {
 
     /**
      * Moves cursor to position x,y specified by last two elements of the stack
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

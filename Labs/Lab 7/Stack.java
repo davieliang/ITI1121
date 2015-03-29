@@ -8,6 +8,11 @@
 public interface Stack<E> {
 
     /**
+     * Clears all elements from the Stack
+     */
+    public abstract void clear();
+
+    /**
      * Tests if this Stack is empty.
      *
      * @return true if this Stack is empty; and false otherwise.
@@ -40,10 +45,5 @@ public interface Stack<E> {
      */
 
     public abstract void push(E element);
-
-    /**
-     * Clears all elements from the Stack
-     */
-    public abstract void clear();
 
 }

@@ -28,7 +28,7 @@ public class Quit extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should exit
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -42,7 +42,7 @@ public class Quit extends LukaMethod {
 
     /**
      * Ends the application
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

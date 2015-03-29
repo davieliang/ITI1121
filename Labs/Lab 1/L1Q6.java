@@ -1,5 +1,7 @@
 public class L1Q6 {
 
+    public static final int MAX_NUMBER_OF_ATTEMPTS = 3;
+
     public static void main(final String[] args) {
         final DoorLock dl = new DoorLock(new Combination(1, 2, 3));
 
@@ -26,7 +28,5 @@ public class L1Q6 {
         System.out.println("Door is closed: " + dl.isClosed());
 
     }
-
-    public static final int MAX_NUMBER_OF_ATTEMPTS = 3;
 
 }

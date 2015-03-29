@@ -6,14 +6,15 @@ import java.awt.Panel;
 
 public class GUI extends Frame {
 
-    public static void main(final String[] args) {
-        new GUI();
-    }
-
     /**
      *
      */
     private static final long serialVersionUID = 1L;
+
+    public static void main(final String[] args) {
+        new GUI();
+    }
+
     private final Button bLeft = new Button("Left");
 
     private final Button bRight = new Button("Right");

@@ -32,7 +32,7 @@ public class SetColour extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should change colour for drawing
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -51,7 +51,7 @@ public class SetColour extends LukaMethod {
 
     /**
      * Changes the colour for drawing graphics
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

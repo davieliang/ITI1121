@@ -28,7 +28,7 @@ public class PrintDictionary extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should print the dictionary
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -42,7 +42,7 @@ public class PrintDictionary extends LukaMethod {
 
     /**
      * Prints the contents of the dictionary
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

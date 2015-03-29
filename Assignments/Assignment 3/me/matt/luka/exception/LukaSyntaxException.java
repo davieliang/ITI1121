@@ -4,7 +4,7 @@ public class LukaSyntaxException extends RuntimeException {
 
     /**
      * Special type of RunTimeException to handle incorrect Luka commands
-     * 
+     *
      * <ul>
      * <li>Classname: LukaSyntaxException.java
      * <li>23-03-2015

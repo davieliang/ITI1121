@@ -35,7 +35,7 @@ public class Database {
 
             /*
              * Originally I used Files.readAllLines(file.getPath());
-             * 
+             *
              * This would read all of the lines to a List which could then be converted to an array. However I was told this was not allowed, so to
              * maintain functionality I add all of the strings together and then split them based on the systems line separator character. Essentially
              * the same functionality however it requires some form of a buffer

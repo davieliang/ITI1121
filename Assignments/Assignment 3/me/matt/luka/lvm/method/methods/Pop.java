@@ -29,7 +29,7 @@ public class Pop extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should pop from the stack
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -50,7 +50,7 @@ public class Pop extends LukaMethod {
 
     /**
      * Pops the last element from the stack
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */

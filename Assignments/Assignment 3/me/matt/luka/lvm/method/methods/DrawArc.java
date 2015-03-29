@@ -29,7 +29,7 @@ public class DrawArc extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should draw an arc
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -56,7 +56,7 @@ public class DrawArc extends LukaMethod {
     /**
      * Draws an arc from current cursor position to position x,y specified by last two elements of the stack and
      * of radius r specified by third element of the stack
-     * 
+     *
      * @param context
      *            reference to MethodsContext
      */

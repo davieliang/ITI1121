@@ -74,7 +74,7 @@ public class Methods {
 
     /**
      * Execute the function of the token being read
-     * 
+     *
      * @param token
      *            The token being read
      * @return True if the token execution was successful; otherwise false.
@@ -91,11 +91,11 @@ public class Methods {
             } else if (token.isSymbol()) {
                 /*
                  * We've recieved a symbol
-                 * 
+                 *
                  * 1. Check if it's an escaped symbol if so then add it to the stack
                  * 2. Check if it's a well defined method if so execute the method
                  * 3. Check if it's a well defined dictionary element if so replace it with the proper value
-                 * 
+                 *
                  * If all the above fail throw a lukasyntaxexception
                  */
                 final String symbol = token.getSymbol();
@@ -133,7 +133,7 @@ public class Methods {
 
     /**
      * Initilizes the methods with the canvas to paint to
-     * 
+     *
      * @param graphics
      *            The canvas the methods are able to paint to
      */

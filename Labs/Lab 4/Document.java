@@ -1,12 +1,12 @@
 public class Document {
 
+    private static int current = 100;
+
     private final String name;
 
     private String owner;
 
     private final int id;
-
-    private static int current = 100;
 
     public Document(final String name, final String owner) {
         this.name = name;

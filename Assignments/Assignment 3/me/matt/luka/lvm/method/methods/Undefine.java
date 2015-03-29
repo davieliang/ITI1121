@@ -31,7 +31,7 @@ public class Undefine extends LukaMethod {
 
     /**
      * Checks preconditions to determine if interpreter should remove an association from dictionary
-     * 
+     *
      * @param t
      *            A token which may be an instruction
      * @param stack
@@ -56,7 +56,7 @@ public class Undefine extends LukaMethod {
 
     /**
      * Removes the key found at the top of the stack from the dictionary
-     * 
+     *
      * @param context
      *            Reference to MethodsContext
      */
