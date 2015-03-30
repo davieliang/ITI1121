@@ -1,6 +1,5 @@
 package us.mattandjoe.assignment4.part2;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,9 +41,8 @@ public class CircularQueue<E> implements Queue<E> {
             elems[front] = null; // ``scrubbing''
             size--;
             front = (front + 1) % elems.length;
-            elements.add(savedValue);
+            elements.add(0, savedValue);
         }
-        Collections.reverse(elements);
         return elements;
     }
 
