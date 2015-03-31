@@ -1,9 +1,22 @@
 package us.mattandjoe.assignment4.part3;
 
-/* ITI 1121/1521. Introduction to Computer Science II
+/** ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
  *
- * Marcel Turcotte
+ * Linked node implementation of queue data type
+ * 
+ * @author Marcel Turcotte
+ * 
+ * <ul>
+ * <li>Classname: LinkedQueue.java
+ * <li>31-03-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
  */
 
 public class LinkedQueue<E> implements Queue<E> {
