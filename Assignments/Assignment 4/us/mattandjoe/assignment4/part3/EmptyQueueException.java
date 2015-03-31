@@ -1,9 +1,11 @@
 package us.mattandjoe.assignment4.part3;
 
-/** 
- * Specific exception to handle empty queue errors
- * 
- * @author Marcel Turcotte
+/**
+ * An object of the class <code>EmptyQueueException</code> is thrown
+ * by the methods of a <code>Queue</code> to indicate the illegal
+ * situations where a queue was empty.
+ *
+ * @author Marcel Turcotte, Universite d'Ottawa/University of Ottawa
  * 
  * <ul>
  * <li>Classname: EmptyQueueException.java

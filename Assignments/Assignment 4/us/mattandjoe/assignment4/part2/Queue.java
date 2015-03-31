@@ -1,11 +1,8 @@
 package us.mattandjoe.assignment4.part2;
 
-/*
- * Introduction to Computing II (ITI 1121)
- * Introduction a l'informatique II (ITI 1521)
- */
-
-/**
+/** ITI 1121/1521. Introduction to Computer Science II
+ * Assignment/Devoir 4
+ *
  * Queue Abstract Data Type. A Queue is a linear data structure
  * following first-in-first-out protocol, i.e. the first element that
  * has been added to the Queue, is the first one to be removed.
@@ -13,8 +10,18 @@ package us.mattandjoe.assignment4.part2;
  * @author Marcel Turcotte
  * @param <E>
  *            the type of elements in this queue
+ * 
+ * <ul>
+ * <li>Classname: Queue.java
+ * <li>31-03-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
  */
-
 public interface Queue<E> {
 
     /**
