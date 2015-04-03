@@ -1,3 +1,5 @@
+package us.mattandjoe.assignment4.part4;
+
 public class Tuple { 
  
     private final char c; 
