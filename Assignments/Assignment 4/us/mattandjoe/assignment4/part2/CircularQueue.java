@@ -55,7 +55,7 @@ public class CircularQueue<E> implements Queue<E> {
 			throw new EmptyQueueException();
 		}
 		if (size < amount) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException(String.valueOf(amount));
 		}
 		final List<E> elements = new LinkedList<E>();
 		for (int i = 0; i < amount; i++) {

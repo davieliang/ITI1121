@@ -1,22 +1,23 @@
 package us.mattandjoe.assignment4.part3;
 
-/** ITI 1121/1521. Introduction to Computer Science II
+/**
+ * ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
  *
  * Linked node implementation of queue data type
  * 
  * @author Marcel Turcotte
  * 
- * <ul>
- * <li>Classname: LinkedQueue.java
- * <li>31-03-2015
- * <li>Assignment 4
- * <li>Course: IT1 1121 A
- * <li>Langlois, Matt
- * <li>Student number: 7731813
- * <li>Faubert, Joel
- * <li>Student number: 2560106
- * </ul>
+ *         <ul>
+ *         <li>Classname: LinkedQueue.java
+ *         <li>31-03-2015
+ *         <li>Assignment 4
+ *         <li>Course: IT1 1121 A
+ *         <li>Langlois, Matt
+ *         <li>Student number: 7731813
+ *         <li>Faubert, Joel
+ *         <li>Student number: 2560106
+ *         </ul>
  */
 
 public class LinkedQueue<E> implements Queue<E> {
@@ -26,7 +27,7 @@ public class LinkedQueue<E> implements Queue<E> {
         private E value;
         private Elem<E> next;
 
-        private Elem( E value, Elem<E> next ) {
+        private Elem(E value, Elem<E> next) {
             this.value = value;
             this.next = next;
         }
@@ -43,25 +44,25 @@ public class LinkedQueue<E> implements Queue<E> {
 
         // pre-conditions:
 
-        if ( front == null ) {
+        if (front == null) {
             throw new EmptyQueueException();
         }
 
-	return front.value;
+        return front.value;
     }
 
-    public void enqueue( E o ) {
+    public void enqueue(E o) {
 
         // pre-conditions:
 
-        if ( o == null ) {
-            throw new IllegalArgumentException( "null" );
+        if (o == null) {
+            throw new IllegalArgumentException("null");
         }
 
         Elem<E> newElem;
-        newElem = new Elem<E>( o, null );
+        newElem = new Elem<E>(o, null);
 
-        if ( rear == null ) {
+        if (rear == null) {
             front = rear = newElem;
         } else {
             rear.next = newElem;
@@ -74,13 +75,13 @@ public class LinkedQueue<E> implements Queue<E> {
 
         // pre-conditions:
 
-        if ( front == null ) {
+        if (front == null) {
             throw new EmptyQueueException();
         }
 
         E result = front.value;
 
-        if ( front == rear ) {
+        if (front == rear) {
             front = rear = null;
         } else {
             front = front.next;

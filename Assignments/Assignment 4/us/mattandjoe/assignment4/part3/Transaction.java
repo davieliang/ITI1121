@@ -19,7 +19,7 @@ package us.mattandjoe.assignment4.part3;
 public class Transaction {
 
 	private int shares; // number of shares
-	private float sharePrice; // purchase price
+	private final float sharePrice; // purchase price
 
 	/**
 	 * Constructor
@@ -45,7 +45,7 @@ public class Transaction {
 	 */
 	public void sell(int num) {
 		if (num > shares) {
-			throw new IllegalArgumentException("can't sell more than you have");
+			throw new IllegalArgumentException("Can't sell more than you have");
 		}
 		shares = shares - num;
 	}
