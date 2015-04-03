@@ -47,7 +47,7 @@ public class CircularQueue<E> implements Queue<E> {
 
     /**
      * Dequeues multiple items in a single call
-     * 
+     *
      * @param amount
      *            number of items to dequeue
      * @return reference to list containing all dequeue'd items in reverse order

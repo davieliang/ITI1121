@@ -27,7 +27,7 @@ public interface Queue<E> {
 
     /**
      * Remove and returns the front element of this Queue.
-     * 
+     *
      * @return the front element of this Queue.
      */
 

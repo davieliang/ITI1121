@@ -10,7 +10,7 @@ public class JStockTest {
     public static void main(final String[] args) {
         /*
          * Data points for test: Yahoo inc. prices at market close
-         *
+         * 
          * Purchase times
          * Date Price
          * DD-MM-YYYY USD
@@ -20,7 +20,7 @@ public class JStockTest {
          * 02-01-2015 50.17
          * 02-02-2015 44.69
          * 02-03-2015 44.11
-         *
+         * 
          * Sale point:
          * 31-03-2015 44.44
          */

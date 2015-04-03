@@ -23,7 +23,7 @@ public class Transaction {
 
     /**
      * Constructor
-     * 
+     *
      * @param shares
      *            number of shares
      * @param sharePrice
@@ -36,7 +36,7 @@ public class Transaction {
 
     /**
      * Returns purchase price of shares
-     * 
+     *
      * @return purchase price of shares
      */
     public float getSharePrice() {
@@ -45,7 +45,7 @@ public class Transaction {
 
     /**
      * Returns number of shares
-     * 
+     *
      * @return number of shares
      */
     public int getShares() {
@@ -54,7 +54,7 @@ public class Transaction {
 
     /**
      * Decrements shares by sold amount
-     * 
+     *
      * @param num
      *            number shares sold
      */

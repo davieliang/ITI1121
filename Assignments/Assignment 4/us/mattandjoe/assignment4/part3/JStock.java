@@ -26,7 +26,7 @@ public class JStock {
 
     /**
      * Logs the purchase of shares and adds it to the end of the transactions queue.
-     * 
+     *
      * @param num
      *            number of shares purchased
      * @param sharePrice
@@ -38,7 +38,7 @@ public class JStock {
 
     /**
      * Calculates the value of a stock portfolio
-     * 
+     *
      * @return total value of shares in a portfolio
      */
     public float getValue() {
@@ -59,7 +59,7 @@ public class JStock {
     /**
      * Calculates the capital gains/losses involved in selling a certain number of shares.
      * Sells oldest shares first.
-     * 
+     *
      * @param num
      *            number of shares to sell
      * @param sharePrice
