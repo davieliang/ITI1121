@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         List<Tuple> l;
         l = new LinkedList<Tuple>();
 

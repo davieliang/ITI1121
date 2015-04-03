@@ -3,14 +3,14 @@ package us.mattandjoe.assignment4.part3;
 public class JStockTest {
     /**
      * Test cases
-     * 
+     *
      * @param args
      *            command line params unused
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         /*
          * Data points for test: Yahoo inc. prices at market close
-         * 
+         *
          * Purchase times
          * Date Price
          * DD-MM-YYYY USD
@@ -20,11 +20,11 @@ public class JStockTest {
          * 02-01-2015 50.17
          * 02-02-2015 44.69
          * 02-03-2015 44.11
-         * 
+         *
          * Sale point:
          * 31-03-2015 44.44
          */
-        JStock testYahoo = new JStock();
+        final JStock testYahoo = new JStock();
         testYahoo.buy(100, 40.32f);
         testYahoo.buy(100, 46.34f);
         testYahoo.buy(100, 50.10f);

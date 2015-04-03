@@ -5,9 +5,9 @@ package us.mattandjoe.assignment4.part3;
  * Assignment/Devoir 4
  *
  * Linked node implementation of queue data type
- * 
+ *
  * @author Marcel Turcotte
- * 
+ *
  *         <ul>
  *         <li>Classname: LinkedQueue.java
  *         <li>31-03-2015
@@ -24,10 +24,10 @@ public class LinkedQueue<E> implements Queue<E> {
 
     private static class Elem<E> {
 
-        private E value;
+        private final E value;
         private Elem<E> next;
 
-        private Elem(E value, Elem<E> next) {
+        private Elem(final E value, final Elem<E> next) {
             this.value = value;
             this.next = next;
         }
@@ -40,7 +40,8 @@ public class LinkedQueue<E> implements Queue<E> {
         front = rear = null;
     }
 
-    public E peek() {
+    @Override
+    public E dequeue() {
 
         // pre-conditions:
 
@@ -48,10 +49,19 @@ public class LinkedQueue<E> implements Queue<E> {
             throw new EmptyQueueException();
         }
 
-        return front.value;
+        final E result = front.value;
+
+        if (front == rear) {
+            front = rear = null;
+        } else {
+            front = front.next;
+        }
+
+        return result;
     }
 
-    public void enqueue(E o) {
+    @Override
+    public void enqueue(final E o) {
 
         // pre-conditions:
 
@@ -71,7 +81,13 @@ public class LinkedQueue<E> implements Queue<E> {
 
     }
 
-    public E dequeue() {
+    @Override
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    @Override
+    public E peek() {
 
         // pre-conditions:
 
@@ -79,19 +95,7 @@ public class LinkedQueue<E> implements Queue<E> {
             throw new EmptyQueueException();
         }
 
-        E result = front.value;
-
-        if (front == rear) {
-            front = rear = null;
-        } else {
-            front = front.next;
-        }
-
-        return result;
-    }
-
-    public boolean isEmpty() {
-        return front == null;
+        return front.value;
     }
 
 }

@@ -4,19 +4,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Frequency {
-    public static void frequency(List<Tuple> l) {
+    public static void frequency(final List<Tuple> l) {
         String result = "";
-        Iterator<Tuple> i = l.iterator();
+        final Iterator<Tuple> i = l.iterator();
         while (i.hasNext()) {
-            Tuple eval = i.next();
+            final Tuple eval = i.next();
             if (!eval.visited()) {
-                char current = eval.getChar();
+                final char current = eval.getChar();
                 int count = 1;
                 eval.toggle();
-                Iterator<Tuple> j = l.iterator();
+                final Iterator<Tuple> j = l.iterator();
 
                 while (j.hasNext()) {
-                    Tuple next = j.next();
+                    final Tuple next = j.next();
                     if (!next.visited()) {
                         if (next.getChar() == current) {
                             count++;

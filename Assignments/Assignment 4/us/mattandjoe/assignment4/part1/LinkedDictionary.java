@@ -1,6 +1,6 @@
 /**
-	 *
-	 */
+ *
+ */
 package us.mattandjoe.assignment4.part1;
 
 import java.util.NoSuchElementException;
