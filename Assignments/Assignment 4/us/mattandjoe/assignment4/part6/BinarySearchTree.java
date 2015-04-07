@@ -77,7 +77,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
                 return this.count(low, high, root, 0);
             }
         }
-        return -1;
+        throw new NullPointerException("Root cannot be null");
     }
 
     public int count(final E low, final E high, final Node<E> next, int count) {
