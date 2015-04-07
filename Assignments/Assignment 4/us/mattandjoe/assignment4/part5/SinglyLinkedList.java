@@ -31,7 +31,9 @@ public class SinglyLinkedList<E> {
 
     public SinglyLinkedList<Integer> indexOfAll(final E element) {
         final SinglyLinkedList<Integer> ints = new SinglyLinkedList<Integer>();
-        this.indexOfAll(ints, element, first, 0);
+        if (first != null) {
+            this.indexOfAll(ints, element, first, 0);
+        }
         return ints;
     }
 

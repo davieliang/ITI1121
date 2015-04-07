@@ -69,11 +69,15 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public int count(final E low, final E high) {
-        if (root.value.compareTo(low) >= 0 && root.value.compareTo(high) <= 0) {
-            return this.count(low, high, root, 1);
-        } else {
-            return this.count(low, high, root, 0);
+        if (root != null) {
+            if (root.value.compareTo(low) >= 0
+                    && root.value.compareTo(high) <= 0) {
+                return this.count(low, high, root, 1);
+            } else {
+                return this.count(low, high, root, 0);
+            }
         }
+        return -1;
     }
 
     public int count(final E low, final E high, final Node<E> next, int count) {
