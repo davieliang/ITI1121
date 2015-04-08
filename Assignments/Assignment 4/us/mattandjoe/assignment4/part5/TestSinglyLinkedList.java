@@ -83,5 +83,33 @@ public class TestSinglyLinkedList {
     public void testNull() {
         testListLetters.indexOfAll(null);
     }
+    
+    @Test()
+    public void testAddNull() {
+        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst(null);
+        test.addFirst(null);
+        test.addFirst(null);
+        
+        SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
+        indexes.addFirst(2);
+        indexes.addFirst(1);
+        indexes.addFirst(0);
+        Assert.assertEquals(test.indexOfAll(null), indexes);
+    }
+    
+    @Test(expected=NullPointerException.class)
+    public void testAddNull2() {
+        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst(null);
+        test.addFirst(null);
+        test.addFirst(null);
+        
+        SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
+        indexes.addFirst(2);
+        indexes.addFirst(1);
+        indexes.addFirst(0);
+        Assert.assertEquals(test.indexOfAll(null), indexes);
+    }
 
 }

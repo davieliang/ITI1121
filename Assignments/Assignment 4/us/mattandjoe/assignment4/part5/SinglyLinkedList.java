@@ -30,9 +30,9 @@ public class SinglyLinkedList<E> {
     }
 
     public SinglyLinkedList<Integer> indexOfAll(final E element) {
-        if (element == null) {
-            throw new NullPointerException("Illegal Argument");
-        }
+        // if (element == null) {
+        // throw new NullPointerException("Illegal Argument");
+        // }
         final SinglyLinkedList<Integer> ints = new SinglyLinkedList<Integer>();
         if (first != null) {
             this.indexOfAll(ints, element, first, 0);
@@ -54,7 +54,8 @@ public class SinglyLinkedList<E> {
         /*
          * Base case: Add the element to the list
          */
-        if (current.value.equals(value)) {
+        if ((current.value == null && value == null)
+                || current.value.equals(value)) {
             ints.addFirst(index);
         }
 
