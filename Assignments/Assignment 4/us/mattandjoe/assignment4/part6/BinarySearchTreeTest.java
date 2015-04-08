@@ -274,5 +274,26 @@ public class BinarySearchTreeTest {
 
         Assert.assertEquals(2, t.count(4, 5));
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testParamLowNull() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+        t.count(null, 5);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testParamHighNull() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+        t.count(null, null);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testParamBothNull() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+        t.count(5, null);
+    }
 
 }

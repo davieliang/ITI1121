@@ -69,6 +69,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public int count(final E low, final E high) {
+        if (low == null || high == null) {
+            throw new NullPointerException("Illegal Argument!");
+        }
         if (root != null) {
             if (root.value.compareTo(low) >= 0
                     && root.value.compareTo(high) <= 0) {
