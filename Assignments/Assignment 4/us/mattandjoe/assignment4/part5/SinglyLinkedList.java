@@ -1,8 +1,9 @@
 package us.mattandjoe.assignment4.part5;
 
-/* ITI 1121/1521. Introduction to Computer Science II
+/*
+ * ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
- *
+ * 
  * Marcel Turcotte
  */
 
@@ -26,13 +27,17 @@ public class SinglyLinkedList<E> {
     // ----------------------------------------------------------
 
     public void addFirst(final E item) {
+        if (item == null) {
+            throw new NullPointerException("Illegal argument");
+        }
+
         first = new Node<E>(item, first);
     }
 
     public SinglyLinkedList<Integer> indexOfAll(final E element) {
-        // if (element == null) {
-        // throw new NullPointerException("Illegal Argument");
-        // }
+        if (element == null) {
+            throw new NullPointerException("Illegal Argument");
+        }
         final SinglyLinkedList<Integer> ints = new SinglyLinkedList<Integer>();
         if (first != null) {
             this.indexOfAll(ints, element, first, 0);
@@ -69,26 +74,27 @@ public class SinglyLinkedList<E> {
     // Other instance methods
     // ----------------------------------------------------------
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof SinglyLinkedList<?>) {
-            SinglyLinkedList<E> other = (SinglyLinkedList<E>) obj;
-            if (other.isEmpty() && isEmpty()) {
-                return true;
-            } else {
-                Node<E> otherCurrent = other.first;
-                Node<E> current = first;
-                while (otherCurrent.value.equals(current.value)) {
-                    if (otherCurrent.next == null && current.next == null) {
-                        return true;
-                    }
-                    otherCurrent = otherCurrent.next;
-                    current = current.next;
-                }
-            }
+        if (!(obj instanceof SinglyLinkedList<?>)) {
+            return false;
         }
-        return false;
+        return obj == this ? true : equal(this, (SinglyLinkedList<?>) obj);
+    }
+
+    private boolean equal(SinglyLinkedList<E> l1, SinglyLinkedList<?> l2) {
+        return (l1.isEmpty() && l2.isEmpty()) ? true : equal(l1, l2, l1.first,
+                l2.first);
+    }
+
+    private boolean equal(SinglyLinkedList<E> l1, SinglyLinkedList<?> l2,
+            Node<E> n1, Node<?> n2) {
+        if (n1 == null || n2 == null) {
+            return (n1 == null && n2 == null) ? true : false;
+        } else {
+            return n1.value.equals(n2.value) ? equal(l1, l2, n1.next, n2.next)
+                    : false;
+        }
     }
 
     @Override
