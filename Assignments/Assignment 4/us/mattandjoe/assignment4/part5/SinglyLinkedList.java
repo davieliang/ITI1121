@@ -3,7 +3,7 @@ package us.mattandjoe.assignment4.part5;
 /*
  * ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
- * 
+ *
  * Marcel Turcotte
  */
 
@@ -32,6 +32,31 @@ public class SinglyLinkedList<E> {
         }
 
         first = new Node<E>(item, first);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof SinglyLinkedList<?>)) {
+            return false;
+        }
+        return obj == this ? true : this
+                .equals(this, (SinglyLinkedList<?>) obj);
+    }
+
+    private boolean equals(final SinglyLinkedList<E> l1,
+            final SinglyLinkedList<?> l2) {
+        return (l1.isEmpty() && l2.isEmpty()) ? true : this.equals(l1, l2,
+                l1.first, l2.first);
+    }
+
+    private boolean equals(final SinglyLinkedList<E> l1,
+            final SinglyLinkedList<?> l2, final Node<E> n1, final Node<?> n2) {
+        if (n1 == null || n2 == null) {
+            return (n1 == null && n2 == null) ? true : false;
+        } else {
+            return n1.value.equals(n2.value) ? this.equals(l1, l2, n1.next,
+                    n2.next) : false;
+        }
     }
 
     public SinglyLinkedList<Integer> indexOfAll(final E element) {
@@ -68,33 +93,6 @@ public class SinglyLinkedList<E> {
 
     public boolean isEmpty() {
         return first == null;
-    }
-
-    // ----------------------------------------------------------
-    // Other instance methods
-    // ----------------------------------------------------------
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof SinglyLinkedList<?>)) {
-            return false;
-        }
-        return obj == this ? true : equal(this, (SinglyLinkedList<?>) obj);
-    }
-
-    private boolean equal(SinglyLinkedList<E> l1, SinglyLinkedList<?> l2) {
-        return (l1.isEmpty() && l2.isEmpty()) ? true : equal(l1, l2, l1.first,
-                l2.first);
-    }
-
-    private boolean equal(SinglyLinkedList<E> l1, SinglyLinkedList<?> l2,
-            Node<E> n1, Node<?> n2) {
-        if (n1 == null || n2 == null) {
-            return (n1 == null && n2 == null) ? true : false;
-        } else {
-            return n1.value.equals(n2.value) ? equal(l1, l2, n1.next, n2.next)
-                    : false;
-        }
     }
 
     @Override

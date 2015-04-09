@@ -29,10 +29,106 @@ public class TestSinglyLinkedList {
         testListIndexes.addFirst(0);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAddNull() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+        test.indexOfAll(null);
+    }
+
     @Test
     public void testEmpty() {
         Assert.assertTrue((new SinglyLinkedList<String>()).indexOfAll("A")
                 .isEmpty());
+    }
+
+    @Test()
+    public void testEqualsEmpty() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        final SinglyLinkedList<Character> other = new SinglyLinkedList<Character>();
+
+        Assert.assertTrue(test.equals(other));
+    }
+
+    @Test()
+    public void testEqualsLenght() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+
+        final SinglyLinkedList<String> other = new SinglyLinkedList<String>();
+        other.addFirst("A");
+        other.addFirst("B");
+        other.addFirst("C");
+
+        Assert.assertFalse(test.equals(other));
+    }
+
+    @Test()
+    public void testEqualsNull() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+        Assert.assertFalse(test.equals(null));
+    }
+
+    @Test()
+    public void testEqualsOther() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+
+        final SinglyLinkedList<String> other = new SinglyLinkedList<String>();
+        other.addFirst("A");
+        other.addFirst("B");
+        other.addFirst("C");
+
+        Assert.assertTrue(test.equals(other));
+    }
+
+    @Test()
+    public void testEqualsThis() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+        Assert.assertTrue(test.equals(test));
+    }
+
+    @Test()
+    public void testEqualsTypeChange() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+
+        final SinglyLinkedList<Character> other = new SinglyLinkedList<Character>();
+        other.addFirst('A');
+        other.addFirst('B');
+        other.addFirst('C');
+
+        Assert.assertFalse(test.equals(other));
+    }
+
+    @Test()
+    public void testEqualsTypeObject() {
+        final SinglyLinkedList<String> test = new SinglyLinkedList<String>();
+        test.addFirst("A");
+        test.addFirst("B");
+        test.addFirst("C");
+
+        final SinglyLinkedList<Object> other = new SinglyLinkedList<Object>();
+        other.addFirst("A");
+        other.addFirst("B");
+        other.addFirst("C");
+
+        Assert.assertTrue(test.equals(other));
     }
 
     @Test
@@ -41,20 +137,13 @@ public class TestSinglyLinkedList {
     }
 
     @Test()
-    public void testString() {
-        final String list = testListIndexes.toString();
-        final String allIndex = testListLetters.indexOfAll("A").toString();
-        Assert.assertEquals(list, allIndex);
-    }
-
-    @Test()
     public void testLength1000() {
-        SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
-        SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
-        char[] chars = new char[] { 'A', 'B', 'C', 'D' };
-        Random random = new Random();
+        final SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
+        final SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
+        final char[] chars = new char[] { 'A', 'B', 'C', 'D' };
+        final Random random = new Random();
         for (int i = 0; i < 1000; i++) {
-            char next = chars[random.nextInt(4)];
+            final char next = chars[random.nextInt(4)];
             list.addFirst(next);
             if (next == 'C') {
                 indexes.addFirst(999 - i);
@@ -65,12 +154,12 @@ public class TestSinglyLinkedList {
 
     @Test()
     public void testLength1000String() {
-        SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
-        SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
-        char[] chars = new char[] { 'A', 'B', 'C', 'D' };
-        Random random = new Random();
+        final SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
+        final SinglyLinkedList<Integer> indexes = new SinglyLinkedList<Integer>();
+        final char[] chars = new char[] { 'A', 'B', 'C', 'D' };
+        final Random random = new Random();
         for (int i = 0; i < 1000; i++) {
-            char next = chars[random.nextInt(4)];
+            final char next = chars[random.nextInt(4)];
             list.addFirst(next);
             if (next == 'B') {
                 indexes.addFirst(999 - i);
@@ -79,116 +168,36 @@ public class TestSinglyLinkedList {
         Assert.assertEquals(indexes.toString(), list.indexOfAll('B').toString());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testNull() {
-        testListLetters.indexOfAll(null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testAddNull() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-        test.indexOfAll(null);
-    }
-
-    @Test()
-    public void testEqualsThis() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-        Assert.assertTrue(test.equals(test));
-    }
-
-    @Test()
-    public void testEqualsNull() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-        Assert.assertFalse(test.equals(null));
-    }
-
-    @Test()
-    public void testEqualsOther() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-
-        SinglyLinkedList<String> other = new SinglyLinkedList<String>();
-        other.addFirst("A");
-        other.addFirst("B");
-        other.addFirst("C");
-
-        Assert.assertTrue(test.equals(other));
-    }
-
-    @Test()
-    public void testEqualsTypeObject() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-
-        SinglyLinkedList<Object> other = new SinglyLinkedList<Object>();
-        other.addFirst("A");
-        other.addFirst("B");
-        other.addFirst("C");
-
-        Assert.assertTrue(test.equals(other));
-    }
-
-    @Test()
-    public void testEqualsTypeChange() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-
-        SinglyLinkedList<Character> other = new SinglyLinkedList<Character>();
-        other.addFirst('A');
-        other.addFirst('B');
-        other.addFirst('C');
-
-        Assert.assertFalse(test.equals(other));
-    }
-
-    @Test()
-    public void testEqualsEmpty() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        SinglyLinkedList<Character> other = new SinglyLinkedList<Character>();
-
-        Assert.assertTrue(test.equals(other));
-    }
-
-    @Test()
-    public void testEqualsLenght() {
-        SinglyLinkedList<String> test = new SinglyLinkedList<String>();
-        test.addFirst("A");
-        test.addFirst("A");
-        test.addFirst("B");
-        test.addFirst("C");
-
-        SinglyLinkedList<String> other = new SinglyLinkedList<String>();
-        other.addFirst("A");
-        other.addFirst("B");
-        other.addFirst("C");
-
-        Assert.assertFalse(test.equals(other));
-    }
-
     @Test(expected = StackOverflowError.class)
     public void testMassiveEquals() {
-        SinglyLinkedList<Integer> test = new SinglyLinkedList<Integer>();
-        SinglyLinkedList<Integer> test2 = new SinglyLinkedList<Integer>();
+        final SinglyLinkedList<Integer> test = new SinglyLinkedList<Integer>();
+        final SinglyLinkedList<Integer> test2 = new SinglyLinkedList<Integer>();
         for (int i = 0; i < 1000000; i++) {
             test.addFirst(i);
             test2.addFirst(i);
         }
         Assert.assertFalse(test.equals(test2));
+    }
+
+    @Test(expected = StackOverflowError.class)
+    public void testMassiveIndexOfAll() {
+        final SinglyLinkedList<Integer> test = new SinglyLinkedList<Integer>();
+        for (int i = 0; i < 1000000; i++) {
+            test.addFirst(1);
+        }
+        test.indexOfAll(1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNull() {
+        testListLetters.indexOfAll(null);
+    }
+
+    @Test()
+    public void testString() {
+        final String list = testListIndexes.toString();
+        final String allIndex = testListLetters.indexOfAll("A").toString();
+        Assert.assertEquals(list, allIndex);
     }
 
 }

@@ -95,9 +95,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     private int count(final Node<E> node, final E low, final E high) {
         if (node.value.compareTo(low) >= 0 && node.value.compareTo(high) <= 0) {
-            return this.count(low, high, node, 1);// Visit the right node with an incremented count
+            return this.count(low, high, node, 1);// Visit the next node with an incremented count
         } else {
-            return this.count(low, high, node, 0);// Visit the right node
+            return this.count(low, high, node, 0);// Visit the next node
         }
     }
 

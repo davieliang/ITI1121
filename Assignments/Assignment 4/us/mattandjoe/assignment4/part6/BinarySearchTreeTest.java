@@ -5,164 +5,11 @@ import org.junit.Test;
 
 public class BinarySearchTreeTest {
 
-    @Test()
-    public void testRootSingle() {
+    @Test(expected = NullPointerException.class)
+    public void checkRootNull() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
-
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(4, 4));
-    }
-
-    @Test()
-    public void testRootNot() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(4);
-
-        Assert.assertEquals(0, t.count(2, 3));
-    }
-
-    @Test()
-    public void testRootCenter() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(3, 5));
-    }
-
-    @Test()
-    public void testRootLower() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(3);
-
-        Assert.assertEquals(1, t.count(3, 5));
-    }
-
-    @Test()
-    public void testRootUpper() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(3, 5));
-    }
-
-    @Test()
-    public void testLeftCenter() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(3);
-
-        Assert.assertEquals(1, t.count(2, 4));
-    }
-
-    @Test()
-    public void testLeftLower() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(2);
-
-        Assert.assertEquals(1, t.count(2, 4));
-    }
-
-    @Test()
-    public void testLeftUpper() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(2, 4));
-    }
-
-    @Test()
-    public void testLeftSingle() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(4, 4));
-    }
-
-    @Test()
-    public void testLeftNot() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(4);
-
-        Assert.assertEquals(0, t.count(2, 3));
-    }
-
-    @Test()
-    public void testRightCenter() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(7);
-
-        Assert.assertEquals(1, t.count(6, 8));
-    }
-
-    @Test()
-    public void testRightLower() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(6);
-
-        Assert.assertEquals(1, t.count(6, 8));
-    }
-
-    @Test()
-    public void testRightUpper() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(8);
-
-        Assert.assertEquals(1, t.count(6, 8));
-    }
-
-    @Test()
-    public void testRightSingle() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(8);
-
-        Assert.assertEquals(1, t.count(8, 8));
-    }
-
-    @Test()
-    public void testRightNot() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(8);
-
-        Assert.assertEquals(0, t.count(10, 11));
+        t.add(null);
     }
 
     @Test()
@@ -174,30 +21,6 @@ public class BinarySearchTreeTest {
         t.add(4);
 
         Assert.assertEquals(1, t.count(3, 5));
-    }
-
-    @Test()
-    public void testLeftDuplicate() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(4);
-        t.add(4);
-
-        Assert.assertEquals(1, t.count(4, 4));
-    }
-
-    @Test()
-    public void testRightDuplicate() {
-        BinarySearchTree<Integer> t;
-        t = new BinarySearchTree<Integer>();
-
-        t.add(5);
-        t.add(6);
-        t.add(6);
-
-        Assert.assertEquals(1, t.count(6, 6));
     }
 
     @Test()
@@ -221,23 +44,26 @@ public class BinarySearchTreeTest {
     }
 
     @Test()
-    public void testRightFullTree() {
+    public void testLeftCenter() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
 
         t.add(5);
         t.add(3);
-        t.add(8);
-        t.add(2);
-        t.add(3);
-        t.add(4);
-        t.add(6);
-        t.add(7);
-        t.add(9);
-        t.add(6);
-        t.add(1);
 
-        Assert.assertEquals(5, t.count(5, 10));
+        Assert.assertEquals(1, t.count(2, 4));
+    }
+
+    @Test()
+    public void testLeftDuplicate() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(4);
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(4, 4));
     }
 
     @Test()
@@ -260,11 +86,48 @@ public class BinarySearchTreeTest {
         Assert.assertEquals(5, t.count(0, 5));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void checkRootNull() {
+    @Test()
+    public void testLeftLower() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
-        t.add(null);
+
+        t.add(5);
+        t.add(2);
+
+        Assert.assertEquals(1, t.count(2, 4));
+    }
+
+    @Test()
+    public void testLeftNot() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(4);
+
+        Assert.assertEquals(0, t.count(2, 3));
+    }
+
+    @Test()
+    public void testLeftSingle() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(4, 4));
+    }
+
+    @Test()
+    public void testLeftUpper() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(2, 4));
     }
 
     @Test(expected = NullPointerException.class)
@@ -274,26 +137,163 @@ public class BinarySearchTreeTest {
 
         Assert.assertEquals(2, t.count(4, 5));
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testParamLowNull() {
+    public void testParamBothNull() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
-        t.count(null, 5);
+        t.count(5, null);
     }
-    
+
     @Test(expected = NullPointerException.class)
     public void testParamHighNull() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
         t.count(null, null);
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testParamBothNull() {
+    public void testParamLowNull() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
-        t.count(5, null);
+        t.count(null, 5);
+    }
+
+    @Test()
+    public void testRightCenter() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(7);
+
+        Assert.assertEquals(1, t.count(6, 8));
+    }
+
+    @Test()
+    public void testRightDuplicate() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(6);
+        t.add(6);
+
+        Assert.assertEquals(1, t.count(6, 6));
+    }
+
+    @Test()
+    public void testRightFullTree() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(3);
+        t.add(8);
+        t.add(2);
+        t.add(3);
+        t.add(4);
+        t.add(6);
+        t.add(7);
+        t.add(9);
+        t.add(6);
+        t.add(1);
+
+        Assert.assertEquals(5, t.count(5, 10));
+    }
+
+    @Test()
+    public void testRightLower() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(6);
+
+        Assert.assertEquals(1, t.count(6, 8));
+    }
+
+    @Test()
+    public void testRightNot() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(8);
+
+        Assert.assertEquals(0, t.count(10, 11));
+    }
+
+    @Test()
+    public void testRightSingle() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(8);
+
+        Assert.assertEquals(1, t.count(8, 8));
+    }
+
+    @Test()
+    public void testRightUpper() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(8);
+
+        Assert.assertEquals(1, t.count(6, 8));
+    }
+
+    @Test()
+    public void testRootCenter() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(3, 5));
+    }
+
+    @Test()
+    public void testRootLower() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(3);
+
+        Assert.assertEquals(1, t.count(3, 5));
+    }
+
+    @Test()
+    public void testRootNot() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(4);
+
+        Assert.assertEquals(0, t.count(2, 3));
+    }
+
+    @Test()
+    public void testRootSingle() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(4, 4));
+    }
+
+    @Test()
+    public void testRootUpper() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(4);
+
+        Assert.assertEquals(1, t.count(3, 5));
     }
 
 }
