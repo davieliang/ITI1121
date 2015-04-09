@@ -180,4 +180,15 @@ public class TestSinglyLinkedList {
         Assert.assertFalse(test.equals(other));
     }
 
+    @Test(expected = StackOverflowError.class)
+    public void testMassiveEquals() {
+        SinglyLinkedList<Integer> test = new SinglyLinkedList<Integer>();
+        SinglyLinkedList<Integer> test2 = new SinglyLinkedList<Integer>();
+        for (int i = 0; i < 1000000; i++) {
+            test.addFirst(i);
+            test2.addFirst(i);
+        }
+        Assert.assertFalse(test.equals(test2));
+    }
+
 }
