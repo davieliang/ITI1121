@@ -39,7 +39,7 @@ public class BinarySearchTreeTest {
         t.add(9);
         t.add(6);
         t.add(1);
-
+        
         Assert.assertEquals(9, t.count(0, 10));
     }
 
