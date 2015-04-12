@@ -36,10 +36,17 @@ public class LinkedQueue<E> implements Queue<E> {
     private Elem<E> front;
     private Elem<E> rear;
 
+    /**
+     * Default constructor
+     */
     public LinkedQueue() {
         front = rear = null;
     }
 
+    /**
+     * Returns the element at the front of the queue, if any
+     * @throws EmptyQueueException if method is called when queue is empty
+     */
     @Override
     public E dequeue() {
 
@@ -60,6 +67,11 @@ public class LinkedQueue<E> implements Queue<E> {
         return result;
     }
 
+    /**
+     * Add an element to the back of the queue
+     * @param E object to add to the queue
+     * @throws IllegalArgumentException when attempting to enqueue null
+     */
     @Override
     public void enqueue(final E o) {
 
@@ -81,11 +93,17 @@ public class LinkedQueue<E> implements Queue<E> {
 
     }
 
+    /**
+     * Returns true if queue is empty.
+     */
     @Override
     public boolean isEmpty() {
         return front == null;
     }
 
+    /**
+     * Returns reference to object at the front of the queue without dequeueing
+     */
     @Override
     public E peek() {
 

@@ -4,6 +4,17 @@ package us.mattandjoe.assignment4.part1;
  * A class to represent the elements of the language (tokens): integer and
  * symbols.
  *
+ * <ul>
+ * <li>Classname: Token.java
+ * <li>14-04-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
  * @author Marcel Turcotte
  */
 public class Token {

@@ -8,8 +8,8 @@ import java.util.NoSuchElementException;
  *
  * <ul>
  * <li>Classname: Map.java
- * <li>22-03-2015
- * <li>Assignment 3
+ * <li>14-04-2015
+ * <li>Assignment 4
  * <li>Course: IT1 1121 A
  * <li>Langlois, Matt
  * <li>Student number: 7731813

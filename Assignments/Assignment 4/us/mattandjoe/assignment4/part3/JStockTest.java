@@ -102,7 +102,7 @@ public class JStockTest {
         js.buy(20, 24);
         js.buy(200, 36);
         Assert.assertEquals(-80.0f, js.sell(321, 30), 0);
-        Assert.assertEquals("You have ran out of shares to sell!", out
+        Assert.assertEquals("You have run out of shares to sell!", out
                 .toString().trim());
         Assert.assertEquals(0.0f, js.getValue(), 0);
     }

@@ -7,7 +7,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import us.mattandjoe.assignment4.util.StudentInfo;
-
+/**
+ * JUnit test cases for CircularQueue class
+ * <ul>
+ * <li>Classname: TestCircularQueue.java
+ * <li>14-04-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ */
 public class TestCircularQueue {
 
     @BeforeClass

@@ -20,9 +20,20 @@ package us.mattandjoe.assignment4.part2;
  */
 public class EmptyQueueException extends RuntimeException {
 
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Default constructor
+     */
+    public EmptyQueueException() {
+    }
+
+    /**
+     * Constructor with message option
+     * @param message description of situation causing error
+     */
+    public EmptyQueueException(final String message) {
+        super(message);
+    }
 }

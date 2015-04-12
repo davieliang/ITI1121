@@ -12,16 +12,16 @@ package us.mattandjoe.assignment4.part2;
  * @param <E>
  *            the type of elements in this queue
  *
- *            <ul>
- *            <li>Classname: Queue.java
- *            <li>31-03-2015
- *            <li>Assignment 4
- *            <li>Course: IT1 1121 A
- *            <li>Langlois, Matt
- *            <li>Student number: 7731813
- *            <li>Faubert, Joel
- *            <li>Student number: 2560106
- *            </ul>
+ * <ul>
+ * <li>Classname: Queue.java
+ * <li>14-04-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
  */
 public interface Queue<E> {
 

@@ -6,6 +6,20 @@ package us.mattandjoe.assignment4.part1;
 import java.util.NoSuchElementException;
 
 /**
+ * Linked list implementation of a map which which stores key-value associations.
+ * Note: for the Luka Virtual Machine project, a map can contain duplicate keys.
+ *
+ * <ul>
+ * <li>Classname: LinkedDictionary.java
+ * <li>14-04-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
  * @author Joel Faubert
  * @author Matt Langlois
  *

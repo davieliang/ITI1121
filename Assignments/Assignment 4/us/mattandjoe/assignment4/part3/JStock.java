@@ -101,7 +101,7 @@ public class JStock {
                 transactions.dequeue();
             }
         }
-        System.out.println("You have ran out of shares to sell!");
+        System.out.println("You have run out of shares to sell!");
         return result;
     }
 }
