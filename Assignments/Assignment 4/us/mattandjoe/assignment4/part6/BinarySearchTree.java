@@ -1,5 +1,23 @@
 package us.mattandjoe.assignment4.part6;
 
+/**
+ * An implementation of a BinarySearchTree
+ *
+ * <ul>
+ * <li>22-03-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
+ *
+ */
 public class BinarySearchTree<E extends Comparable<E>> {
 
     private static class Node<F> {
@@ -92,11 +110,11 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public int count(final E low, final E high, final Node<E> node, int count) {
         /*
          * Validate there is another left node
-         * 
+         *
          * Validate the current node's value is withing the bounds of our comparison, otherwise vitising the left would be a waste of CPU usage
-         * 
+         *
          * Do the same for the right node, except using the high value instead of the low value
-         * 
+         *
          * If our checks pass recursivly call the count function to determine the amount of increment
          */
         if (node.left != null) {

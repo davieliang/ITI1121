@@ -3,6 +3,24 @@ package us.mattandjoe.assignment4.part4;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A class to calculate the frequency of a tuple
+ *
+ * <ul>
+ * <li>22-03-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
+ *
+ */
 public class Frequency {
 
     public static void frequency(final List<Tuple> l) {

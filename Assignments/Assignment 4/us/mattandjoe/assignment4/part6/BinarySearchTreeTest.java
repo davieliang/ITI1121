@@ -3,6 +3,24 @@ package us.mattandjoe.assignment4.part6;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * A unit test for the BinarySearchTree implementation
+ *
+ * <ul>
+ * <li>22-03-2015
+ * <li>Assignment 4
+ * <li>Course: IT1 1121 A
+ * <li>Langlois, Matt
+ * <li>Student number: 7731813
+ * <li>Faubert, Joel
+ * <li>Student number: 2560106
+ * </ul>
+ *
+ * @author Matt Langlois
+ * @author Joel Faubert
+ * @version 1
+ *
+ */
 public class BinarySearchTreeTest {
 
     @Test(expected = NullPointerException.class)
