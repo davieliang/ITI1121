@@ -3,7 +3,10 @@ package us.mattandjoe.assignment4.part5;
 import java.util.Random;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import us.mattandjoe.assignment4.util.StudentInfo;
 
 /**
  * A unit test for the SinglyLinkedList implementation
@@ -24,6 +27,11 @@ import org.junit.Test;
  *
  */
 public class TestSinglyLinkedList {
+
+    @BeforeClass
+    public static void displayInfo() {
+        StudentInfo.display("SinglyLinkedList");
+    }
 
     final SinglyLinkedList<String> testListLetters;
     final SinglyLinkedList<Integer> testListIndexes;

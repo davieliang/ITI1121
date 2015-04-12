@@ -97,49 +97,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
             /*
              * If the root is in the list begin counting at 1, otherwise start counting at 0
              */
-            if (root.value.compareTo(low) >= 0
-                    && root.value.compareTo(high) <= 0) {
-                return this.count(low, high, root, 1);
-            } else {
-                return this.count(low, high, root, 0);
-            }
+            return this.visitNode(low, high, root);
         }
         throw new NullPointerException("Root node is null");
-    }
-
-    public int count(final E low, final E high, final Node<E> node, int count) {
-        /*
-         * Validate there is another left node
-         *
-         * Validate the current node's value is withing the bounds of our comparison, otherwise vitising the left would be a waste of CPU usage
-         *
-         * Do the same for the right node, except using the high value instead of the low value
-         *
-         * If our checks pass recursivly call the count function to determine the amount of increment
-         */
-        if (node.left != null) {
-            if (node.value.compareTo(low) >= 0) {
-                count += this.count(node.left, low, high);
-            }
-        }
-        if (node.right != null) {
-            if (node.value.compareTo(high) <= 0
-                    && node.value.compareTo(high) <= 0) {
-                count += this.count(node.right, low, high);
-            }
-        }
-        return count;
-    }
-
-    private int count(final Node<E> node, final E low, final E high) {
-        /*
-         * Validate the value of the current node then recursivly visit the next node
-         */
-        if (node.value.compareTo(low) >= 0 && node.value.compareTo(high) <= 0) {
-            return this.count(low, high, node, 1);// Visit the next node with an incremented count
-        } else {
-            return this.count(low, high, node, 0);// Visit the next node, incrementing the count by 0. This process is required for an unbalanced tree
-        }
     }
 
     @Override
@@ -153,6 +113,55 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else {
             return "(" + this.toString(p.left) + "," + p.value + ","
                     + this.toString(p.right) + ")";
+        }
+    }
+
+    public int traverse(final E low, final E high, final Node<E> node, int count) {
+        /*
+         * Validate there is another left node
+         * 
+         * Validate the current node's value is withing the bounds of our comparison, otherwise vitising the left would be a waste of CPU usage
+         * 
+         * Do the same for the right node, except using the high value instead of the low value
+         * 
+         * If our checks pass recursivly call the count function to determine the amount of increment
+         * 
+         * Going left we don't compare to the high value becuase to the left may be a value we need
+         * 
+         * For excample
+         * 4
+         * right ->
+         * 10
+         * left <-
+         * 9
+         * left <-
+         * 8
+         * left <-
+         * 7
+         * Then count from low of 4 to a high of 7
+         */
+        if (node.left != null) {
+            if (node.value.compareTo(low) >= 0) {
+                count += this.visitNode(low, high, node.left);
+            }
+        }
+        if (node.right != null) {
+            if (node.value.compareTo(high) <= 0) {
+                count += this.visitNode(low, high, node.right);
+            }
+        }
+        return count;
+    }
+
+    private int visitNode(final E low, final E high, final Node<E> node) {
+        /*
+         * Validate the value of the current node then recursivly visit the next node
+         */
+        if (node.value.compareTo(low) >= 0 && node.value.compareTo(high) <= 0) {
+            return this.traverse(low, high, node, 1);// Visit the next node with an incremented count
+        } else {
+            return this.traverse(low, high, node, 0);// Visit the next node, incrementing the count by 0. This process is required for an unbalanced
+                                                     // tree
         }
     }
 

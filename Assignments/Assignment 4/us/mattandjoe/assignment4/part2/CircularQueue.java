@@ -56,16 +56,31 @@ public class CircularQueue<E> implements Queue<E> {
         if (this.isEmpty()) {
             throw new EmptyQueueException();
         }
-        if (size < amount) {
+        /*
+         * Preconditions -- validate parameters
+         */
+        if (size < amount || amount < 1) {
             throw new IndexOutOfBoundsException(String.valueOf(amount));
         }
-        final List<E> elements = new LinkedList<E>();
+
+        /*
+         * An empty linked list which will be filled with the values dequeued
+         */
+        final LinkedList<E> elements = new LinkedList<E>();
         for (int i = 0; i < amount; i++) {
+
+            /*
+             * Re-use dequeue code, without actually calling dequeue method
+             */
             final E savedValue = elems[front];
             elems[front] = null; // ``scrubbing''
             size--;
             front = (front + 1) % elems.length;
-            elements.add(0, savedValue);
+
+            /*
+             * Add to the beggining of the list so, the list is in reverse order
+             */
+            elements.addFirst(savedValue);
         }
         return elements;
     }

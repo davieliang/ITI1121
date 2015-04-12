@@ -1,7 +1,10 @@
 package us.mattandjoe.assignment4.part6;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import us.mattandjoe.assignment4.util.StudentInfo;
 
 /**
  * A unit test for the BinarySearchTree implementation
@@ -22,6 +25,11 @@ import org.junit.Test;
  *
  */
 public class BinarySearchTreeTest {
+
+    @BeforeClass
+    public static void displayInfo() {
+        StudentInfo.display("BinarySearchTree");
+    }
 
     @Test(expected = NullPointerException.class)
     public void checkRootNull() {
@@ -155,6 +163,19 @@ public class BinarySearchTreeTest {
     }
 
     @Test()
+    public void testLeftUnbalancedTree() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(10);
+        t.add(1);
+        t.add(2);
+        t.add(3);
+        t.add(9);
+        Assert.assertEquals(3, t.count(3, 10));
+    }
+
+    @Test()
     public void testLeftUpper() {
         BinarySearchTree<Integer> t;
         t = new BinarySearchTree<Integer>();
@@ -268,6 +289,20 @@ public class BinarySearchTreeTest {
         t.add(8);
 
         Assert.assertEquals(1, t.count(8, 8));
+    }
+
+    @Test()
+    public void testRightUnbalancedTree() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(10);
+        t.add(9);
+        t.add(8);
+        t.add(7);
+        t.add(6);
+        Assert.assertEquals(2, t.count(6, 7));
     }
 
     @Test()

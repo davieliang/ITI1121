@@ -3,14 +3,22 @@ package us.mattandjoe.assignment4.part1;
 import java.util.NoSuchElementException;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import us.mattandjoe.assignment4.util.StudentInfo;
 
 /**
  * Some tests for LinkedDictionary...
  *
  * @author Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
-public class LinkedDictionaryTest {
+public class TestLinkedDictionary {
+
+    @BeforeClass
+    public static void displayInfo() {
+        StudentInfo.display("LinkedDictionary");
+    }
 
     @Test()
     public void testContainsEmpty() {

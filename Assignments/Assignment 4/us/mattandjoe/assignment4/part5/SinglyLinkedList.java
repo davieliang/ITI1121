@@ -3,7 +3,7 @@ package us.mattandjoe.assignment4.part5;
 /*
  * ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
- *
+ * 
  * Marcel Turcotte
  */
 
@@ -76,27 +76,26 @@ public class SinglyLinkedList<E> {
          * Validate the list isn't empty, otherwise return an empty list
          */
         if (first != null) {
-            this.indexOfAll(ints, element, first, 0);
+            this.indexOfAll(element, ints, first, 0);
         }
         return ints;
     }
 
-    private void indexOfAll(final SinglyLinkedList<Integer> ints,
-            final E value, final Node<E> current, int index) {
+    private void indexOfAll(final E element,
+            final SinglyLinkedList<Integer> ints, final Node<E> node, int index) {
 
         /*
          * Recursive case: Call the method on the next linked element
          */
-        if (current.next != null) {
-            this.indexOfAll(ints, value, current.next, ++index);
+        if (node.next != null) {
+            this.indexOfAll(element, ints, node.next, ++index);
             index--;
         }
 
         /*
          * Base case: Add the element to the list
          */
-        if ((current.value == null && value == null)
-                || current.value.equals(value)) {
+        if (node.value.equals(element)) {
             ints.addFirst(index--);
         }
 

@@ -8,7 +8,10 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import us.mattandjoe.assignment4.util.StudentInfo;
 
 /**
  * A unit test of the Tuple frequency
@@ -29,6 +32,11 @@ import org.junit.Test;
  *
  */
 public class TupleTest {
+
+    @BeforeClass
+    public static void displayInfo() {
+        StudentInfo.display("Tuple Frequency");
+    }
 
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 

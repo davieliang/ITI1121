@@ -33,6 +33,13 @@ public class JStock {
      *            purchase price of shares
      */
     public void buy(final int num, final float sharePrice) {
+        if (num <= 0) {
+            throw new IllegalArgumentException("You must buy 1 or more shares");
+        }
+        if (sharePrice <= 0) {
+            throw new IllegalArgumentException(
+                    "People won't pay you to take their shares!");
+        }
         transactions.enqueue(new Transaction(num, sharePrice));
     }
 
@@ -44,15 +51,12 @@ public class JStock {
     public float getValue() {
         float result = 0;
         final Queue<Transaction> tmp = new LinkedQueue<Transaction>();
-        Transaction t;
         while (!transactions.isEmpty()) {
-            t = transactions.dequeue();
-            result = t.getSharePrice() * t.getShares();
+            final Transaction t = transactions.dequeue();
+            result += t.getSharePrice() * t.getShares();
             tmp.enqueue(t);
         }
-        while (!tmp.isEmpty()) {
-            transactions.enqueue(tmp.dequeue());
-        }
+        transactions = tmp;
         return result;
     }
 
@@ -67,25 +71,37 @@ public class JStock {
      * @return profits/losses made
      */
     public float sell(int num, final float sharePrice) {
+        if (num <= 0) {
+            throw new IllegalArgumentException("You must sell 1 or more shares");
+        }
+        if (sharePrice <= 0) {
+            throw new IllegalArgumentException(
+                    "You don't have to pay people to take your shares!");
+        }
         if (transactions.isEmpty()) {
             throw new EmptyQueueException("Can't sell empty portfolio.");
         }
 
         float result = 0;
-        Transaction t;
 
-        while (num != 0 && !transactions.isEmpty()) {
-            if (transactions.peek().getShares() > num) {
-                result += (sharePrice - transactions.peek().getSharePrice())
-                        * num;
-                transactions.peek().sell(num);
-                num = 0;
+        while (num >= 0 && !transactions.isEmpty()) {
+            final Transaction peek = transactions.peek();
+            if (peek.getShares() > num) {
+                result += num * (sharePrice - peek.getSharePrice());
+                peek.sell(num);
+                return result;
+            } else if (peek.getShares() == num) {
+                result += num * (sharePrice - peek.getSharePrice());
+                transactions.dequeue();
+                return result;
             } else {
-                t = transactions.dequeue();
-                result += (sharePrice - t.getSharePrice()) * num;
-                num -= t.getShares();
+                result += peek.getShares()
+                        * (sharePrice - peek.getSharePrice());
+                num -= peek.getShares();
+                transactions.dequeue();
             }
         }
+        System.out.println("You have ran out of shares to sell!");
         return result;
     }
 }
