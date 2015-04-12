@@ -3,7 +3,7 @@ package us.mattandjoe.assignment4.part5;
 /*
  * ITI 1121/1521. Introduction to Computer Science II
  * Assignment/Devoir 4
- *
+ * 
  * Marcel Turcotte
  */
 
@@ -60,10 +60,21 @@ public class SinglyLinkedList<E> {
     }
 
     public SinglyLinkedList<Integer> indexOfAll(final E element) {
+        /*
+         * Validate the parameter
+         */
         if (element == null) {
             throw new NullPointerException("Illegal Argument");
         }
+
+        /*
+         * Create in instance of SinglyLinkedList which will be the indexes
+         */
         final SinglyLinkedList<Integer> ints = new SinglyLinkedList<Integer>();
+
+        /*
+         * Validate the list isn't empty, otherwise return an empty list
+         */
         if (first != null) {
             this.indexOfAll(ints, element, first, 0);
         }
@@ -86,7 +97,7 @@ public class SinglyLinkedList<E> {
          */
         if ((current.value == null && value == null)
                 || current.value.equals(value)) {
-            ints.addFirst(index);
+            ints.addFirst(index--);
         }
 
     }

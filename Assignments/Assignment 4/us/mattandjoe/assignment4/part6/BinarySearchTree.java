@@ -72,7 +72,13 @@ public class BinarySearchTree<E extends Comparable<E>> {
         if (low == null || high == null) {
             throw new NullPointerException("Illegal Argument!");
         }
+        /*
+         * Verify the list is initilized with atleast on object in it, otherwise throw a null pointer exteption; can't count an empty list!
+         */
         if (root != null) {
+            /*
+             * If the root is in the list begin counting at 1, otherwise start counting at 0
+             */
             if (root.value.compareTo(low) >= 0
                     && root.value.compareTo(high) <= 0) {
                 return this.count(low, high, root, 1);
@@ -83,21 +89,38 @@ public class BinarySearchTree<E extends Comparable<E>> {
         throw new NullPointerException("Root node is null");
     }
 
-    public int count(final E low, final E high, final Node<E> next, int count) {
-        if (next.left != null) {
-            count += this.count(next.left, low, high);
+    public int count(final E low, final E high, final Node<E> node, int count) {
+        /*
+         * Validate there is another left node
+         * 
+         * Validate the current node's value is withing the bounds of our comparison, otherwise vitising the left would be a waste of CPU usage
+         * 
+         * Do the same for the right node, except using the high value instead of the low value
+         * 
+         * If our checks pass recursivly call the count function to determine the amount of increment
+         */
+        if (node.left != null) {
+            if (node.value.compareTo(low) >= 0) {
+                count += this.count(node.left, low, high);
+            }
         }
-        if (next.right != null) {
-            count += this.count(next.right, low, high);
+        if (node.right != null) {
+            if (node.value.compareTo(high) <= 0
+                    && node.value.compareTo(high) <= 0) {
+                count += this.count(node.right, low, high);
+            }
         }
         return count;
     }
 
     private int count(final Node<E> node, final E low, final E high) {
+        /*
+         * Validate the value of the current node then recursivly visit the next node
+         */
         if (node.value.compareTo(low) >= 0 && node.value.compareTo(high) <= 0) {
             return this.count(low, high, node, 1);// Visit the next node with an incremented count
         } else {
-            return this.count(low, high, node, 0);// Visit the next node
+            return this.count(low, high, node, 0);// Visit the next node, incrementing the count by 0. This process is required for an unbalanced tree
         }
     }
 
