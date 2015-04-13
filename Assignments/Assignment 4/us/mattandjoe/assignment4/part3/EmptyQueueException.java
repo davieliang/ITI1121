@@ -30,7 +30,9 @@ public class EmptyQueueException extends RuntimeException {
 
     /**
      * Constructor with message option
-     * @param message description of situation causing error
+     * 
+     * @param message
+     *            description of situation causing error
      */
     public EmptyQueueException(final String message) {
         super(message);

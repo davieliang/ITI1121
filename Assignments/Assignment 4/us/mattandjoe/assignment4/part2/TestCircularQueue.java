@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import us.mattandjoe.assignment4.util.StudentInfo;
+
 /**
  * JUnit test cases for CircularQueue class
  * <ul>

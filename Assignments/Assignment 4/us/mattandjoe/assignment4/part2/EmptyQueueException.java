@@ -20,7 +20,6 @@ package us.mattandjoe.assignment4.part2;
  */
 public class EmptyQueueException extends RuntimeException {
 
-
     private static final long serialVersionUID = 1L;
 
     /**
@@ -31,7 +30,9 @@ public class EmptyQueueException extends RuntimeException {
 
     /**
      * Constructor with message option
-     * @param message description of situation causing error
+     * 
+     * @param message
+     *            description of situation causing error
      */
     public EmptyQueueException(final String message) {
         super(message);

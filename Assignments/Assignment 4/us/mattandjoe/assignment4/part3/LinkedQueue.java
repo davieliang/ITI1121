@@ -45,7 +45,9 @@ public class LinkedQueue<E> implements Queue<E> {
 
     /**
      * Returns the element at the front of the queue, if any
-     * @throws EmptyQueueException if method is called when queue is empty
+     * 
+     * @throws EmptyQueueException
+     *             if method is called when queue is empty
      */
     @Override
     public E dequeue() {
@@ -69,8 +71,11 @@ public class LinkedQueue<E> implements Queue<E> {
 
     /**
      * Add an element to the back of the queue
-     * @param E object to add to the queue
-     * @throws IllegalArgumentException when attempting to enqueue null
+     * 
+     * @param E
+     *            object to add to the queue
+     * @throws IllegalArgumentException
+     *             when attempting to enqueue null
      */
     @Override
     public void enqueue(final E o) {

@@ -87,8 +87,11 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     /**
      * Searches the binary tree for occurrences of values within a specified interval
-     * @param low The minimum range of the interval
-     * @param high The maximum range of the interval
+     *
+     * @param low
+     *            The minimum range of the interval
+     * @param high
+     *            The maximum range of the interval
      * @return total number of occurrences found in the search tree matching given interval
      */
     public int count(final E low, final E high) {
@@ -99,19 +102,18 @@ public class BinarySearchTree<E extends Comparable<E>> {
             throw new NullPointerException("Root node is null");
         }
         /*
-         * Verify the list is initialized with at least one object in it, otherwise throw a null pointer exception; 
+         * Verify the list is initialized with at least one object in it, otherwise throw a null pointer exception;
          * can't count an empty list!
          */
-        if (root != null && low.compareTo(high) < 0) {
+        if (low.compareTo(high) < 0) {
             /*
              * If the root is in the list begin counting at 1, otherwise start counting at 0
              */
             return this.visitNode(low, high, root);
+        } else {
+            return this.visitNode(high, low, root); // assume user incorrectly passed range parameters and inverse
         }
-        else {
-        	return this.visitNode(high, low, root); // assume user incorrectly passed range parameters and inverse
-        }
- 
+
     }
 
     @Override
@@ -128,19 +130,20 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    private int traverse(final E low, final E high, final Node<E> node, int count) {
+    private int traverse(final E low, final E high, final Node<E> node,
+            int count) {
         /*
          * Validate there is another left node
-         * 
+         *
          * Validate the current node's value is within the bounds of our comparison
          * otherwise visiting the left would be a waste of CPU usage
-         * 
+         *
          * Do the same for the right node, except using the high value instead of the low value
-         * 
+         *
          * If our checks pass recursively call the count function to determine the amount to increment
-         * 
+         *
          * Going left we don't compare to the high value because to the left may be a value we need
-         * 
+         *
          * For example
          * 4
          * right ->
