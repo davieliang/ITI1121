@@ -83,7 +83,8 @@ public class BinarySearchTreeTest {
         t.add(6);
         t.add(7);
         t.add(8);
-        Assert.assertEquals(4, t.count(3, 6));
+        t.add(0);
+        Assert.assertEquals(8, t.count(1, 8));
     }
 
     @Test()
@@ -374,6 +375,19 @@ public class BinarySearchTreeTest {
         t.add(4);
 
         Assert.assertEquals(1, t.count(4, 4));
+    }
+
+    @Test()
+    public void testRootTree() {
+        BinarySearchTree<Integer> t;
+        t = new BinarySearchTree<Integer>();
+
+        t.add(5);
+        t.add(4);
+        t.add(6);
+        t.add(7);
+
+        Assert.assertEquals(1, t.count(5, 5));
     }
 
     @Test()

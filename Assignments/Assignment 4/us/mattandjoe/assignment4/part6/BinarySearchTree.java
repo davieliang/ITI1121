@@ -134,16 +134,16 @@ public class BinarySearchTree<E extends Comparable<E>> {
             int count) {
         /*
          * Validate there is another left node
-         *
+         * 
          * Validate the current node's value is within the bounds of our comparison
          * otherwise visiting the left would be a waste of CPU usage
-         *
+         * 
          * Do the same for the right node, except using the high value instead of the low value
-         *
+         * 
          * If our checks pass recursively call the count function to determine the amount to increment
-         *
+         * 
          * Going left we don't compare to the high value because to the left may be a value we need
-         *
+         * 
          * For example
          * 4
          * right ->
@@ -157,12 +157,12 @@ public class BinarySearchTree<E extends Comparable<E>> {
          * Then count from low of 4 to a high of 7
          */
         if (node.left != null) {
-            if (node.value.compareTo(low) >= 0) {
+            if (node.value.compareTo(low) > 0) {
                 count += this.visitNode(low, high, node.left);
             }
         }
         if (node.right != null) {
-            if (node.value.compareTo(high) <= 0) {
+            if (node.value.compareTo(high) < 0) {
                 count += this.visitNode(low, high, node.right);
             }
         }
@@ -170,6 +170,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     private int visitNode(final E low, final E high, final Node<E> node) {
+
         /*
          * Validate the value of the current node then recursively visit the next node
          */
